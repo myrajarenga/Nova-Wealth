@@ -1,0 +1,134 @@
+:root {
+  --navy-bg: #0B1426;
+  --black-bg: #000000;
+  --gold-accent: #D4AF37;
+  --white-text: #FFFFFF;
+  --gray-text: #E5E7EB;
+  
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  color-scheme: dark;
+  color: var(--white-text);
+  background-color: var(--navy-bg);
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--navy-bg);
+}
+
+#root {
+  width: 100%;
+  margin: 0 auto;
+  text-align: left;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2.4em;
+  line-height: 1.2;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1.8em;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.6;
+  color: var(--gray-text);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.btn-primary {
+  color: var(--black-bg);
+  background-color: var(--gold-accent);
+  border-color: var(--gold-accent);
+}
+
+.btn-primary:hover {
+  background-color: #B8941F;
+  border-color: #B8941F;
+}
+
+.btn-secondary {
+  color: var(--white-text);
+  background-color: transparent;
+  border-color: var(--white-text);
+}
+
+.btn-secondary:hover {
+  background-color: var(--white-text);
+  color: var(--navy-bg);
+}
+
+.btn-outline-gold {
+  color: var(--gold-accent);
+  background-color: transparent;
+  border-color: var(--gold-accent);
+}
+
+.btn-outline-gold:hover {
+  background-color: var(--gold-accent);
+  color: var(--black-bg);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.4em;
+  }
+  
+  h2 {
+    font-size: 2em;
+  }
+  
+  h3 {
+    font-size: 1.5em;
+  }
+  
+  .container {
+    padding: 0 0.5rem;
+  }
+}
