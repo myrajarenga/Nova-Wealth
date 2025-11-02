@@ -1,12 +1,11 @@
 import React from 'react';
 import './Hero.css';
-import wealthMeetingBg from '../assets/images/wealth-meeting.svg';
 
 const Hero = () => {
   return (
     <section className="hero">
       <div className="hero-background">
-        <img src={wealthMeetingBg} alt="Wealth management professionals in meeting" className="hero-bg-image" />
+        <img src="/images/home page image.png" alt="Wealth management meeting" className="hero-bg-image" />
         <div className="hero-overlay"></div>
       </div>
       <div className="container">
