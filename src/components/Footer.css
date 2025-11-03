@@ -44,6 +44,13 @@
   letter-spacing: 0.5px;
 }
 
+.invisible-title {
+  visibility: hidden;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
 .footer-links {
   list-style: none;
   padding: 0;

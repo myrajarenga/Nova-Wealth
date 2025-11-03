@@ -64,7 +64,9 @@ const IntroSection = () => (
   <section className="wws-hero" aria-labelledby="wws-title">
     <div className="wws-hero-overlay" />
     <div className="container wws-hero-content">
-      <h1 id="wws-title" className="wws-title">Who We Serve</h1>
+      <h1 id="wws-title" className="wws-title">
+        <span className="title-black">Who We</span> <span className="title-gold">Serve</span>
+      </h1>
       <p className="wws-subtitle">
         Nova Wealth delivers personalized, expert wealth management for diverse clients — integrating advanced portfolio design, cross‑border planning, and multi‑generational solutions with your goals and values.
       </p>
@@ -104,7 +106,7 @@ const AudienceRow = ({ tag, title, desc, bullets, type, image, caption, reverse 
 const CTASection = () => (
   <section className="wws-cta-band" aria-labelledby="wws-cta-title">
     <div className="container cta-container">
-      <h2 id="wws-cta-title" className="cta-title">Ready to take the next step?</h2>
+      <h2 id="wws-cta-title" className="cta-title">See How We Can Help You</h2>
       <p className="cta-subtext">Schedule a consultation with Nova Wealth to explore a strategy tailored to you.</p>
       <div className="cta-actions">
         <button className="btn btn-outline-light" aria-label="Schedule Consultation">Schedule Consultation</button>
@@ -126,7 +128,7 @@ const segments = [
       'Tax‑efficient wealth strategies',
       'Access to exclusive investment opportunities',
     ],
-    image: '/images/home page image.png',
+    image: '/images/HNWI.png',
     caption: '$1M+ Assets',
   },
   {
@@ -139,7 +141,7 @@ const segments = [
       'Goal‑based portfolios & disciplined planning',
       'Insurance & protection planning',
     ],
-    image: '/images/home page image.png',
+    image: '/images/Career-Growth.png',
     caption: 'Career Growth',
   },
   {
@@ -152,7 +154,7 @@ const segments = [
       'Multi‑country portfolio management',
       'International remittance optimization',
     ],
-    image: '/images/home page image.png',
+    image: '/images/Global-reach.png',
     caption: 'Global Reach',
   },
   {
@@ -165,12 +167,12 @@ const segments = [
       'Cash flow optimization strategies',
       'Key person insurance & risk management',
     ],
-    image: '/images/home page image.png',
+    image: '/images/Enterprise- Focus.png',
     caption: 'Enterprise Focus',
   },
   {
     key: 'families',
-    tag: 'Families & Multi‑Generational Wealth',
+    tag: 'Families & Multi‑Generationl-Wealth',
     title: 'Preserving Legacy, Empowering Future Generations',
     desc: 'Building wealth across generations requires thoughtful planning and expert guidance. We help families create multi‑generational strategies that preserve values, align decisions, and empower the next generation to be responsible stewards of their family wealth.',
     bullets: [
@@ -178,7 +180,7 @@ const segments = [
       'Family governance & education',
       'Philanthropy & impact frameworks',
     ],
-    image: '/images/home page image.png',
+    image: '/images/Multi-Generationl-Wealth.png',
     caption: 'Legacy Planning',
   },
 ];
@@ -191,7 +193,9 @@ const WhoWeServe = () => {
       {/* Alternating rows */}
       <section className="wws-rows-section" aria-labelledby="audiences-heading">
         <div className="container">
-          <h2 id="audiences-heading" className="section-title">Who We Serve</h2>
+          <h2 id="audiences-heading" className="section-title">
+            <span className="title-black">Who We</span> <span className="title-gold">Serve</span>
+          </h2>
           <div className="wws-rows">
             {segments.map((s, idx) => (
               <AudienceRow

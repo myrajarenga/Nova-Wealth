@@ -8,10 +8,11 @@ const Footer = () => {
         <div className="footer-content">
           {/* Logo and Tagline Column */}
           <div className="footer-column">
+            <h3 className="footer-title invisible-title">Nova Wealth</h3>
             <div className="footer-logo">
               <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth Logo" />
             </div>
-            <p className="footer-tagline">Here for generations.</p>
+            <p className="footer-tagline"><i>Here for generations.</i></p>
             <p className="footer-tagline">Building lasting wealth through personalized financial strategies and expert guidance.</p>
           </div>
 
