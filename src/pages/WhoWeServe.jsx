@@ -72,24 +72,31 @@ const IntroSection = () => (
   </section>
 );
 
-// Audience card component
-const AudienceCard = ({ title, subtitle, bullets, type }) => (
-  <article className="audience-card" aria-label={title}>
-    <div className="audience-content">
-      <div className="audience-icon-badge" aria-hidden="true">
+// Alternating row component (text + image card)
+const AudienceRow = ({ tag, title, desc, bullets, type, image, caption, reverse }) => (
+  <article className={`wws-row ${reverse ? 'reverse' : ''}`} aria-label={title}>
+    <div className="wws-text">
+      <span className="wws-tag" aria-label="Audience category">
         <SegmentIcon type={type} />
-      </div>
-      <h3 className="audience-title">{title}</h3>
-      <p className="audience-subtitle">{subtitle}</p>
-      <ul className="audience-bullets" aria-label="Key services tailored for this segment">
+        {tag}
+      </span>
+      <h3 className="wws-title-3">{title}</h3>
+      <p className="wws-desc">{desc}</p>
+      <ul className="wws-bullets" aria-label="Tailored services">
         {bullets.map((b) => (
           <li key={b}>
-            <span className="feature-icon" aria-hidden="true"><CheckIcon /></span>
-            <span className="feature-text">{b}</span>
+            <span className="wws-bullet-icon" aria-hidden="true"><CheckIcon /></span>
+            <span className="wws-bullet-text">{b}</span>
           </li>
         ))}
       </ul>
     </div>
+    <figure className="wws-media">
+      <div className="wws-image-card">
+        <img src={image} alt={`${tag} illustration`} />
+      </div>
+      <figcaption className="wws-image-caption">{caption}</figcaption>
+    </figure>
   </article>
 );
 
@@ -107,64 +114,72 @@ const CTASection = () => (
   </section>
 );
 
-// Page data for 5 audience types
+// Page data with images and captions for alternating layout
 const segments = [
   {
     key: 'hni',
-    title: 'High‑Net‑Worth Individuals',
-    subtitle: 'Sophisticated, discretionary management with tax‑aware structures and risk governance.',
+    tag: 'High‑Net‑Worth Individuals',
+    title: 'Sophisticated Wealth Management for Discerning Clients',
+    desc: 'You’ve worked hard to build substantial wealth, and now you need sophisticated strategies to preserve and grow it. Our HNWI‑focused approach combines institutional‑grade risk governance with tax‑efficient structures and access to alternative investments and philanthropy.',
     bullets: [
-      'Advanced portfolio construction',
-      'Tax‑efficient vehicles and structures',
-      'Access to private investments',
-      'Institutional‑grade risk management',
-      'Discreet reporting and governance',
+      'Advanced portfolio construction & risk management',
+      'Tax‑efficient wealth strategies',
+      'Access to exclusive investment opportunities',
     ],
+    image: '/images/home page image.png',
+    caption: '$1M+ Assets',
   },
   {
     key: 'pro',
-    title: 'Growing Professionals',
-    subtitle: 'Turn career momentum into durable wealth through integrated planning.',
+    tag: 'Growing Professionals',
+    title: 'Building Your Financial Foundation for Tomorrow',
+    desc: 'You’re in the prime of your career, earning well and ready to make smart financial decisions. We help ambitious professionals like you create durable, growing portfolios aligned with goals and risk — with automation to keep your strategy consistent.',
     bullets: [
-      'Equity compensation and liquidity planning',
-      'Goal‑based portfolios and automation',
-      'Tax optimization and cash‑flow design',
-      'Protection planning (insurance, contingencies)',
+      'Strategic investing, retirement & 401(k) optimization',
+      'Goal‑based portfolios & disciplined planning',
+      'Insurance & protection planning',
     ],
+    image: '/images/home page image.png',
+    caption: 'Career Growth',
   },
   {
     key: 'diaspora',
-    title: 'Diaspora Clients',
-    subtitle: 'Cross‑border wealth architecture with compliant, multi‑currency portfolios.',
+    tag: 'Diaspora Clients',
+    title: 'Bridging Borders, Building Wealth Across Continents',
+    desc: 'Living and working across different countries brings unique financial challenges and opportunities. We specialize in helping diaspora clients navigate complex cross‑border wealth management and multi‑currency portfolios.',
     bullets: [
-      'Cross‑border tax planning',
-      'Multi‑currency, multi‑jurisdiction portfolios',
-      'Global custody and consolidated reporting',
-      'Residency and relocation considerations',
-      'Local and offshore compliance coordination',
+      'Cross‑border tax planning & compliance',
+      'Multi‑country portfolio management',
+      'International remittance optimization',
     ],
+    image: '/images/home page image.png',
+    caption: 'Global Reach',
   },
   {
     key: 'owners',
-    title: 'Business Owners',
-    subtitle: 'Integrate enterprise and personal finances with succession and liquidity strategy.',
+    tag: 'Business Owners',
+    title: 'Aligning Business Success with Personal Wealth',
+    desc: 'As a business owner, your personal and business finances are intricately connected. We help you optimize both sides of the equation, from business succession planning to personal wealth extraction strategies that maximize your financial potential.',
     bullets: [
-      'Succession and exit planning',
-      'Executive compensation optimization',
-      'Cash management and credit solutions',
-      'Risk management across business and personal balance sheets',
+      'Business succession & exit planning',
+      'Cash flow optimization strategies',
+      'Key person insurance & risk management',
     ],
+    image: '/images/home page image.png',
+    caption: 'Enterprise Focus',
   },
   {
     key: 'families',
-    title: 'Families',
-    subtitle: 'Multi‑generational planning for legacy, governance, and impact.',
+    tag: 'Families & Multi‑Generational Wealth',
+    title: 'Preserving Legacy, Empowering Future Generations',
+    desc: 'Building wealth across generations requires thoughtful planning and expert guidance. We help families create multi‑generational strategies that preserve values, align decisions, and empower the next generation to be responsible stewards of their family wealth.',
     bullets: [
-      'Trust and estate planning',
-      'Family governance and education',
-      'Intergenerational tax strategy',
-      'Philanthropy and impact frameworks',
+      'Estate planning & wealth transfer strategies',
+      'Family governance & education',
+      'Philanthropy & impact frameworks',
     ],
+    image: '/images/home page image.png',
+    caption: 'Legacy Planning',
   },
 ];
 
@@ -173,13 +188,25 @@ const WhoWeServe = () => {
     <div className="wws-page">
       <IntroSection />
 
-      {/* Audience grid */}
-      <section className="wws-audiences container" aria-labelledby="audiences-heading">
-        <h2 id="audiences-heading" className="section-title">Tailored Expertise for Every Client</h2>
-        <div className="audiences-grid">
-          {segments.map((s) => (
-            <AudienceCard key={s.key} title={s.title} subtitle={s.subtitle} bullets={s.bullets} type={s.key} />
-          ))}
+      {/* Alternating rows */}
+      <section className="wws-rows-section" aria-labelledby="audiences-heading">
+        <div className="container">
+          <h2 id="audiences-heading" className="section-title">Who We Serve</h2>
+          <div className="wws-rows">
+            {segments.map((s, idx) => (
+              <AudienceRow
+                key={s.key}
+                tag={s.tag}
+                title={s.title}
+                desc={s.desc}
+                bullets={s.bullets}
+                type={s.key}
+                image={s.image}
+                caption={s.caption}
+                reverse={idx % 2 === 1}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
