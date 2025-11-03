@@ -27,7 +27,7 @@ const Navbar = () => {
               <a href="/services" className="navbar-link">Services</a>
               {isServicesOpen && (
                 <div className="dropdown-menu">
-                  <a href="#" className="dropdown-item">Who We Serve</a>
+                  <Link to="/who-we-serve" className="dropdown-item">Who We Serve</Link>
                 </div>
               )}
             </div>
@@ -59,7 +59,7 @@ const Navbar = () => {
             <div className="mobile-menu-item">
               <a href="/services" className="mobile-menu-link">Services</a>
               <div className="mobile-submenu">
-                <a href="#" className="mobile-submenu-item">Who We Serve</a>
+                <Link to="/who-we-serve" className="mobile-submenu-item">Who We Serve</Link>
               </div>
             </div>
             <a href="#" className="mobile-menu-link">About Us</a>

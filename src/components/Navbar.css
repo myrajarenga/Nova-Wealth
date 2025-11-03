@@ -51,13 +51,14 @@
 
 .dropdown-menu {
   position: absolute;
-  top: 44px;
+  top: 100%;
   left: 0;
   background: #0b1420;
   border-radius: 8px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
   padding: 8px 0;
   min-width: 160px;
+  z-index: 1000;
 }
 
 .dropdown-item {

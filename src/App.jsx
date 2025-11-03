@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import Services from './pages/Services';
+import WhoWeServe from './pages/WhoWeServe';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
             )}
           />
           <Route path="/services" element={<Services />} />
+          <Route path="/who-we-serve" element={<WhoWeServe />} />
         </Routes>
       </main>
       <Footer />

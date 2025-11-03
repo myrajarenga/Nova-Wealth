@@ -66,6 +66,7 @@
 .services-hero-title {
   font-size: 3rem;
   margin-bottom: 0.75rem;
+  color: var(--gold-accent); /* brand gold for Our Services heading */
 }
 
 .services-hero-subtitle {
@@ -86,8 +87,8 @@
 }
 
 .service-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #101a2b; /* deep navy card to stand out on black bg */
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 1.25rem 1rem;
   text-align: center;
@@ -95,8 +96,21 @@
 }
 
 .service-card-icon {
-  color: var(--gold-accent);
+  background: var(--gold-accent); /* gold badge */
+  color: #000; /* black glyphs inside */
+  border-radius: 50%;
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 0 auto 0.75rem;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.25);
+}
+
+.service-card-icon svg {
+  width: 26px;
+  height: 26px;
 }
 
 .service-card-title {
@@ -112,7 +126,7 @@
 
 .service-card:hover {
   border-color: var(--gold-accent);
-  box-shadow: 0 10px 22px rgba(212, 175, 55, 0.18);
+  box-shadow: 0 12px 26px rgba(212, 175, 55, 0.18);
   transform: translateY(-3px);
 }
 
