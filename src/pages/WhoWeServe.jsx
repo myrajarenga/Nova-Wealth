@@ -129,7 +129,7 @@ const segments = [
       'Access to exclusive investment opportunities',
     ],
     image: '/images/HNWI.png',
-    caption: '$1M+ Assets',
+    caption: 'Ksh.1M+ Assets',
   },
   {
     key: 'pro',
@@ -191,11 +191,8 @@ const WhoWeServe = () => {
       <IntroSection />
 
       {/* Alternating rows */}
-      <section className="wws-rows-section" aria-labelledby="audiences-heading">
+      <section className="wws-rows-section" aria-label="Audiences">
         <div className="container">
-          <h2 id="audiences-heading" className="section-title">
-            <span className="title-black">Who We</span> <span className="title-gold">Serve</span>
-          </h2>
           <div className="wws-rows">
             {segments.map((s, idx) => (
               <AudienceRow
