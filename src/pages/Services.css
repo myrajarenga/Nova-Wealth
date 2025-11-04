@@ -20,7 +20,7 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: #ffffff;
+  color: #ffffff !important;
   text-align: center;
 }
 
@@ -128,6 +128,9 @@
 .caption-sub { color: #6B7280; font-weight: 500; margin-left: 0.25rem; }
 
 /* Process */
+
+
+
 .services-process-section {
   padding: 3rem 0;
 }
@@ -218,7 +221,7 @@
 .btn-outline-light {
   background: transparent;
   color: #fff;
-  border-color: #fff;
+  border-color: #0a0a0a;
 }
 
 .btn-outline-light:hover {

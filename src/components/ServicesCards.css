@@ -11,10 +11,22 @@
   align-items: stretch; /* ensures all cards in a row stretch to equal height */
 }
 
-.service-card {
+/* Cards inside the hero section */
+.hero-services .service-card {
+  background: #11284e; /* Deep navy for hero section */
+}
+
+/* Cards inside the main Services page */
+.services-page .service-card {
   background: #0b1a33 !important;
   /*background: #11284e; /* deep navy */
-  color: navy;
+}
+
+
+.service-card {
+ /* background: #0b1a33 !important;
+  /*background: #11284e; /* deep navy */
+  
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 1.25rem 1rem;
@@ -81,3 +93,4 @@
   text-align: center;
   font-weight: 700;
 }
+
