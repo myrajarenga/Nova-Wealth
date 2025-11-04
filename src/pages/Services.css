@@ -20,12 +20,14 @@
   font-size: 2rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  color: var(--white-text);
+  color: #ffffff;
+  text-align: center;
 }
 
 .section-subtitle {
   color: #E5E7EB;
   margin-bottom: 2rem;
+  text-align: center;
 }
 
 /* Hero */
@@ -97,9 +99,9 @@
   gap: 0.375rem;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #0B1426;
+  color: #0c172e;
   background: #fff;
-  border: 1px solid #E5E7EB;
+  border: 1px solid #afb2b8;
   border-radius: 999px;
   padding: 0.25rem 0.6rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.06);

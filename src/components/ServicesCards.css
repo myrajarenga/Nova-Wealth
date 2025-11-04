@@ -8,10 +8,13 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.25rem;
+  align-items: stretch; /* ensures all cards in a row stretch to equal height */
 }
 
 .service-card {
-  background: #101a2b; /* deep navy */
+  background: #0b1a33 !important;
+  /*background: #11284e; /* deep navy */
+  color: navy;
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
   padding: 1.25rem 1rem;
@@ -71,4 +74,10 @@
   .services-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.process-title {
+  color: #fff !important;
+  text-align: center;
+  font-weight: 700;
 }
