@@ -6,7 +6,7 @@ import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 import Services from './pages/Services';
 import WhoWeServe from './pages/WhoWeServe';
-import './App.css';
+import About from './pages/About';
 
 function App() {
   return (
@@ -25,6 +25,7 @@ function App() {
           />
           <Route path="/services" element={<Services />} />
           <Route path="/who-we-serve" element={<WhoWeServe />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </main>
       <Footer />
