@@ -50,7 +50,7 @@ const Footer = () => {
               </div>
               <div className="contact-item">
                 <span className="contact-label">Email us at:</span>
-                <a href="mailto:sales@novawealth.com" className="contact-value">sales@novawealth.com</a>
+                <a href="mailto:info@novawealth.com" className="contact-value">sales@novawealth.com</a>
               </div>
               <div className="contact-item">
                 <span className="contact-label">Visit us at:</span>
