@@ -54,7 +54,9 @@ const Footer = () => {
               </div>
               <div className="contact-item">
                 <span className="contact-label">Visit us at:</span>
-                <span className="contact-value">Nairobi, Kenya</span>
+                <span className="contact-value">Office 47, Park Court
+Ojijo Road, Parklands
+Nairobi, Kenya</span>
               </div>
             </div>
             <div className="footer-social">
