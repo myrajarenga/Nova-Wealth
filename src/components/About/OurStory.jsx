@@ -4,7 +4,7 @@ import React from 'react';
 const OurStory = () => {
   const currentYear = new Date().getFullYear();
   return (
-    <section className="bg-[#f9fafb] text-[#2C3E50]">
+    <section className="bg-#ffffff text- #000000">
       
       <div className="mx-auto max-w-6xl px-4 md:px-6 py-16 md:py-20">
         
