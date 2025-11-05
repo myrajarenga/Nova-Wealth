@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap');
 
-.services-page {
-  color: var(--white-text);
-  background-color: var(--black-bg);
-}
+.services-page { color: #000000; background-color: #ffffff; }
 
 .services-page h1,
 .services-page h2,
@@ -16,19 +13,9 @@
   font-family: 'Open Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
-.section-title {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #ffffff !important;
-  text-align: center;
-}
+.section-title { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: #000000; text-align: center; }
 
-.section-subtitle {
-  color: #E5E7EB;
-  margin-bottom: 2rem;
-  text-align: center;
-}
+.section-subtitle { color: #374151; margin-bottom: 2rem; text-align: center; }
 
 /* Hero */
 .services-hero {
@@ -72,11 +59,7 @@
   color: var(--gold-accent);
 }
 
-.services-hero-subtitle {
-  max-width: 720px;
-  margin: 0 auto;
-  color: #E5E7EB;
-}
+.services-hero-subtitle { max-width: 720px; margin: 0 auto; color: #F8F8F8; }
 
 /* Alternating service rows */
 .services-list-section { padding: 2rem 0 3rem; }
@@ -99,15 +82,15 @@
   gap: 0.375rem;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #0c172e;
-  background: #fff;
-  border: 1px solid #afb2b8;
+  color: #000000;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.2);
   border-radius: 999px;
   padding: 0.25rem 0.6rem;
   box-shadow: 0 2px 6px rgba(0,0,0,0.06);
 }
 
-.service-title { font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0; color: #0B1426; }
+.service-title { font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0; color: #000000; }
 .service-desc { color: #374151; margin-bottom: 0.75rem; }
 
 .service-bullets { list-style: none; display: grid; grid-template-columns: 1fr; gap: 0.4rem; }
@@ -117,8 +100,8 @@
 
 .service-media { text-align: center; }
 .image-card {
-  background: #fff;
-  border: 1px solid #E5E7EB;
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.12);
   border-radius: 12px;
   box-shadow: 0 8px 18px rgba(0,0,0,0.08);
   overflow: hidden;
@@ -131,9 +114,7 @@
 
 
 
-.services-process-section {
-  padding: 3rem 0;
-}
+.services-process-section { padding: 3rem 0; background: #ffffff; }
 
 .process-steps {
   position: relative;
@@ -158,36 +139,14 @@
   padding: 0 0.75rem;
 }
 
-.process-icon {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: #111;
-  border: 2px solid var(--gold-accent);
-  color: var(--gold-accent);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  margin: 0 auto 0.5rem;
-}
+.process-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--gold-accent); border: 2px solid var(--gold-accent); color: #000000; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 0.5rem; }
 
-.process-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
-}
+.process-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; color: #000000; }
 
-.process-desc {
-  color: #E5E7EB;
-}
+.process-desc { color: #374151; }
 
 /* CTA Band */
-.services-cta-band {
-  background: var(--gold-accent);
-  color: #000;
-  padding: 2.5rem 0;
-}
+.services-cta-band { background: var(--gold-accent); color: #000; padding: 2.5rem 0; }
 
 .cta-container {
   text-align: center;
@@ -198,11 +157,7 @@
   margin-bottom: 0.75rem;
 }
 
-.cta-subtext {
-  color: #2C3E50;
-  max-width: 800px;
-  margin: 0 auto 1.5rem;
-}
+.cta-subtext { color: #111827; max-width: 800px; margin: 0 auto 1.5rem; }
 
 .cta-actions {
   display: flex;

@@ -35,9 +35,9 @@
   height: 100%;
   background: linear-gradient(
     45deg,
-    rgba(11, 20, 38, 0.4) 0%,
-    rgba(11, 20, 38, 0.3) 50%,
-    rgba(11, 20, 38, 0.4) 100%
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.5) 50%,
+    rgba(0, 0, 0, 0.65) 100%
   );
   z-index: -1;
 }
@@ -155,6 +155,7 @@
 
 .headline-accent {
   color: #D4AF37;
+  display: block; /* force line break to mimic design */
 }
 
 .hero-description {

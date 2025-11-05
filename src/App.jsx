@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CTASection from './components/CTASection';
+import ServiceHighlights from './components/Home/ServiceHighlights';
 import Footer from './components/Footer';
 import Services from './pages/Services';
 import WhoWeServe from './pages/WhoWeServe';
@@ -19,6 +20,7 @@ function App() {
             element={(
               <>
                 <Hero />
+                <ServiceHighlights />
                 <CTASection />
               </>
             )}

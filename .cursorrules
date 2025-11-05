@@ -1,0 +1,105 @@
+# Cursor Rules for This Project
+
+## Tech Stack
+- Framework: React 18
+- Styling: Tailwind CSS (utility-first)
+- Language: JavaScript (ES2022+) with JSX
+- Tooling: ESLint + Prettier (recommended), PostCSS, autoprefixer
+
+## Assistant Behavior
+- Prefer minimal, focused edits per change; preserve existing patterns and formatting.
+- Generate only the code necessary to satisfy the request; avoid speculative scaffolding.
+- When creating files, also add any required imports/exports to integrate them.
+- Keep components small and composable; extract UI pieces into reusable components in `src/components`.
+- Follow the conventions below without asking for confirmation unless ambiguities arise.
+
+## Project Structure (convention)
+- `src/components/` — Reusable presentational/compound components
+- `src/pages/` — Route-level views (if using React Router)
+- `src/hooks/` — Custom hooks
+- `src/lib/` — Utilities, helpers, constants
+- `src/assets/` — Static assets (images, svg, fonts)
+- `src/styles/` — Tailwind entry (e.g., `tailwind.css`), global styles
+
+## File Naming
+- React components: PascalCase filenames, e.g., `Button.jsx`.
+- Hooks: `useSomething.js`.
+- Utility modules: `verbNoun.js` (e.g., `formatCurrency.js`).
+- Test files (if added): `*.test.jsx` colocated next to implementation or in `__tests__`.
+
+## React Conventions
+- Functional components only. Use React hooks; no class components.
+- Props interfaces: document via JSDoc where helpful. Keep prop shapes flat and explicit.
+- State: prefer local state; lift state only when needed. Use `useReducer` for complex state.
+- Effects: keep effects idempotent; declare all dependencies. Avoid side effects during render.
+- Lists: always provide stable `key` (prefer IDs over index).
+- Accessibility: use semantic HTML, label controls, and keyboard interactions.
+
+## Tailwind CSS Conventions
+- Prefer Tailwind utilities over custom CSS. Add styles via `className`.
+- Group classes logically: layout → spacing → typography → color → state → responsive.
+- Use responsive prefixes (`sm:`, `md:`, `lg:`, `xl:`) and dark mode (`dark:`) where applicable.
+- Extract repeated class sets into small components or helper functions when duplication appears.
+- Use Tailwind config theme tokens (colors/spacing) rather than arbitrary values when possible.
+
+## Styling Guidelines
+- Avoid inline styles unless absolutely necessary.
+- Do not introduce additional CSS frameworks; rely on Tailwind utilities and variants.
+- If a component requires complex variants, consider a prop-driven API and conditional class composition.
+
+## Data Fetching
+- Use `fetch` or a lightweight wrapper; handle loading, error, and empty states explicitly.
+- Keep network calls in hooks (e.g., `src/hooks/useSomething.js`) or in `src/lib/api` modules.
+- Avoid calling APIs directly inside presentational components.
+
+## Error Handling
+- Provide user-friendly messages; avoid leaking technical details to the UI.
+- Fail safely; render fallback UI for error states and suspense.
+
+## Routing (if applicable)
+- Use React Router v6+ patterns: route elements in `src/pages`, lazy-load route components when appropriate.
+
+## State Management
+- Start with React state and context. Introduce external state only if patterns require it.
+
+## Testing (optional but recommended)
+- Use React Testing Library for components, focus on behavior over implementation.
+- Prefer integration-style tests for critical flows.
+
+## Code Style
+- Descriptive names: prefer full words (no cryptic abbreviations).
+- Early returns over deep nesting; small pure functions where possible.
+- Avoid unnecessary try/catch; handle only expected error boundaries.
+- Keep components under ~200 lines; extract logic to hooks/helpers when larger.
+
+## Linting & Formatting
+- Follow ESLint (React, hooks) and Prettier defaults if present.
+- Do not disable rules globally; prefer targeted disables with rationale.
+
+## Commits & PRs
+- Use Conventional Commits style: `feat:`, `fix:`, `chore:`, `refactor:`, `docs:`, `test:`
+- Small, reviewable changes; include a brief summary of impact.
+
+## Documentation in Code
+- Only add comments for non-obvious rationale, edge cases, or invariants.
+- Keep comments concise; avoid restating what the code clearly expresses.
+
+## Accessibility Checklist (when changing UI)
+- Ensure color contrast meets WCAG AA with Tailwind palette.
+- Provide visible focus states (Tailwind `focus:` utilities).
+- Use landmarks and semantic elements; label controls and form fields.
+
+## Performance
+- Avoid unnecessary re-renders: memoize expensive computations and stable callbacks when profiling shows need.
+- Prefer CSS-based animations/transitions over JS where possible.
+
+## Environment & Config
+- Tailwind entry file should import base/components/utilities.
+- Ensure `tailwind.config.js` and `postcss.config.js` are present and kept minimal.
+- Keep secrets out of the repo; use environment variables for keys.
+
+## When Unsure
+- Prefer the simplest implementation that solves the current requirement.
+- Match existing patterns in this repo before introducing new ones.
+
+

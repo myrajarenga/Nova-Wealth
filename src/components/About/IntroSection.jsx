@@ -1,17 +1,27 @@
 import React from 'react';
+import heroImg from '../../assets/images/wealth-meeting.jpg';
 
-// IntroSection — black background, centered content, thin gold divider
+// Intro hero — background image with dark overlay, gold title and light subtitle
 const IntroSection = () => {
   return (
-    <section className="bg-black text-[#D4AF37]">
-      
-      <div className="mx-auto max-w-6xl px-4 md:px-6 py-20 md:py-24 text-center">
-        <h1 className="font-montserrat text-4xl md:text-5xl font-bold tracking-tight">About Us</h1>
-        <div className="border-b border-[#D4AF37] w-28 mx-auto my-6" aria-hidden="true" />
-        <p className="font-opensans max-w-3xl mx-auto text-gray-300 text-lg">
-          NovaWealth empowers clients through data‑driven, personalized wealth management — blending rigorous research,
-          disciplined risk governance, and human insight to help you build, protect, and sustain multi‑generational wealth.
-        </p>
+    <section
+      className="relative w-full"
+      aria-label="About Nova Wealth hero"
+    >
+      <div
+        className="relative h-[340px] md:h-[420px] w-full bg-center bg-cover"
+        style={{ backgroundImage: `url(${heroImg})` }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">
+          <h1 className="font-montserrat text-[#D4AF37] text-4xl md:text-5xl font-bold">
+            About Nova Wealth
+          </h1>
+          <p className="font-opensans text-white/90 max-w-2xl mt-4">
+            Building lasting wealth through trusted expertise, personalized strategies, and unwavering
+            commitment to our clients' financial success.
+          </p>
+        </div>
       </div>
     </section>
   );
