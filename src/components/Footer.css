@@ -35,6 +35,10 @@
   margin: 0;
 }
 
+.footer-tagline i {
+  color: var(--gold-accent);
+}
+
 .footer-title {
   font-size: 1.25rem;
   font-weight: 600;

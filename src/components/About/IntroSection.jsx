@@ -1,5 +1,4 @@
 import React from 'react';
-import heroImg from '../../assets/images/wealth-meeting.jpg';
 
 // Intro hero — background image with dark overlay, gold title and light subtitle
 const IntroSection = () => {
@@ -10,7 +9,7 @@ const IntroSection = () => {
     >
       <div
         className="relative h-[340px] md:h-[420px] w-full bg-center bg-cover"
-        style={{ backgroundImage: `url(${heroImg})` }}
+        style={{ backgroundImage: `url('/images/about us page background image.png')` }}
       >
         <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4">

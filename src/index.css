@@ -83,7 +83,7 @@ button {
 .btn-primary {
   color: var(--black-bg);
   background-color: var(--gold-accent);
-  border-color: var(--gold-accent);
+  border: 2px solid var(--gold-accent);
 }
 
 .btn-primary:hover {
@@ -105,7 +105,7 @@ button {
 .btn-outline-gold {
   color: var(--gold-accent);
   background-color: transparent;
-  border-color: var(--gold-accent);
+  border: 2px solid var(--gold-accent);
 }
 
 .btn-outline-gold:hover {

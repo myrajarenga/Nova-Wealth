@@ -17,7 +17,7 @@ const ValuesGrid = () => {
         <div className="border-b border-[#D4AF37] w-24 mx-auto my-6" aria-hidden="true" />
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {values.map((v) => (
-            <article key={v.title} className="rounded-xl border border-black/10 bg-black/5 p-8 hover:border-[#D4AF37] hover:shadow-lg transition-shadow space-y-2">
+            <article key={v.title} className="rounded-xl border border-black/10 bg-white p-8 hover:border-[#D4AF37] hover:shadow-lg transition-shadow space-y-2">
               <div className="w-12 h-12 rounded-full bg-[#D4AF37] flex items-center justify-center text-black text-xl" aria-hidden="true">
                 {v.icon}
               </div>
