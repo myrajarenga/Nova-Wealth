@@ -32,14 +32,17 @@ const Navbar = () => {
               )}
             </div>
             <Link to="/about" className="navbar-link">About</Link>
+            <Link to="/client-center" className="navbar-link">Client Center</Link>
+            
             <a href="#" className="navbar-link">Resources</a>
-            <a href="#" className="navbar-link">Contact</a>
-          </div>
+            <a href="#" className="navbar-link">Contact Us</a>
+            </div>
+           
 
           {/* CTA Buttons */}
           <div className="navbar-cta">
-            <a href="#" className="navbar-link">Client Login</a>
-            <button className="btn-primary">get started</button>
+            <Link to="/client-center" className="navbar-link">Client Login</Link>
+            <Link to="/client-center"><button className="btn-primary">get started</button></Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -65,7 +68,7 @@ const Navbar = () => {
             <a href="#" className="mobile-menu-link">About Us</a>
             <a href="#" className="mobile-menu-link">Insights</a>
             <a href="#" className="mobile-menu-link">Contact Us</a>
-            <a href="#" className="mobile-menu-link">Client Login</a>
+            <Link to="/client-center" className="mobile-menu-link">Client Login</Link>
             <button className="btn-primary mobile-cta">Get Started</button>
           </div>
         )}

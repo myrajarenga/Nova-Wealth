@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Services from './pages/Services';
 import WhoWeServe from './pages/WhoWeServe';
 import About from './pages/About';
+import ClientCenter from './pages/ClientCenter';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/who-we-serve" element={<WhoWeServe />} />
           <Route path="/about" element={<About />} />
+          <Route path="/client-center" element={<ClientCenter />} />
         </Routes>
       </main>
       <Footer />
