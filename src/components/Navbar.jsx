@@ -35,7 +35,7 @@ const Navbar = () => {
             <Link to="/client-center" className="navbar-link">Client Center</Link>
             
             <a href="#" className="navbar-link">Resources</a>
-            <a href="#" className="navbar-link">Contact Us</a>
+            <Link to="/contact" className="navbar-link">Contact Us</Link>
             </div>
            
 
@@ -67,7 +67,7 @@ const Navbar = () => {
             </div>
             <a href="#" className="mobile-menu-link">About Us</a>
             <a href="#" className="mobile-menu-link">Insights</a>
-            <a href="#" className="mobile-menu-link">Contact Us</a>
+            <Link to="/contact" className="mobile-menu-link">Contact Us</Link>
             <Link to="/client-center" className="mobile-menu-link">Client Login</Link>
             <button className="btn-primary mobile-cta">Get Started</button>
           </div>

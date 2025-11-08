@@ -9,6 +9,7 @@ import Services from './pages/Services';
 import WhoWeServe from './pages/WhoWeServe';
 import About from './pages/About';
 import ClientCenter from './pages/ClientCenter';
+import Contact from './components/ClientCenter/Contact';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/who-we-serve" element={<WhoWeServe />} />
           <Route path="/about" element={<About />} />
           <Route path="/client-center" element={<ClientCenter />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
       <Footer />
