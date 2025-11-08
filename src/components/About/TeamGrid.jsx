@@ -2,25 +2,25 @@ import React from 'react';
 
 // TeamGrid — responsive grid of member cards with accessible images and hover scale
 const members = [
-  {
-    name: 'Bernard Sanya',
-    role: 'Co-Founder Nova Wealth',
-    specialty: 'Wealth strategy and investment governance',
+  //{
+    //name: 'Bernard Sanya',
+    //role: 'Co-Founder Nova Wealth',
+    //specialty: 'Wealth strategy and investment governance',
     //img: '/images/home page image.png',
-    alt: 'Portrait ',
-  },
+    //alt: 'Portrait ',
+  //},
   {
     name: 'Janet Mavisi',
     role: 'Co- Founder',
     specialty: 'Estate planning and tax optimization',
-    //img: '/images/HNWI.png',
+    img: '/images/janet-image.jpg',
     alt: 'Portrait ',
   },
   {
     name: 'Frankline Mutea',
     role: 'Co-Founder',
     specialty: 'Cross‑border planning and risk management',
-    //img: '/images/Global-reach.png',
+    img: '/images/frankline-image.jpg',
     alt: 'Portrait ',
   },
   
@@ -34,14 +34,14 @@ const TeamGrid = () => {
         <p className="font-opensans text-center text-gray-600 mt-4 mb-10">
           Experienced professionals dedicated to your financial success.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 justify-items-center">
           {members.map((m) => (
             <article key={m.name} className="text-center p-8 rounded-xl bg-white shadow hover:shadow-lg transition-shadow">
               <figure className="flex items-center justify-center mb-4">
                 <img
                   src={m.img}
                   alt="Team member headshot"
-                  className="w-32 h-32 rounded-full object-cover hover:scale-105 transition-transform"
+                  className="w-32 h-32 rounded-full object-cover object-center hover:scale-105 transition-transform"
                 />
               </figure>
               <h3 className="font-montserrat text-xl font-semibold text-[#D4AF37]">{m.name}</h3>
