@@ -4,6 +4,7 @@ import './Navbar.css';
 
 const Navbar = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isClientOpen, setIsClientOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -35,8 +36,18 @@ const Navbar = () => {
             </div>
 
             <Link to="/who-we-serve" className="navbar-link">Who We Serve</Link>
-            <Link to="/client-center" className="navbar-link">Client Centre</Link>
-            <Link to="/resources" className="navbar-link">Resources</Link>
+            <div
+              className="navbar-item dropdown"
+              onMouseEnter={() => setIsClientOpen(true)}
+              onMouseLeave={() => setIsClientOpen(false)}
+            >
+              <Link to="/client-center" className="navbar-link" aria-haspopup="true" aria-expanded={isClientOpen}>Client Centre</Link>
+              {isClientOpen && (
+                <div className="dropdown-menu">
+                  <Link to="/resources" className="dropdown-item">Resources</Link>
+                </div>
+              )}
+            </div>
             <Link to="/contact" className="navbar-link">Contact Us</Link>
           </div>
            
@@ -69,8 +80,12 @@ const Navbar = () => {
               </div>
             </div>
             <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
-            <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
-            <Link to="/resources" className="mobile-menu-link">Resources</Link>
+            <div className="mobile-menu-item">
+              <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
+              <div className="mobile-submenu">
+                <Link to="/resources" className="mobile-submenu-item">Resources</Link>
+              </div>
+            </div>
             <Link to="/contact" className="mobile-menu-link">Contact Us</Link>
             <Link to="/client-center" className="mobile-menu-link">Client Login</Link>
             <button className="btn-primary mobile-cta">Get Started</button>
