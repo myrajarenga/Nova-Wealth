@@ -19,7 +19,7 @@ const members = [
   {
     name: 'Frankline Mutea',
     role: 'Co-Founder',
-    specialty: 'Cross‑border planning and risk management',
+    specialty: 'An accomplished investment and wealth management expert with over 16 years of experience advising High- net-worth individuals and corporate institutions.',
     img: '/images/frankline-image.jpg',
     alt: 'Portrait ',
   },
