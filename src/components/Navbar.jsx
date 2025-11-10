@@ -19,24 +19,26 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="navbar-menu">
+            <Link to="/about" className="navbar-link">About</Link>
+
             <div 
               className="navbar-item dropdown"
               onMouseEnter={() => setIsServicesOpen(true)}
               onMouseLeave={() => setIsServicesOpen(false)}
             >
-              <a href="/services" className="navbar-link">Services</a>
+              <Link to="/services" className="navbar-link" aria-haspopup="true" aria-expanded={isServicesOpen}>Services</Link>
               {isServicesOpen && (
                 <div className="dropdown-menu">
                   <Link to="/who-we-serve" className="dropdown-item">Who We Serve</Link>
                 </div>
               )}
             </div>
-            <Link to="/about" className="navbar-link">About</Link>
-            <Link to="/client-center" className="navbar-link">Client Center</Link>
-            
-            <a href="#" className="navbar-link">Resources</a>
+
+            <Link to="/who-we-serve" className="navbar-link">Who We Serve</Link>
+            <Link to="/client-center" className="navbar-link">Client Centre</Link>
+            <Link to="/resources" className="navbar-link">Resources</Link>
             <Link to="/contact" className="navbar-link">Contact Us</Link>
-            </div>
+          </div>
            
 
           {/* CTA Buttons */}
@@ -59,14 +61,16 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="mobile-menu">
+            <Link to="/about" className="mobile-menu-link">About</Link>
             <div className="mobile-menu-item">
-              <a href="/services" className="mobile-menu-link">Services</a>
+              <Link to="/services" className="mobile-menu-link">Services</Link>
               <div className="mobile-submenu">
                 <Link to="/who-we-serve" className="mobile-submenu-item">Who We Serve</Link>
               </div>
             </div>
-            <a href="#" className="mobile-menu-link">About Us</a>
-            <a href="#" className="mobile-menu-link">Insights</a>
+            <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
+            <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
+            <Link to="/resources" className="mobile-menu-link">Resources</Link>
             <Link to="/contact" className="mobile-menu-link">Contact Us</Link>
             <Link to="/client-center" className="mobile-menu-link">Client Login</Link>
             <button className="btn-primary mobile-cta">Get Started</button>
