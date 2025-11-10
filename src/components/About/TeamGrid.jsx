@@ -12,7 +12,7 @@ const members = [
   {
     name: 'Janet Mavisi',
     role: 'Co- Founder',
-    specialty: 'Estate planning and tax optimization',
+    specialty: 'An experienced Relationship Manager and Wealth Advisor with over 15 years of expertise in managing high-net-worth clients across the banking and insurance sectors. She is skilled in delivering personalized financial solutions, fostering long-term client relationships, and helping individuals and families achieve their Financial goals.',
     img: '/images/janet-image.jpg',
     alt: 'Portrait ',
   },
