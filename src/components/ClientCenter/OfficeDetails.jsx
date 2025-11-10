@@ -1,6 +1,17 @@
 import React from 'react';
 
 const OfficeDetails = () => {
+  // Smooth-scroll to footer when booking appointment
+  const scrollToFooter = () => {
+    const footer = document.getElementById('site-footer') || document.querySelector('footer');
+    if (footer) {
+      footer.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // fallback: scroll to bottom of page
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="space-y-8">
       {/* Office Info Card */}
@@ -20,7 +31,7 @@ const OfficeDetails = () => {
           <div>
             <p className="font-semibold text-gray-900">Address</p>
             <p className="text-gray-600 mt-1">
-              406 Third Road, Suite 1100<br />
+              Office 47, Park Court Ojijo Road, Parklands<br />
               Nairobi, KE 00100
             </p>
           </div>
@@ -81,10 +92,11 @@ const OfficeDetails = () => {
 
       {/* Schedule Consultation Button */}
       <button
-        onClick={() => {/* Add scheduling functionality */}}
-        className="w-full bg-gray-900 text-white font-bold py-4 px-6 rounded-lg
-          transition-all duration-200 hover:bg-gray-800 focus:outline-none focus:ring-2
-          focus:ring-gray-900 focus:ring-offset-2"
+        onClick={scrollToFooter}
+        className="w-full bg-black text-white font-bold py-4 px-6 rounded-lg
+          transition-all duration-200 hover:bg-black/90 focus:outline-none focus:ring-2
+          focus:ring-black focus:ring-offset-2"
+        aria-label="Book appointment - jump to contact information in footer"
       >
         Book Appointment
       </button>

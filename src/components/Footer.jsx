@@ -3,7 +3,7 @@ import './Footer.css';
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer id="site-footer" className="footer">
       <div className="container">
         <div className="footer-content">
           {/* Logo and Tagline Column */}

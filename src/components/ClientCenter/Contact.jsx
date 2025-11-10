@@ -13,7 +13,7 @@ const Contact = () => {
             backgroundImage: 'url("/images/contact-us-page-image.png")',
           }}
         >
-          <div className="absolute inset-0 bg-/50" /> {/* Overlay */}
+          <div className="absolute inset-0 bg-black/50" /> {/* Overlay */}
           <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-4">
             <h1 className="font-montserrat text-4xl md:text-5xl font-bold text-white mb-4">
               Let's Connect
@@ -26,15 +26,20 @@ const Contact = () => {
       </div>
 
       {/* Contact Content Section */}
-      <div className="container mx-auto px-4 py-16 -mt-20 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Contact Form */}
-          <ContactForm />
-          
-          {/* Office Details */}
-          <OfficeDetails />
+        {/* Full-width white band behind the contact content */}
+        <div className="relative -mt-20 z-20">
+          <div className="bg-white w-full py-16">
+            <div className="container mx-auto px-4">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Contact Form */}
+                <ContactForm />
+                
+                {/* Office Details */}
+                <OfficeDetails />
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
     </div>
   );
 };

@@ -81,7 +81,7 @@ const ContactForm = () => {
             name="fullName"
             value={formData.fullName}
             onChange={handleChange}
-            className={`w-full px-4 py-3 rounded-lg border ${
+            className={`w-full bg-white text-black placeholder-gray-500 px-4 py-3 rounded-lg border ${
               errors.fullName ? 'border-red-500' : 'border-black/10'
             } focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
             placeholder="Enter your full name"
@@ -103,7 +103,7 @@ const ContactForm = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className={`w-full px-4 py-3 rounded-lg border ${
+            className={`w-full bg-white text-black placeholder-gray-500 px-4 py-3 rounded-lg border ${
               errors.email ? 'border-red-500' : 'border-black/10'
             } focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
             placeholder="Enter your email address"
@@ -125,7 +125,7 @@ const ContactForm = () => {
             name="phone"
             value={formData.phone}
             onChange={handleChange}
-            className={`w-full px-4 py-3 rounded-lg border ${
+            className={`w-full bg-white text-black placeholder-gray-500 px-4 py-3 rounded-lg border ${
               errors.phone ? 'border-red-500' : 'border-black/10'
             } focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
             placeholder="Enter your phone number"
@@ -147,7 +147,7 @@ const ContactForm = () => {
             value={formData.message}
             onChange={handleChange}
             rows="4"
-            className={`w-full px-4 py-3 rounded-lg border ${
+            className={`w-full bg-white text-black placeholder-gray-500 px-4 py-3 rounded-lg border ${
               errors.message ? 'border-red-500' : 'border-black/10'
             } focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
             placeholder="How can we help you?"
