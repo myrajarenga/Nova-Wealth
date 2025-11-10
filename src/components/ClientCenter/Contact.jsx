@@ -6,14 +6,16 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background Image */}
-      <div className="relative h-[400px] w-full">
+      <div className="relative h-[480px] w-full">
         <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-no-repeat"
           style={{
             backgroundImage: 'url("/images/contact-us-page-image.png")',
+            // shift focal point slightly down so chairs/table are more visible
+            backgroundPosition: 'center 65%'
           }}
         >
-          <div className="absolute inset-0 bg-black/50" /> {/* Overlay */}
+          <div className="absolute inset-0 bg-black/20" /> {/* lighter overlay so image details (chairs/table) show through */}
           <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-4">
             <h1 className="font-montserrat text-4xl md:text-5xl font-bold text-white mb-4">
               Let's Connect
