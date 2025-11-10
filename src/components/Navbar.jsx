@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
-  const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isClientOpen, setIsClientOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -22,18 +21,7 @@ const Navbar = () => {
           <div className="navbar-menu">
             <Link to="/about" className="navbar-link">About</Link>
 
-            <div 
-              className="navbar-item dropdown"
-              onMouseEnter={() => setIsServicesOpen(true)}
-              onMouseLeave={() => setIsServicesOpen(false)}
-            >
-              <Link to="/services" className="navbar-link" aria-haspopup="true" aria-expanded={isServicesOpen}>Services</Link>
-              {isServicesOpen && (
-                <div className="dropdown-menu">
-                  <Link to="/who-we-serve" className="dropdown-item">Who We Serve</Link>
-                </div>
-              )}
-            </div>
+            <Link to="/services" className="navbar-link">Services</Link>
 
             <Link to="/who-we-serve" className="navbar-link">Who We Serve</Link>
             <div
@@ -73,12 +61,7 @@ const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="mobile-menu">
             <Link to="/about" className="mobile-menu-link">About</Link>
-            <div className="mobile-menu-item">
-              <Link to="/services" className="mobile-menu-link">Services</Link>
-              <div className="mobile-submenu">
-                <Link to="/who-we-serve" className="mobile-submenu-item">Who We Serve</Link>
-              </div>
-            </div>
+            <Link to="/services" className="mobile-menu-link">Services</Link>
             <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
             <div className="mobile-menu-item">
               <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
