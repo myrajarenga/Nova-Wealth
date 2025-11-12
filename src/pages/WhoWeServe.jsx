@@ -121,7 +121,7 @@ const segments = [
   {
     key: 'hni',
     tag: 'High‑Net‑Worth Individuals',
-    title: 'Sophisticated Wealth Management for Discerning Clients',
+    //title: 'Sophisticated Wealth Management for Discerning Clients',
     desc: 'You’ve worked hard to build substantial wealth, and now you need sophisticated strategies to preserve and grow it. Our HNWI‑focused approach combines institutional‑grade risk governance with tax‑efficient structures and access to alternative investments and philanthropy.',
     bullets: [
       'Advanced portfolio construction & risk management',
@@ -134,7 +134,7 @@ const segments = [
   {
     key: 'pro',
     tag: 'Growing Professionals',
-    title: 'Building Your Financial Foundation for Tomorrow',
+    //title: 'Building Your Financial Foundation for Tomorrow',
     desc: 'You’re in the prime of your career, earning well and ready to make smart financial decisions. We help ambitious professionals like you create durable, growing portfolios aligned with goals and risk — with automation to keep your strategy consistent.',
     bullets: [
       'Strategic investing, retirement & 401(k) optimization',
@@ -147,7 +147,7 @@ const segments = [
   {
     key: 'diaspora',
     tag: 'Diaspora Clients',
-    title: 'Bridging Borders, Building Wealth Across Continents',
+    //title: 'Bridging Borders, Building Wealth Across Continents',
     desc: 'Living and working across different countries brings unique financial challenges and opportunities. We specialize in helping diaspora clients navigate complex cross‑border wealth management and multi‑currency portfolios.',
     bullets: [
       'Cross‑border tax planning & compliance',
@@ -160,7 +160,7 @@ const segments = [
   {
     key: 'owners',
     tag: 'Business Owners',
-    title: 'Aligning Business Success with Personal Wealth',
+    //title: 'Aligning Business Success with Personal Wealth',
     desc: 'As a business owner, your personal and business finances are intricately connected. We help you optimize both sides of the equation, from business succession planning to personal wealth extraction strategies that maximize your financial potential.',
     bullets: [
       'Business succession & exit planning',
@@ -173,7 +173,7 @@ const segments = [
   {
     key: 'families',
     tag: 'Families & Multi‑Generationl-Wealth',
-    title: 'Preserving Legacy, Empowering Future Generations',
+    //title: 'Preserving Legacy, Empowering Future Generations',
     desc: 'Building wealth across generations requires thoughtful planning and expert guidance. We help families create multi‑generational strategies that preserve values, align decisions, and empower the next generation to be responsible stewards of their family wealth.',
     bullets: [
       'Estate planning & wealth transfer strategies',
