@@ -2,6 +2,7 @@ import React from 'react';
 
 import './Services.css';
 import ServicesCards from '../components/ServicesCards.jsx';
+import { Link } from 'react-router-dom';
 
 
 const ServicesPage = () => {
@@ -59,7 +60,10 @@ const ServicesPage = () => {
           <p className="cta-subtext">Schedule a consultation with our wealth management experts and discover how we can help you achieve your financial goals.</p>
           <div className="cta-actions">
             <button className="btn btn-outline-light">Schedule Consultation</button>
-            <button className="btn btn-light">Contact Us</button>
+            
+            <Link to="/contact" className="btn btn-light">
+              Contact Us
+              </Link>
           </div>
         </div>
       </section>
