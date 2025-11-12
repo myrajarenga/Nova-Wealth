@@ -14,9 +14,7 @@ const Contact = () => {
           }}
         >
          <div className="absolute inset-0 bg-black/50" /> {/* Overlay */}
-
-          <div className="absolute inset-0 bg-black/50" /> {/* Overlay */}
-          <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-4">
+        <div className="relative z-10 flex h-full flex-col items-center justify-center text-center px-4">
             <h1 className="font-montserrat text-4xl md:text-5xl font-bold text-white mb-4">
               Let's Connect
             </h1>
