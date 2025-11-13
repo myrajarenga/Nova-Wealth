@@ -9,24 +9,29 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 3rem;
   margin-bottom: 3rem;
+  align-items: start; /* top-align columns so logo lines up with other column headings */
+  position: relative; /* allow alignment guides overlay */
 }
 
 .footer-column {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .footer-logo {
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--gold-accent);
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .footer-logo img {
-  max-height: 120px;
+  max-height: 72px;
   width: auto;
 }
+
+/* footer-brand helpers removed - logo and tagline are rendered directly */
 
 .footer-tagline {
   color: var(--gray-text);
@@ -49,10 +54,9 @@
 }
 
 .invisible-title {
+  /* keep the same spacing as a normal .footer-title but hide the text visually
+     so the logo column lines up with the other column headings */
   visibility: hidden;
-  height: 0;
-  margin: 0;
-  padding: 0;
 }
 
 .footer-links {
@@ -201,6 +205,7 @@
 
   .footer-column {
     text-align: center;
+    align-items: center;
   }
 
   .contact-item {
@@ -222,6 +227,28 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Subtle alignment guides (very low opacity). These provide visual vertical guides
+   to help with pixel-perfect alignment. They are intentionally faint.
+   Remove or reduce opacity if you don't want them visible in production. */
+.footer-content::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(212,175,55,0.03) 0px,
+    rgba(212,175,55,0.03) 1px,
+    transparent 1px,
+    transparent 120px
+  );
+  mix-blend-mode: normal;
+  opacity: 1; /* keep extremely subtle -- adjust to 0 to hide */
 }
 
 .footer-column {
