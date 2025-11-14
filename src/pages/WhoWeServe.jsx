@@ -132,7 +132,7 @@ const CTASection = () => (
 const segments = [
   {
     key: 'hni',
-    tag: 'High‑Net‑Worth Individuals     HNWI',
+    tag: 'High‑Net‑Worth Individuals     (HNWI)',
     //title: 'Sophisticated Wealth Management for Discerning Clients',
     desc: 'You’ve worked hard to build substantial wealth, and now you need sophisticated strategies to preserve and grow it. Our HNWI‑focused approach combines institutional‑grade risk governance with tax‑efficient structures and access to alternative investments and philanthropy.',
     bullets: [
