@@ -1,5 +1,7 @@
 import React from 'react';
 import './WhoWeServe.css';
+import { motion } from "framer-motion";
+
 
 /*
   Modular page structure based on the provided brief:
@@ -78,10 +80,20 @@ const IntroSection = () => (
 const AudienceRow = ({ tag, title, desc, bullets, type, image, caption, reverse }) => (
   <article className={`wws-row ${reverse ? 'reverse' : ''}`} aria-label={title}>
     <div className="wws-text">
-      <span className="wws-tag" aria-label="Audience category">
-        <SegmentIcon type={type} />
-        {tag}
-      </span>
+      
+      <motion.span
+       initial={{ opacity: 0, y: 20 }}
+       whileInView={{ opacity: 1, y: 0 }}
+       transition={{ duration: 0.8, ease: "easeOut" }}
+       viewport={{ once: true, amount: 0.3 }}
+       className="wws-tag font-bold text-xl tracking-wide text-[#C5A253] flex items-center gap-2 uppercase"
+       aria-label="Audience category"
+>
+     <SegmentIcon type={type} />
+     {tag}
+     </motion.span>
+
+
       <h3 className="wws-title-3">{title}</h3>
       <p className="wws-desc">{desc}</p>
       <ul className="wws-bullets" aria-label="Tailored services">
@@ -120,7 +132,7 @@ const CTASection = () => (
 const segments = [
   {
     key: 'hni',
-    tag: 'High‑Net‑Worth Individuals',
+    tag: 'High‑Net‑Worth Individuals     HNWI',
     //title: 'Sophisticated Wealth Management for Discerning Clients',
     desc: 'You’ve worked hard to build substantial wealth, and now you need sophisticated strategies to preserve and grow it. Our HNWI‑focused approach combines institutional‑grade risk governance with tax‑efficient structures and access to alternative investments and philanthropy.',
     bullets: [
