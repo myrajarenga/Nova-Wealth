@@ -86,7 +86,7 @@ const AudienceRow = ({ tag, title, desc, bullets, type, image, caption, reverse 
        whileInView={{ opacity: 1, y: 0 }}
        transition={{ duration: 0.8, ease: "easeOut" }}
        viewport={{ once: true, amount: 0.3 }}
-       className="wws-tag font-bold text-xl tracking-wide text-[#C5A253] flex items-center gap-2 uppercase"
+       className="wws-tag font-bold text-xl tracking-wide text-black flex items-center gap-2 uppercase"
        aria-label="Audience category"
 >
      <SegmentIcon type={type} />
