@@ -9,6 +9,7 @@ const members = [
       "A seasoned Relationship Manager and Wealth Advisor with over 15 years of experience serving high-net-worth clients across banking and insurance sectors. Known for her client-centric advisory style and commitment to long-term financial outcomes.",
     experience: "15+ years in Wealth Advisory",
     img: "/images/janet-image.jpg",
+    linkedin: "https://www.linkedin.com/in/mavisi-janet-880ab716b/"
   },
   {
     name: "Frankline Mutea",
@@ -17,6 +18,8 @@ const members = [
       "An accomplished investment specialist with 16 years advising high-net-worth individuals and corporate institutions. Focused on disciplined investment governance and long-term capital growth.",
     experience: "16+ years in Investments & Strategy",
     img: "/images/frankline-image.jpg",
+    linkedin: "https://www.linkedin.com/in/muteafrankline//"
+
   },
 ];
 
