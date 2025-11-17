@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Linkedin } from "lucide-react"; // If using lucide icons
+
+
 const members = [
   {
     name: "Janet Mavisi",
@@ -90,7 +91,16 @@ const TeamGrid = () => {
                     shadow-sm hover:shadow-md
                   "
                 >
-                  <Linkedin size={18} />
+                  <svg
+                   xmlns="http://www.w3.org/2000/svg"
+                   width="18"
+                   height="18"
+                   viewBox="0 0 24 24"
+                   fill="currentColor"
+>
+                   <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.56h4.56V24H.22V8.56zM8.68 8.56h4.37v2.1h.06c.61-1.15 2.1-2.36 4.33-2.36 4.63 0 5.48 3.05 5.48 7.02V24h-4.56V16.1c0-1.88-.03-4.29-2.62-4.29-2.62 0-3.02 2.05-3.02 4.15V24H8.68V8.56z"/>
+                  </svg>
+
                   <span className="font-opensans text-sm">LinkedIn</span>
                 </a>
               </div>
