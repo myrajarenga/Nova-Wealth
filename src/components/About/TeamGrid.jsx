@@ -1,5 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { FaLinkedin } from "react-icons/fa";
+
 
 
 const members = [

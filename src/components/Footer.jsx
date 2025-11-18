@@ -35,7 +35,7 @@ const Footer = () => {
               <li><a href="#" className="footer-link">About Us</a></li>
               <li><a href="#" className="footer-link">Our Team</a></li>
               <li><a href="#" className="footer-link">Privacy Policy</a></li>
-              <li><a href="#" className="footer-link">Resources</a></li>
+              <li><a href="/client-center/resources" className="footer-link">Resources</a></li>
             </ul>
           </div>
 
@@ -49,7 +49,12 @@ const Footer = () => {
               </div>
               <div className="contact-item">
                 <span className="contact-label">Email us at:</span>
-                <a href="mailto:info@novawealth.com" className="contact-value">info@novawealth.com</a>
+                <a
+                  href="mailto:info@novawealth.com?subject=Inquiry%20from%20Nova%20Wealth%20Website&body=Hello%20Nova%20Wealth%20Team,%0D%0A%0D%0AI%20would%20like%20to%20learn%20more%20about%20your%20services.%20Please%20get%20back%20to%20me.%0D%0A%0D%0AThank%20you."
+                  className="contact-value"
+                >
+                  info@novawealth.com
+                </a>
               </div>
               <div className="contact-item">
                 <span className="contact-label">Visit us at:</span>

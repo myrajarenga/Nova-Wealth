@@ -33,7 +33,7 @@ const Navbar = () => {
               <Link to="/client-center" className="navbar-link" aria-haspopup="true" aria-expanded={isClientOpen}>Client Centre</Link>
               {isClientOpen && (
                 <div className="dropdown-menu">
-                  <Link to="/resources" className="dropdown-item">Resources</Link>
+                  <Link to="/client-center/resources" className="dropdown-item">Resources</Link>
                 </div>
               )}
             </div>
@@ -67,7 +67,7 @@ const Navbar = () => {
             <div className="mobile-menu-item">
               <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
               <div className="mobile-submenu">
-                <Link to="/resources" className="mobile-submenu-item">Resources</Link>
+                <Link to="/client-center/resources" className="mobile-submenu-item">Resources</Link>
               </div>
             </div>
             <Link to="/contact" className="mobile-menu-link">Contact Us</Link>
