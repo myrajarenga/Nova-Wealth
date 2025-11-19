@@ -26,13 +26,16 @@ const Contact = () => {
       </div>
 
       {/* Contact Content Section */}
-      <div className="container mx-auto px-4 py-16 -mt-20 relative z-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Contact Form */}
-          <ContactForm />
-          
-          {/* Office Details */}
-          <OfficeDetails />
+      <div className="relative -mt-20 z-20">
+        <div className="bg-white w-full py-16">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Contact Form */}
+              <ContactForm />
+              {/* Office Details */}
+              <OfficeDetails />
+            </div>
+          </div>
         </div>
       </div>
     </div>

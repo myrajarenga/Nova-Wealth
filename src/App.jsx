@@ -9,7 +9,7 @@ import Services from './pages/Services';
 import WhoWeServe from './pages/WhoWeServe';
 import About from './pages/About';
 import ClientCenter from './pages/ClientCenter';
-import Contact from './components/ClientCenter/Contact';
+import Contact from './pages/Contact';
 import Resources from './pages/Resources';
 
 function App() {
