@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { login, mfaVerify, mfaSetup } from '../services/authService'
+import { login, mfaVerify, mfaSetup, getToken } from '../services/authService'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -12,6 +12,24 @@ export default function Login() {
   const [stage, setStage] = useState('login')
   const [qrCode, setQrCode] = useState('')
   const [secret, setSecret] = useState('')
+  const [name, setName] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [info, setInfo] = useState('')
+
+  useEffect(() => {
+    const token = getToken()
+    if (token) {
+      navigate('/client-center')
+    }
+    try {
+      const flag = sessionStorage.getItem('logoutSuccess')
+      if (flag) {
+        setError('')
+        setInfo('You have successfully logged out.')
+        sessionStorage.removeItem('logoutSuccess')
+      }
+    } catch {}
+  }, [])
 
   async function handleLogin(e) {
     e.preventDefault()
@@ -26,6 +44,25 @@ export default function Login() {
       }
     } catch (err) {
       setError('Login failed. Check your credentials.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  async function handleRegister(e) {
+    e.preventDefault()
+    setError('')
+    setLoading(true)
+    try {
+      const svc = await import('../services/authService')
+      const res = await svc.register({ name, email, password, phoneNumber })
+      if (res && res.token) {
+        navigate('/client-center')
+      } else {
+        setStage('setup')
+      }
+    } catch (err) {
+      setError('Sign up failed. Try a different email.')
     } finally {
       setLoading(false)
     }
@@ -65,17 +102,31 @@ export default function Login() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-md mx-auto px-4 py-16">
-        <h1 className="font-montserrat text-3xl font-bold text-black text-center">Account Login</h1>
-        <p className="font-opensans text-center text-gray-600 mt-2">Access your Client Centre</p>
-
-        {error && (
-          <div className="mt-6 rounded-md bg-red-50 text-red-700 px-4 py-3 text-sm">{error}</div>
+    <div className="min-h-screen bg-white grid grid-cols-1 md:grid-cols-2">
+      <div className="flex flex-col justify-center px-6 md:px-12 py-10">
+        <div className="flex items-center gap-3 mb-8">
+          <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth" className="h-10" />
+          <div className="font-montserrat text-xl font-bold">Client Login</div>
+        </div>
+        <div className="font-montserrat text-2xl mb-2">Log in to your account</div>
+        <div className="font-opensans text-sm mb-4">Don't have an account? <a href="#" onClick={(e) => { e.preventDefault(); setStage('signup'); }} className="text-[#2C3E50] underline">Sign Up</a></div>
+        {info && (
+          <div className="mb-4 rounded-md bg-green-50 text-green-700 px-4 py-3 text-sm">{info}</div>
         )}
-
+        {error && (
+          <div className="mb-6 rounded-md bg-red-50 text-red-700 px-4 py-3 text-sm">{error}</div>
+        )}
         {stage === 'login' && (
-          <form onSubmit={handleLogin} className="mt-8 space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <button type="button" className="border border-black/10 rounded-lg py-3 font-semibold" disabled>Google</button>
+              <button type="button" className="border border-black/10 rounded-lg py-3 font-semibold" disabled>GitHub</button>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="h-px bg-black/10 flex-1" />
+              <span className="text-xs text-gray-500">Or with email and password</span>
+              <div className="h-px bg-black/10 flex-1" />
+            </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Email</label>
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
@@ -87,14 +138,16 @@ export default function Login() {
             <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Signing in...' : 'Sign In'}</button>
             <div className="flex items-center justify-between text-sm">
               <button type="button" onClick={handleSetup} className="text-black underline">Set up MFA</button>
-              <a href="#" onClick={(e) => { e.preventDefault(); setStage('forgot'); }} className="text-black underline">Forgot password?</a>
+              <div className="flex gap-4">
+                <a href="#" onClick={(e) => { e.preventDefault(); setStage('forgot'); }} className="text-black underline">Forgot password?</a>
+                <a href="#" onClick={(e) => { e.preventDefault(); setStage('signup'); }} className="text-black underline">Create account</a>
+              </div>
             </div>
           </form>
         )}
-
         {stage === 'mfa' && (
-          <form onSubmit={handleVerify} className="mt-8 space-y-6">
-            <div className="text-center font-opensans text-gray-700">Enter the 6-digit code from your authenticator app</div>
+          <form onSubmit={handleVerify} className="space-y-6">
+            <div className="font-opensans text-gray-700">Enter the 6-digit code from your authenticator app</div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">One-Time Code</label>
               <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="123456" />
@@ -102,23 +155,53 @@ export default function Login() {
             <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Verifying...' : 'Verify Code'}</button>
           </form>
         )}
-
         {stage === 'setup' && (
-          <div className="mt-8 space-y-6">
-            <div className="text-center font-opensans text-gray-700">Scan the QR code to add Nova Wealth to your authenticator</div>
-            {qrCode && <img src={qrCode} alt="MFA QR" className="mx-auto w-56 h-56" />}
+          <div className="space-y-6">
+            <div className="font-opensans text-gray-700">Scan the QR code to add Nova Wealth to your authenticator</div>
+            {qrCode && <img src={qrCode} alt="MFA QR" className="w-56 h-56" />}
             {secret && (
-              <div className="text-center text-sm text-black">Manual code: <span className="font-mono">{secret}</span></div>
+              <div className="text-sm text-black">Manual code: <span className="font-mono">{secret}</span></div>
             )}
-            <div className="text-center">
+            <div>
               <button className="text-sm text-black underline" onClick={() => setStage('mfa')}>Already scanned? Verify code</button>
             </div>
           </div>
         )}
-
         {stage === 'forgot' && (
           <ForgotPassword email={email} onBack={() => setStage('login')} />
         )}
+        {stage === 'signup' && (
+          <form onSubmit={handleRegister} className="space-y-6">
+            <div>
+              <label className="block text-sm font-semibold text-black mb-2">Full Name</label>
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Your name" />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-black mb-2">Email</label>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-black mb-2">Phone Number</label>
+              <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="+254..." />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-black mb-2">Password</label>
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Choose a password" />
+            </div>
+            <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Creating account...' : 'Sign Up'}</button>
+            <div className="text-center text-sm">
+              <a href="#" onClick={(e) => { e.preventDefault(); setStage('login'); }} className="text-black underline">Have an account? Sign in</a>
+            </div>
+          </form>
+        )}
+      </div>
+      <div className="relative hidden md:block">
+        <img src="/images/home page image.png" alt="Wealth management" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/30"></div>
+        <div className="absolute inset-x-0 bottom-0 p-8 text-white">
+          <div className="font-montserrat text-2xl mb-2">Plan, diversify, and grow your wealth</div>
+          <div className="font-opensans text-sm">Personalised advisory across retirement, savings, and global investments.</div>
+        </div>
       </div>
     </div>
   )

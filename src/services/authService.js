@@ -37,6 +37,9 @@ export async function mfaVerify(payload) {
 }
 
 export function logout() {
+  if (typeof window !== 'undefined') {
+    try { sessionStorage.setItem('logoutSuccess', '1') } catch {}
+  }
   setToken(null)
 }
 

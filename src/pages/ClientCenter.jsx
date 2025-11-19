@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getToken } from '../services/authService';
+import { getToken, logout } from '../services/authService';
 import ClientCenterHeader from '../components/ClientCenter/ClientCenterHeader';
 import ClientCard from '../components/ClientCenter/ClientCard';
 import SupportSection from '../components/ClientCenter/SupportSection';
@@ -17,10 +17,22 @@ const ClientCenter = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const token = getToken();
-    setIsAuthenticated(!!token);
+    const authed = !!token;
+    setIsAuthenticated(authed);
+    if (authed) {
+      setIsProfileComplete(true);
+    }
   }, []);
 
   function handleLogin() {
+    navigate('/login');
+  }
+
+  function handleLogout() {
+    logout();
+    setIsAuthenticated(false);
+    setIsProfileComplete(false);
+    setHasUploadedDocs(false);
     navigate('/login');
   }
 
@@ -48,9 +60,9 @@ const ClientCenter = () => {
       icon={<div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center">🔐</div>}
       title="Client Login"
       description="Access your personalized dashboard to view portfolio performance, account statements, and investment insights in a secure environment."
-      buttonText={isAuthenticated ? (isProfileComplete ? 'Logged In' : 'Complete Profile') : 'Login to Portal'}
-      disabled={isAuthenticated && isProfileComplete}
-      onClick={() => (isAuthenticated ? handleCompleteProfile() : handleLogin())}
+      buttonText={isAuthenticated ? 'Logged In' : 'Login to Portal'}
+      disabled={isAuthenticated}
+      onClick={() => (!isAuthenticated ? handleLogin() : null)}
     />
   );
 
@@ -61,7 +73,7 @@ const ClientCenter = () => {
       title="Upload Documents"
       description="Securely share key documents, bank statements, or tax records with your advisor through our encrypted platform."
       buttonText={isUploading ? 'Uploading…' : hasUploadedDocs ? 'Uploaded' : 'Upload Files'}
-      disabled={!(isAuthenticated && isProfileComplete) || hasUploadedDocs || isUploading}
+      disabled={!isAuthenticated || hasUploadedDocs || isUploading}
       onClick={handleUpload}
     />
   );
@@ -82,16 +94,18 @@ const ClientCenter = () => {
     <main className="bg-white text-black">
       <div className="container mx-auto px-4">
         <ClientCenterHeader />
+        {isAuthenticated && (
+          <div className="flex justify-end mb-4">
+            <button onClick={handleLogout} className="px-4 py-2 rounded-md border border-black/10">Logout</button>
+          </div>
+        )}
 
         <section aria-label="Client actions" className="pb-8">
           {!isAuthenticated && (
             <p className="font-opensans text-center text-[#2C3E50] mb-6">Please log in to get started.</p>
           )}
-          {isAuthenticated && !isProfileComplete && (
-            <p className="font-opensans text-center text-[#2C3E50] mb-6">Welcome back. Finish your profile to enable document uploads.</p>
-          )}
-          {isAuthenticated && isProfileComplete && !hasUploadedDocs && (
-            <p className="font-opensans text-center text-[#2C3E50] mb-6">Profile complete. Upload your documents to unlock scheduling.</p>
+          {isAuthenticated && !hasUploadedDocs && (
+            <p className="font-opensans text-center text-[#2C3E50] mb-6">Welcome back. Upload your documents to unlock scheduling.</p>
           )}
           {hasUploadedDocs && (
             <p className="font-opensans text-center text-[#2C3E50] mb-6">Documents received. You can now book a meeting.</p>
