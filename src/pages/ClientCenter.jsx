@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getToken } from '../services/authService';
 import ClientCenterHeader from '../components/ClientCenter/ClientCenterHeader';
 import ClientCard from '../components/ClientCenter/ClientCard';
 import SupportSection from '../components/ClientCenter/SupportSection';
@@ -12,9 +14,14 @@ const ClientCenter = () => {
   const [hasUploadedDocs, setHasUploadedDocs] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = getToken();
+    setIsAuthenticated(!!token);
+  }, []);
+
   function handleLogin() {
-    // Replace with real auth integration
-    setIsAuthenticated(true);
+    navigate('/login');
   }
 
   function handleCompleteProfile() {

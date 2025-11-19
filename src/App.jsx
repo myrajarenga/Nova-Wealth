@@ -11,6 +11,7 @@ import About from './pages/About';
 import ClientCenter from './pages/ClientCenter';
 import Contact from './pages/Contact';
 import Resources from './pages/Resources';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/client-center" element={<ClientCenter />} />
           <Route path="/client-center/resources" element={<Resources />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>

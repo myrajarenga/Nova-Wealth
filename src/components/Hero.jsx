@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Hero.css';
 
 const Hero = () => {
@@ -17,8 +18,8 @@ const Hero = () => {
               advisors create tailored solutions that align with your unique financial goals and aspirations.
             </p>
             <div className="hero-buttons">
-              <button className="btn-primary hero-btn">start your wealth journey</button>
-              <button className="btn-outline-gold hero-btn">Schedule Consultation</button>
+              <Link to="/login" className="btn-primary hero-btn">start your wealth journey</Link>
+              <Link to="/contact" className="btn-outline-gold hero-btn">Schedule Consultation</Link>
             </div>
           </div>
         </div>

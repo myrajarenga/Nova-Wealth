@@ -37,6 +37,14 @@ const userSchema = mongoose.Schema(
       enum: ['client', 'admin'],
       default: 'client',
     },
+    resetCode: {
+      type: String,
+      default: null
+    },
+    resetExpires: {
+      type: Date,
+      default: null
+    }
   },
   {
     timestamps: true, // Automatically adds createdAt and updatedAt

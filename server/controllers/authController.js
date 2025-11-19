@@ -3,6 +3,7 @@ const speakeasy = require('speakeasy')
 const qrcode = require('qrcode')
 const User = require('../models/User')
 const generateToken = require('../utils/generateToken')
+const nodemailer = require('nodemailer')
 
 // @desc    Register a new user
 // @route   POST /api/auth/register
@@ -154,3 +155,59 @@ const mfaVerify = asyncHandler(async (req, res) => {
 });
 
 module.exports = { registerUser, loginUser, mfaSetup, mfaVerify }
+
+// password reset: request code
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body
+  const user = await User.findOne({ email })
+  if (!user) {
+    res.status(404)
+    throw new Error('User not found')
+  }
+  const code = Math.floor(100000 + Math.random() * 900000).toString()
+  user.resetCode = code
+  user.resetExpires = new Date(Date.now() + 10 * 60 * 1000)
+  await user.save()
+
+  let sent = false
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+      })
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: email,
+        subject: 'Your Nova Wealth reset code',
+        text: `Your password reset code is ${code}. It expires in 10 minutes.`
+      })
+      sent = true
+    } catch (e) {
+      sent = false
+    }
+  }
+  res.json({ message: 'If the email exists, a code has been sent.', devCode: sent ? undefined : code })
+})
+
+// password reset: verify code and set new password
+const resetPassword = asyncHandler(async (req, res) => {
+  const { email, code, newPassword } = req.body
+  const user = await User.findOne({ email })
+  if (!user || !user.resetCode || !user.resetExpires) {
+    res.status(400)
+    throw new Error('Invalid reset request')
+  }
+  if (user.resetCode !== code || user.resetExpires < new Date()) {
+    res.status(400)
+    throw new Error('Invalid or expired code')
+  }
+  user.password = newPassword
+  user.resetCode = null
+  user.resetExpires = null
+  await user.save()
+  res.json({ message: 'Password updated' })
+})
+
+module.exports.forgotPassword = forgotPassword
+module.exports.resetPassword = resetPassword

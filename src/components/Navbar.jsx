@@ -43,8 +43,8 @@ const Navbar = () => {
 
           {/* CTA Buttons */}
           <div className="navbar-cta">
-            <Link to="/client-center" className="navbar-link">Client Login</Link>
-            <Link to="/client-center"><button className="btn-primary">get started</button></Link>
+            <Link to="/login" className="navbar-link">Client Login</Link>
+            <Link to="/login"><button className="btn-primary">get started</button></Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -71,8 +71,8 @@ const Navbar = () => {
               </div>
             </div>
             <Link to="/contact" className="mobile-menu-link">Contact Us</Link>
-            <Link to="/client-center" className="mobile-menu-link">Client Login</Link>
-            <button className="btn-primary mobile-cta">Get Started</button>
+            <Link to="/login" className="mobile-menu-link">Client Login</Link>
+            <Link to="/login" className="mobile-cta btn-primary">Get Started</Link>
           </div>
         )}
       </div>
