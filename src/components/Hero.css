@@ -141,6 +141,13 @@
   margin-right: auto;
 }
 
+.typed-area {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 
 .hero-headline {
   font-size: 3.4rem;
@@ -204,6 +211,10 @@
     margin-bottom: 2rem;
   }
 
+  .typed-area {
+    min-height: 220px;
+  }
+
   .hero-buttons {
     flex-direction: column;
     align-items: center;
@@ -238,6 +249,10 @@
 
   .hero-description {
     font-size: 1rem;
+  }
+
+  .typed-area {
+    min-height: 200px;
   }
 
   .hero-btn {

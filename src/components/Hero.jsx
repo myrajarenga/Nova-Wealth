@@ -17,22 +17,22 @@ const Hero = () => {
       if (!alive) return
       if (ti < titleFull.length) {
         setTitleText(titleFull.slice(0, ti + 1))
-        const delay = Math.floor(70 + Math.random() * 50)
+        const delay = Math.floor(120 + Math.random() * 80)
         ti += 1
         setTimeout(typeTitle, delay)
       } else {
-        setTimeout(() => { ti = 0; setTitleText(''); typeTitle() }, 1200)
+        setTimeout(() => { ti = 0; setTitleText(''); typeTitle() }, 3500)
       }
     }
     function typeDesc() {
       if (!alive) return
       if (di < descFull.length) {
         setDescText(descFull.slice(0, di + 1))
-        const delay = Math.floor(40 + Math.random() * 10)
+        const delay = Math.floor(60 + Math.random() * 20)
         di += 1
         setTimeout(typeDesc, delay)
       } else {
-        setTimeout(() => { di = 0; setDescText(''); typeDesc() }, 1500)
+        setTimeout(() => { di = 0; setDescText(''); typeDesc() }, 5000)
       }
     }
     typeTitle()
@@ -53,11 +53,13 @@ const Hero = () => {
       <div className="container">
         <div className="hero-content">
           <div className="hero-text">
-            <h1 className="hero-headline">
-              <span>{baseText}</span>
-              <span className="headline-accent">{accentText}</span>
-            </h1>
-            <p className="hero-description">{descText}</p>
+            <div className="typed-area">
+              <h1 className="hero-headline">
+                <span>{baseText}</span>
+                <span className="headline-accent">{accentText}</span>
+              </h1>
+              <p className="hero-description">{descText}</p>
+            </div>
             <div className="hero-buttons">
               <Link to="/login" className="btn-primary hero-btn">start your wealth journey</Link>
               <Link to="/contact" className="btn-outline-gold hero-btn">Schedule Consultation</Link>
