@@ -27,20 +27,18 @@
   z-index: -2;
 }
 
-.hero-overlay {
+.hero-bg-video {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(
-    45deg,
-    rgba(0, 0, 0, 0.65) 0%,
-    rgba(0, 0, 0, 0.5) 50%,
-    rgba(0, 0, 0, 0.65) 100%
-  );
-  z-index: -1;
+  object-fit: cover;
+  object-position: center;
+  z-index: -2;
 }
+
+.hero-overlay { display: none; }
 
 .hero-content {
   position: relative;
@@ -147,10 +145,10 @@
 .hero-headline {
   font-size: 3.4rem;
   font-weight: 700;
-  color: var(--white-text);
+  color: #000000;
   margin-bottom: 1.25rem;
   line-height: 1.08;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .headline-accent {
@@ -160,7 +158,7 @@
 
 .hero-description {
   font-size: 1.25rem;
-  color: var(--gray-text);
+  color: white;
   margin-bottom: 2.5rem;
   line-height: 1.6;
   max-width: 600px;
