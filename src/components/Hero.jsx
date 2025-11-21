@@ -3,62 +3,55 @@ import { Link } from 'react-router-dom';
 import './Hero.css';
 
 const Hero = () => {
-  const titleFull = 'Secure Your Financial Future'
-  const descFull = 'Experience personalized wealth management strategies designed to grow and protect your assets. Our expert advisors create tailored solutions that align with your unique financial goals and aspirations.'
-  const accentStart = titleFull.indexOf('Financial Future')
-  const [titleText, setTitleText] = useState('')
-  const [descText, setDescText] = useState('')
+  const sequence = [
+    { type: 'video', src: '/videos/wrong-wealth-advise.mp4', duration: 8000, variant: 'first' },
+    { type: 'video', src: '/videos/hero-sec-video1.mp4', duration: 13000, variant: 'second' },
+    { type: 'image', src: '/images/about us page background image.png', duration: 9000, variant: 'third' }
+  ]
+  const [index, setIndex] = useState(0)
+  const [step, setStep] = useState(0)
 
   useEffect(() => {
-    let ti = 0
-    let di = 0
-    let alive = true
-    function typeTitle() {
-      if (!alive) return
-      if (ti < titleFull.length) {
-        setTitleText(titleFull.slice(0, ti + 1))
-        const delay = Math.floor(120 + Math.random() * 80)
-        ti += 1
-        setTimeout(typeTitle, delay)
-      } else {
-        setTimeout(() => { ti = 0; setTitleText(''); typeTitle() }, 3500)
-      }
-    }
-    function typeDesc() {
-      if (!alive) return
-      if (di < descFull.length) {
-        setDescText(descFull.slice(0, di + 1))
-        const delay = Math.floor(60 + Math.random() * 20)
-        di += 1
-        setTimeout(typeDesc, delay)
-      } else {
-        setTimeout(() => { di = 0; setDescText(''); typeDesc() }, 5000)
-      }
-    }
-    typeTitle()
-    typeDesc()
-    return () => { alive = false }
-  }, [])
+    setStep(0)
+    const current = sequence[index]
+    let t1
+    const t2 = setTimeout(() => setIndex((i) => (i + 1) % sequence.length), current.duration)
+    if (current.variant === 'first') t1 = setTimeout(() => setStep(1), 2800)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [index])
 
-  const baseLen = Math.min(titleText.length, accentStart)
-  const accentLen = Math.max(0, titleText.length - accentStart)
-  const baseText = titleFull.slice(0, baseLen)
-  const accentText = titleFull.slice(accentStart, accentStart + accentLen)
+  
 
   return (
     <section className="hero">
       <div className="hero-background">
-        <video className="hero-bg-video" src="/videos/hero-section-video.mp4" autoPlay muted loop playsInline />
+        {sequence[index].type === 'video' ? (
+          <video key={index} className="hero-bg-video" src={sequence[index].src} autoPlay muted loop playsInline />
+        ) : (
+          <img key={index} src={sequence[index].src} alt="Background" className="hero-bg-image" />
+        )}
       </div>
       <div className="container">
         <div className="hero-content">
           <div className="hero-text">
-            <div className="typed-area">
-              <h1 className="hero-headline">
-                <span>{baseText}</span>
-                <span className="headline-accent">{accentText}</span>
-              </h1>
-              <p className="hero-description">{descText}</p>
+            <div className="sequence-overlay">
+              {sequence[index].variant === 'first' && (
+                <>
+                  <div className={`overlay-line gold ${step >= 0 ? 'show' : ''}`}>Are you tired of confusing financial advice</div>
+                  <div className={`overlay-line ${step >= 1 ? 'show' : ''}`}>that leaves your wealth at risk?</div>
+                </>
+              )}
+              {sequence[index].variant === 'second' && (
+                <div className="overlay-longtext"><span className="gold">Nova Wealth</span> delivers expert wealth management in Kenya with clear strategies to grow, protect, and plan your financial future. Our advisors provide tailored investment and financial planning solutions designed for professionals and businesses who demand results.</div>
+              )}
+              {sequence[index].variant === 'third' && (
+                <div className="logo-center">
+                  <div className="logo-stack">
+                    <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth" className="logo-zoom" />
+                    <div className="logo-tagline">Here For Generations</div>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="hero-buttons">
               <Link to="/login" className="btn-primary hero-btn">start your wealth journey</Link>
