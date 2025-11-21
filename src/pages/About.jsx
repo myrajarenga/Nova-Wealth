@@ -36,9 +36,9 @@ const About = () => {
       <section id="why-nova-wealth" className="bg-white">
         <div className="mx-auto max-w-6xl px-4 md:px-6 py-16">
           <h2 className="font-montserrat text-3xl md:text-4xl font-bold text-[#000000] text-center">Why Nova Wealth?</h2>
-          <p className="font-opensans text-[#333333] text-lg md:text-xl text-center max-w-3xl mx-auto mt-3">There are thousands of financial advisors globally. Why should you work with us?</p>
-          <div className="border-b border-[#FFD700] w-24 mx-auto my-5" aria-hidden="true"/>
           
+          <div className="border-b border-[#FFD700] w-24 mx-auto my-5" aria-hidden="true"/>
+          <p className="font-opensans text-[#333333] text-lg md:text-xl text-center max-w-3xl mx-auto mt-3">There are thousands of financial advisors globally. Why should you work with us?</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
             <div className="rounded-xl border border-black/10 bg-white p-6">
               <h3 className="font-montserrat text-xl font-semibold text-[#333333]">Fiduciary Responsibility </h3>
@@ -59,7 +59,7 @@ If you’re spending too much or not saving enough to stay on track for your goa
       </section>
       <section id="our-process" className="bg-white">
         <div className="mx-auto max-w-6xl px-4 md:px-6 py-16">
-          <h2 className="font-montserrat text-3xl md:text-4xl font-bold text-[#000000] text-center">Our Process</h2>
+          <h2 className="font-montserrat text-3xl md:text-4xl font-bold text-[#000000] text-center">The Nova Way - Our Process</h2>
           <div className="border-b border-[#FFD700] w-24 mx-auto my-5" aria-hidden="true"/>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8">
             <div className="rounded-xl border border-black/10 bg-white p-6">

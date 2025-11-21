@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { FaLinkedin } from "react-icons/fa";
+import { FaRegEnvelope, FaPhone, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 
 
 
@@ -12,7 +12,10 @@ const members = [
       "A seasoned Relationship Manager and Wealth Advisor with over 15 years of experience serving high-net-worth clients across banking and insurance sectors. Known for her client-centric advisory style and commitment to long-term financial outcomes.",
     experience: "15+ years in Wealth Advisory",
     img: "/images/janet-image.jpg",
-    linkedin: "https://www.linkedin.com/in/mavisi-janet-880ab716b/"
+    linkedin: "https://www.linkedin.com/in/mavisi-janet-880ab716b/",
+    email: "mailto:info@novawealth.co.ke",
+    phone: "tel:+254700000000",
+    whatsapp: "https://wa.me/254700000000"
   },
   {
     name: "Frankline Mutea",
@@ -21,7 +24,10 @@ const members = [
       "An accomplished investment specialist with 16 years advising high-net-worth individuals and corporate institutions. Focused on disciplined investment governance and long-term capital growth.",
     experience: "16+ years in Investments & Strategy",
     img: "/images/frankline-image.jpg",
-    linkedin: "https://www.linkedin.com/in/muteafrankline//"
+    linkedin: "https://www.linkedin.com/in/muteafrankline//",
+    email: "mailto:info@novawealth.co.ke",
+    phone: "tel:+254700000000",
+    whatsapp: "https://wa.me/254700000000"
 
   },
 ];
@@ -80,30 +86,18 @@ const TeamGrid = () => {
               <p className="text-gray-600 mt-3 leading-relaxed">{m.specialty}</p>
 
               <p className="text-gray-500 mt-4 italic">{m.experience}</p>
-                          {/* LinkedIn Button */}
-              <div className="mt-5 flex justify-center">
-                <a
-                  href={m.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="
-                    flex items-center gap-2 bg-[#0A66C2] 
-                    text-white px-4 py-2 rounded-lg
-                    hover:bg-[#084a8d] transition-all duration-300
-                    shadow-sm hover:shadow-md
-                  "
-                >
-                  <svg
-                   xmlns="http://www.w3.org/2000/svg"
-                   width="18"
-                   height="18"
-                   viewBox="0 0 24 24"
-                   fill="currentColor"
->
-                   <path d="M4.98 3.5C4.98 4.88 3.88 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.22 8.56h4.56V24H.22V8.56zM8.68 8.56h4.37v2.1h.06c.61-1.15 2.1-2.36 4.33-2.36 4.63 0 5.48 3.05 5.48 7.02V24h-4.56V16.1c0-1.88-.03-4.29-2.62-4.29-2.62 0-3.02 2.05-3.02 4.15V24H8.68V8.56z"/>
-                  </svg>
-
-                  <span className="font-opensans text-sm">LinkedIn</span>
+              <div className="mt-5 flex justify-center gap-4">
+                <a href={m.email} className="w-10 h-10 flex items-center justify-center rounded-full border border-black/20 text-[#333333] hover:border-[#D4AF37] hover:text-[#D4AF37]" aria-label="Email">
+                  <FaRegEnvelope size={18} />
+                </a>
+                <a href={m.phone} className="w-10 h-10 flex items-center justify-center rounded-full border border-black/20 text-[#333333] hover:border-[#D4AF37] hover:text-[#D4AF37]" aria-label="Call">
+                  <FaPhone size={18} />
+                </a>
+                <a href={m.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center rounded-full border border-black/20 text-[#333333] hover:border-[#0A66C2] hover:text-[#0A66C2]" aria-label="LinkedIn">
+                  <FaLinkedin size={18} />
+                </a>
+                <a href={m.whatsapp} target="_blank" rel="noopener noreferrer" className="w-10 h-10 flex items-center justify-center rounded-full border border-black/20 text-[#333333] hover:border-[#25D366] hover:text-[#25D366]" aria-label="WhatsApp">
+                  <FaWhatsapp size={18} />
                 </a>
               </div>
             </motion.article>
