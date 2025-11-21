@@ -11,7 +11,7 @@ const values = [
 
 const ValuesGrid = () => {
   return (
-    <section className="bg-white text-black">
+    <section id="our-values" className="bg-white text-black">
       <div className="mx-auto max-w-6xl px-4 md:px-6 py-16">
         {/* Section Title */}
         <motion.h2

@@ -28,7 +28,7 @@ const members = [
 
 const TeamGrid = () => {
   return (
-    <section className="bg-white text-black py-20">
+    <section id="meet-our-founders" className="bg-white text-black py-20">
       <div className="mx-auto max-w-7xl px-4 md:px-6">
         
         {/* Title */}
@@ -39,7 +39,7 @@ const TeamGrid = () => {
           transition={{ duration: 0.6 }}
           className="font-montserrat text-4xl md:text-5xl font-bold text-center"
         >
-          Meet Our Leadership
+          Meet Our Founders
         </motion.h2>
 
         <motion.p

@@ -5,7 +5,7 @@ const ServicesCards = () => {
   const services = [
     {
       id: 1,
-      title: "Wealth Management",
+      title: "Financial Planing",
       description: "Comprehensive financial planning to preserve and grow assets.",
       features: [
         'Personalized wealth plans',
@@ -20,7 +20,7 @@ const ServicesCards = () => {
     },
     {
       id: 2,
-      title: "Investment Advisory",
+      title: "Investment Management",
       description: "Tailored investment portfolios aligned with client objectives.",
       features: [
         'Risk-profiled asset allocation',
@@ -41,7 +41,7 @@ const ServicesCards = () => {
       features: [
         'Retirement income modelling',
         'Pension & savings optimisation',
-        'Legacy planning'
+        'Estate planning & suggestions'
       ],
       icon: (
         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

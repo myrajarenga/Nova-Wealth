@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const OurStory = () => {
   return (
-    <section className="bg-white text-black">
+    <section id="our-story" className="bg-white text-black">
       <div className="mx-auto max-w-6xl px-4 md:px-6 py-16 md:py-20">
         {/* Title */}
         <motion.h2
@@ -37,9 +37,7 @@ const OurStory = () => {
             transition={{ duration: 0.8 }}
           >
             <p className="text-gray-900">
-              Nova Wealth LLP began with one simple belief — that every person
-              deserves access to strategic, thoughtful financial guidance that
-              honors their ambitions and values.
+              In 2024, a group of seasoned wealth advisors got together and decided to do something about the investment limitations which continue to plague the bank-owned, large conglomerates, and other mainstream investment dealers. Most clients are served by the so-called financial advisors who are really investment or insurance sales reps, paid by commissions on investments they are incentivized to sell. These leaves clients exposed.
             </p>
             
             <p className="text-gray-900">
