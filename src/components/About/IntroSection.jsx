@@ -14,7 +14,7 @@ const IntroSection = () => {
     { label: 'About Nova Wealth', id: 'about-nova-wealth' },
     { label: 'Our Story', id: 'our-story' },
     { label: 'Our Values', id: 'our-values' },
-    { label: 'Why Nova Wealth', id: 'why-nova-wealth' },
+    { label: 'Why Nova Wealth?', id: 'why-nova-wealth' },
     { label: 'Our Process', id: 'our-process' },
     { label: 'Meet Our Founders', id: 'meet-our-founders' },
   ]
