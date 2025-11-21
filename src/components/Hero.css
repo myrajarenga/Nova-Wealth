@@ -192,7 +192,7 @@
   text-shadow: 1px 1px 2px rgba(0,0,0,0.25);
 }
 
-.overlay-line.gold { color: #FFD700; }
+.overlay-line.gold { color: goldenrod; }
 .overlay-line.show { opacity: 1; transform: translateY(0); }
 
 .overlay-longtext {
