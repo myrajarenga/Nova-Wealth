@@ -19,12 +19,13 @@ const Navbar = () => {
 
           {/* Desktop Menu */}
           <div className="navbar-menu">
+            <Link to="/" className="navbar-link">Home</Link>
 
             <Link to="/services" className="navbar-link">Services</Link>
 
             <Link to="/who-we-serve" className="navbar-link">Who We Serve</Link>
             
-            <Link to="/about" className="navbar-link">About</Link>
+            <Link to="/about" className="navbar-link">About Us</Link>
             <div
               className="navbar-item dropdown"
               onMouseEnter={() => setIsClientOpen(true)}
@@ -61,6 +62,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="mobile-menu">
+            <Link to="/" className="mobile-menu-link">Home</Link>
             <Link to="/services" className="mobile-menu-link">Services</Link>
             <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
             <Link to="/about" className="mobile-menu-link">About</Link>
