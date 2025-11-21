@@ -23,7 +23,7 @@ const IntroSection = () => {
     const el = document.getElementById(id)
     if (!el) return
     const y = el.getBoundingClientRect().top + window.pageYOffset
-    const offset = 90
+    const offset = 130
     window.scrollTo({ top: y - offset, behavior: 'smooth' })
     setOpen(false)
   }
@@ -34,7 +34,7 @@ const IntroSection = () => {
       aria-label="About Nova Wealth hero"
     >
       {/* TOP DROPDOWN NAV OVERLAY */}
-      <div className="absolute top-0 left-0 right-0 z-20 bg-white/95 backdrop-blur border-b border-[#FFD700]/30">
+      <div className="fixed top-[72px] left-0 right-0 z-30 bg-white/95 backdrop-blur border-b border-[#FFD700]/30">
         <div className="max-w-6xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
           <div className="font-montserrat font-bold text-[#333333]">About Navigation</div>
           <div className="relative">
