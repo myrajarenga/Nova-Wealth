@@ -78,6 +78,7 @@
   overflow: hidden;
 }
 .wws-image-card img { display: block; width: 100%; height: auto; }
+.wws-image-card video { display: block; width: 100%; height: auto; }
 .wws-image-caption { color: #111827; font-weight: 600; margin-top: 0.5rem; }
 
 /* CTA Band */

@@ -52,3 +52,8 @@ export async function resetPassword(payload) {
   const { data } = await api.post('/api/auth/password/reset', payload)
   return data
 }
+
+export async function me() {
+  const { data } = await api.get('/api/auth/me')
+  return data
+}

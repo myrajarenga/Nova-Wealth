@@ -151,7 +151,7 @@ const ServicesCards = () => {
                 </ul>
               )}
               <a href="/services" className="learn-more" aria-label={`Learn more about ${service.title}`}>
-                Learn more →
+                L arn more →
               </a>
             </div>
           ))}
@@ -160,5 +160,33 @@ const ServicesCards = () => {
     </section>
   );
 };
+
+ return (
+    <section classame="services-cards">
+      <div className="container">
+        <div className="services-grid">
+          {services.map((service) => (
+            <div key={service.id} className="service-card">
+              <div className="service-icon">
+                {service.icon}
+              </div>
+              <h3 className="service-title">{service.title}</h3>
+              <p className="service-description">{service.description}</p>
+              {service.features && (
+                <ul className="service-features" aria-label={`${service.title} highlights`}>
+                  {service.features.map((f, idx) => (
+                    <li key={idx} className="feature-item">{f}</li>
+                  ))}
+                </ul>
+              )}
+              <a href="/services" className="learn-more" aria-label={`Learn more about ${service.title}`}>
+                Learn more →
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 
 export default ServicesCards;
