@@ -71,7 +71,7 @@ const ServicesPage = () => {
   const services = [
     {
       tag: 'Financial Planning & Advisory',
-      title: 'Financial Planning & Advisory',
+      //title: 'Financial Planning & Advisory',
       desc: 'Comprehensive planning across budgeting, tax, retirement and protection.Comprehensive financial planning to preserve and grow assets.',
       bullets: ['Personalized wealth plans',' Portfolio monitoring & rebalancing','Tax-aware strategies'],
       type: 'planning',
@@ -80,7 +80,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Investment Management',
-      title: 'Investment Management',
+      //title: 'Investment Management',
       desc: 'Tailored investment portfolios aligned with client objectives.',
       bullets: ['Risk-profiled asset allocation','Active & passive options','Regular performance reviews'],
       type: 'investment',
@@ -89,7 +89,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Retirement & Planning',
-      title: 'Retirement & Planning',
+      //title: 'Retirement & Planning',
       desc: 'Secure your future with income and savings strategies.',
       bullets: ['Retirement income modelling','Pension & savings optimisation','Estate planning & suggestions'],
       type: 'retirement',
@@ -98,7 +98,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Insurance & Risk Solutions',
-      title: 'Insurance & Risk Solutions',
+      //title: 'Insurance & Risk Solutions',
       desc: 'Protect assets through risk assessment, coverage planning and optimization.',
       bullets: ['Asset protection', 'Risk assessment', 'Coverage planning', 'Premium optimization'],
       type: 'insurance',
@@ -107,7 +107,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Estate Planning',
-      title: 'Estate Planning',
+      //title: 'Estate Planning',
       desc: 'Structured legacy planning for future generations.',
       bullets: ['Wills & trusts guidance','Succession planning','Tax-efficient transfers'],
       type: 'estate',
@@ -116,7 +116,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Tax Planning & Compliance',
-      title: 'Tax Planning & Compliance',
+      //title: 'Tax Planning & Compliance',
       desc: 'AOptimize returns through efficient tax strategies.',
       bullets: ['Tax-efficient investing','Compliance & reporting support','Cross-border tax guidance'],
       type: 'tax',
@@ -125,7 +125,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Portfolio Management',
-      title: 'Portfolio Management',
+      //title: 'Portfolio Management',
       desc: 'Diversified investment oversight for consistent growth.',
       bullets: ['Diversification across asset classes','Ongoing risk management','Custom mandates available' ],
       type: 'portfolio',
@@ -134,7 +134,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Corporate Advisory',
-      title: 'Corporate Advisory',
+      //title: 'Corporate Advisory',
       desc: 'Optimize SME planning, cashflow, restructuring and capital management.',
       bullets: ['SME planning', 'Cashflow strategy', 'Business restructuring', 'Capital management'],
       type: 'corporate',
