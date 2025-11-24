@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import IntroSection from '../components/About/IntroSection';
 import OurStory from '../components/About/OurStory';
 import OurPurposeSection from '../components/About/OurPurposeSection';
@@ -9,6 +10,7 @@ import CTASection from '../components/About/CTASection';
 // About page composition: header/footer provided elsewhere; render sections only
 const About = () => {
   const [open, setOpen] = useState(false)
+  const location = useLocation()
   const anchors = [
     { label: 'About Nova Wealth', id: 'about-nova-wealth' },
     { label: 'Our Story', id: 'our-story' },
@@ -26,6 +28,18 @@ const About = () => {
     window.scrollTo({ top: y - offset, behavior: 'smooth' })
     setOpen(false)
   }
+
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1)
+      const el = document.getElementById(id)
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.pageYOffset
+        const offset = 90
+        window.scrollTo({ top: y - offset, behavior: 'smooth' })
+      }
+    }
+  }, [location.hash])
 
   return (
     <main className="w-full space-y-20 md:space-y-24 bg-white">

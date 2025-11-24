@@ -21,10 +21,12 @@ const Footer = () => {
             <ul className="footer-links">
               <li><a href="#" className="footer-link">Financial Planning</a></li>
               <li><a href="#" className="footer-link">Investment Management</a></li>
-              <li><a href="#" className="footer-link">Estate Planning</a></li>
-              <li><a href="#" className="footer-link">Tax Optimization</a></li>
-              <li><a href="#" className="footer-link">Risk Management</a></li>
               <li><a href="#" className="footer-link">Retirement Planning</a></li>
+              <li><a href="#" className="footer-link">Insuarance & Risk Solutions</a></li>
+              <li><a href="#" className="footer-link">Estate Planning</a></li>
+              <li><a href="#" className="footer-link">Tax Planning & Compliance</a></li>
+              <li><a href="#" className="footer-link">Portfolio Management</a></li>
+              <li><a href="#" className="footer-link">Corporate Advisory</a></li>
             </ul>
           </div>
 

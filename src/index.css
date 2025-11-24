@@ -119,6 +119,18 @@ button {
   padding: 0 1rem;
 }
 
+/* Anchor offsets for sticky navbar */
+#about-nova-wealth,
+#our-story,
+#our-values,
+#why-nova-wealth,
+#our-process,
+#meet-our-founders,
+.wws-rows-section,
+.services-rows-section {
+  scroll-margin-top: 90px;
+}
+
 @media (max-width: 768px) {
   h1 {
     font-size: 2.4em;
