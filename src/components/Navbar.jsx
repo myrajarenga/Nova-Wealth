@@ -4,8 +4,10 @@ import './Navbar.css';
 
 const Navbar = () => {
   const [isClientOpen, setIsClientOpen] = useState(false);
-  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isServeOpen, setIsServeOpen] = useState(false);
 
   return (
     <nav className="navbar">
@@ -22,9 +24,42 @@ const Navbar = () => {
           <div className="navbar-menu">
             <Link to="/" className="navbar-link">Home</Link>
 
-            <Link to="/services" className="navbar-link">Services</Link>
+            <div
+              className="navbar-item dropdown"
+              onMouseEnter={() => setIsServicesOpen(true)}
+              onMouseLeave={() => setIsServicesOpen(false)}
+            >
+              <Link to="/services" className="navbar-link" aria-haspopup="true" aria-expanded={isServicesOpen}>Services</Link>
+              {isServicesOpen && (
+                <div className="dropdown-menu">
+                  <Link to="/services#financial-planning" className="dropdown-item">Financial Planning</Link>
+                  <Link to="/services#investment-management" className="dropdown-item">Investment Management</Link>
+                  <Link to="/services#retirement-planning" className="dropdown-item">Retirement Planning</Link>
+                  <Link to="/services#insurance-risk-solutions" className="dropdown-item">Insuarance & Risk Solutions</Link>
+                  <Link to="/services#estate-planning" className="dropdown-item">Estate Planning</Link>
+                  <Link to="/services#tax-planning-compliance" className="dropdown-item">Tax Planning & Compliance</Link>
+                  <Link to="/services#portfolio-management" className="dropdown-item">Portfolio Management</Link>
+                  <Link to="/services#corporate-advisory" className="dropdown-item">Corporate Advisory</Link>
+                </div>
+              )}
+            </div>
 
-            <Link to="/who-we-serve" className="navbar-link">Who We Serve</Link>
+            <div
+              className="navbar-item dropdown"
+              onMouseEnter={() => setIsServeOpen(true)}
+              onMouseLeave={() => setIsServeOpen(false)}
+            >
+              <Link to="/who-we-serve" className="navbar-link" aria-haspopup="true" aria-expanded={isServeOpen}>Who We Serve</Link>
+              {isServeOpen && (
+                <div className="dropdown-menu">
+                  <Link to="/who-we-serve#hni" className="dropdown-item">High‑Net‑Worth Individuals (HNWI)</Link>
+                  <Link to="/who-we-serve#growing-professionals" className="dropdown-item">Growing Professionals</Link>
+                  <Link to="/who-we-serve#diaspora-clients" className="dropdown-item">Diaspora Clients</Link>
+                  <Link to="/who-we-serve#business-owners" className="dropdown-item">Business Owners</Link>
+                  <Link to="/who-we-serve#families-multi-generationl-wealth" className="dropdown-item">Families & Multi‑Generationl-Wealth</Link>
+                </div>
+              )}
+            </div>
             <div
               className="navbar-item dropdown"
               onMouseEnter={() => setIsAboutOpen(true)}
@@ -79,8 +114,29 @@ const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="mobile-menu">
             <Link to="/" className="mobile-menu-link">Home</Link>
-            <Link to="/services" className="mobile-menu-link">Services</Link>
-            <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
+            <div className="mobile-menu-item">
+              <Link to="/services" className="mobile-menu-link">Services</Link>
+              <div className="mobile-submenu">
+                <Link to="/services#financial-planning" className="mobile-submenu-item">Financial Planning</Link>
+                <Link to="/services#investment-management" className="mobile-submenu-item">Investment Management</Link>
+                <Link to="/services#retirement-planning" className="mobile-submenu-item">Retirement Planning</Link>
+                <Link to="/services#insurance-risk-solutions" className="mobile-submenu-item">Insuarance & Risk Solutions</Link>
+                <Link to="/services#estate-planning" className="mobile-submenu-item">Estate Planning</Link>
+                <Link to="/services#tax-planning-compliance" className="mobile-submenu-item">Tax Planning & Compliance</Link>
+                <Link to="/services#portfolio-management" className="mobile-submenu-item">Portfolio Management</Link>
+                <Link to="/services#corporate-advisory" className="mobile-submenu-item">Corporate Advisory</Link>
+              </div>
+            </div>
+            <div className="mobile-menu-item">
+              <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
+              <div className="mobile-submenu">
+                <Link to="/who-we-serve#hni" className="mobile-submenu-item">High‑Net‑Worth Individuals (HNWI)</Link>
+                <Link to="/who-we-serve#growing-professionals" className="mobile-submenu-item">Growing Professionals</Link>
+                <Link to="/who-we-serve#diaspora-clients" className="mobile-submenu-item">Diaspora Clients</Link>
+                <Link to="/who-we-serve#business-owners" className="mobile-submenu-item">Business Owners</Link>
+                <Link to="/who-we-serve#families-multi-generationl-wealth" className="mobile-submenu-item">Families & Multi‑Generationl-Wealth</Link>
+              </div>
+            </div>
             <div className="mobile-menu-item">
               <Link to="/about" className="mobile-menu-link">About Us</Link>
               <div className="mobile-submenu">

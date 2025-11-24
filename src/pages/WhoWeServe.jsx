@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './WhoWeServe.css';
 import { motion } from "framer-motion";
+import { useLocation } from 'react-router-dom';
 
 
 /*
@@ -77,8 +78,8 @@ const IntroSection = () => (
 );
 
 // Alternating row component (text + image card)
-const AudienceRow = ({ tag, title, desc, bullets, type, image, caption, reverse }) => (
-  <article className={`wws-row ${reverse ? 'reverse' : ''}`} aria-label={title}>
+const AudienceRow = ({ id, tag, title, desc, bullets, type, image, caption, reverse }) => (
+  <article id={id} className={`wws-row ${reverse ? 'reverse' : ''}`} aria-label={title}>
     <div className="wws-text">
       
       <motion.span
@@ -132,6 +133,7 @@ const CTASection = () => (
 const segments = [
   {
     key: 'hni',
+    id: 'hni',
     tag: 'High‑Net‑Worth Individuals     (HNWI)',
     //title: 'Sophisticated Wealth Management for Discerning Clients',
     desc: 'You’ve worked hard to build substantial wealth, and now you need sophisticated strategies to preserve and grow it. Our HNWI‑focused approach combines institutional‑grade risk governance with tax‑efficient structures and access to alternative investments and philanthropy.',
@@ -145,6 +147,7 @@ const segments = [
   },
   {
     key: 'pro',
+    id: 'growing-professionals',
     tag: 'Growing Professionals',
     //title: 'Building Your Financial Foundation for Tomorrow',
     desc: 'You’re in the prime of your career, earning well and ready to make smart financial decisions. We help ambitious professionals like you create durable, growing portfolios aligned with goals and risk — with automation to keep your strategy consistent.',
@@ -158,6 +161,7 @@ const segments = [
   },
   {
     key: 'diaspora',
+    id: 'diaspora-clients',
     tag: 'Diaspora Clients',
     //title: 'Bridging Borders, Building Wealth Across Continents',
     desc: 'Living and working across different countries brings unique financial challenges and opportunities. We specialize in helping diaspora clients navigate complex cross‑border wealth management and multi‑currency portfolios.',
@@ -171,6 +175,7 @@ const segments = [
   },
   {
     key: 'owners',
+    id: 'business-owners',
     tag: 'Business Owners',
     //title: 'Aligning Business Success with Personal Wealth',
     desc: 'As a business owner, your personal and business finances are intricately connected. We help you optimize both sides of the equation, from business succession planning to personal wealth extraction strategies that maximize your financial potential.',
@@ -184,6 +189,7 @@ const segments = [
   },
   {
     key: 'families',
+    id: 'families-multi-generationl-wealth',
     tag: 'Families & Multi‑Generationl-Wealth',
     //title: 'Preserving Legacy, Empowering Future Generations',
     desc: 'Building wealth across generations requires thoughtful planning and expert guidance. We help families create multi‑generational strategies that preserve values, align decisions, and empower the next generation to be responsible stewards of their family wealth.',
@@ -198,6 +204,18 @@ const segments = [
 ];
 
 const WhoWeServe = () => {
+  const location = useLocation()
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1)
+      const el = document.getElementById(id)
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.pageYOffset
+        const offset = 90
+        window.scrollTo({ top: y - offset, behavior: 'smooth' })
+      }
+    }
+  }, [location.hash])
   return (
     <div className="wws-page">
       <IntroSection />
@@ -209,6 +227,7 @@ const WhoWeServe = () => {
             {segments.map((s, idx) => (
               <AudienceRow
                 key={s.key}
+                id={s.id}
                 tag={s.tag}
                 title={s.title}
                 desc={s.desc}

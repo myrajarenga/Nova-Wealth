@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import './Services.css';
 import './WhoWeServe.css';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { motion } from "framer-motion";
 
 
 const ServicesPage = () => {
+  const location = useLocation()
   const ShieldIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M12 2l7 4v5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V6l7-4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -71,7 +72,8 @@ const ServicesPage = () => {
   const services = [
     {
       tag: 'Financial Planning & Advisory',
-      //title: 'Financial Planning & Advisory',
+      title: 'Financial Planning',
+      id: 'financial-planning',
       desc: 'Comprehensive planning across budgeting, tax, retirement and protection.Comprehensive financial planning to preserve and grow assets.',
       bullets: ['Personalized wealth plans',' Portfolio monitoring & rebalancing','Tax-aware strategies'],
       type: 'planning',
@@ -80,7 +82,8 @@ const ServicesPage = () => {
     },
     {
       tag: 'Investment Management',
-      //title: 'Investment Management',
+      title: 'Investment Management',
+      id: 'investment-management',
       desc: 'Tailored investment portfolios aligned with client objectives.',
       bullets: ['Risk-profiled asset allocation','Active & passive options','Regular performance reviews'],
       type: 'investment',
@@ -89,7 +92,8 @@ const ServicesPage = () => {
     },
     {
       tag: 'Retirement & Planning',
-      //title: 'Retirement & Planning',
+      title: 'Retirement Planning',
+      id: 'retirement-planning',
       desc: 'Secure your future with income and savings strategies.',
       bullets: ['Retirement income modelling','Pension & savings optimisation','Estate planning & suggestions'],
       type: 'retirement',
@@ -98,7 +102,8 @@ const ServicesPage = () => {
     },
     {
       tag: 'Insurance & Risk Solutions',
-      //title: 'Insurance & Risk Solutions',
+      title: 'Insuarance & Risk Solutions',
+      id: 'insurance-risk-solutions',
       desc: 'Protect assets through risk assessment, coverage planning and optimization.',
       bullets: ['Asset protection', 'Risk assessment', 'Coverage planning', 'Premium optimization'],
       type: 'insurance',
@@ -107,7 +112,8 @@ const ServicesPage = () => {
     },
     {
       tag: 'Estate Planning',
-      //title: 'Estate Planning',
+      title: 'Estate Planning',
+      id: 'estate-planning',
       desc: 'Structured legacy planning for future generations.',
       bullets: ['Wills & trusts guidance','Succession planning','Tax-efficient transfers'],
       type: 'estate',
@@ -116,8 +122,9 @@ const ServicesPage = () => {
     },
     {
       tag: 'Tax Planning & Compliance',
-      //title: 'Tax Planning & Compliance',
-      desc: 'AOptimize returns through efficient tax strategies.',
+      title: 'Tax Planning & Compliance',
+      id: 'tax-planning-compliance',
+      desc: 'Optimize returns through efficient tax strategies.',
       bullets: ['Tax-efficient investing','Compliance & reporting support','Cross-border tax guidance'],
       type: 'tax',
       video: '/videos/Tax-Planning-and-Compliance.mp4',
@@ -125,7 +132,8 @@ const ServicesPage = () => {
     },
     {
       tag: 'Portfolio Management',
-      //title: 'Portfolio Management',
+      title: 'Portfolio Management',
+      id: 'portfolio-management',
       desc: 'Diversified investment oversight for consistent growth.',
       bullets: ['Diversification across asset classes','Ongoing risk management','Custom mandates available' ],
       type: 'portfolio',
@@ -134,7 +142,8 @@ const ServicesPage = () => {
     },
     {
       tag: 'Corporate Advisory',
-      //title: 'Corporate Advisory',
+      title: 'Corporate Advisory',
+      id: 'corporate-advisory',
       desc: 'Optimize SME planning, cashflow, restructuring and capital management.',
       bullets: ['SME planning', 'Cashflow strategy', 'Business restructuring', 'Capital management'],
       type: 'corporate',
@@ -142,6 +151,17 @@ const ServicesPage = () => {
       caption: 'Corporate Advisory'
     }
   ];
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.slice(1)
+      const el = document.getElementById(id)
+      if (el) {
+        const y = el.getBoundingClientRect().top + window.pageYOffset
+        const offset = 90
+        window.scrollTo({ top: y - offset, behavior: 'smooth' })
+      }
+    }
+  }, [location.hash])
   return (
     <div className="services-page">
       {/* Hero */}
@@ -160,7 +180,7 @@ const ServicesPage = () => {
         <div className="container">
           <div className="services-rows">
             {services.map((s, idx) => (
-              <article key={s.title || s.tag} className={`wws-row ${idx % 2 === 1 ? 'reverse' : ''}`} aria-label={s.title || s.tag}>
+              <article id={s.id} key={s.title || s.tag} className={`wws-row ${idx % 2 === 1 ? 'reverse' : ''}`} aria-label={s.title || s.tag}>
                 <div className="wws-text">
                   <motion.span
                     initial={{ opacity: 0, y: 20 }}
