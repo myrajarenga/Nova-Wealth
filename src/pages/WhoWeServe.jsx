@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './WhoWeServe.css';
 import { motion } from "framer-motion";
 import { useLocation } from 'react-router-dom';
@@ -204,6 +204,7 @@ const segments = [
 ];
 
 const WhoWeServe = () => {
+  const [open, setOpen] = useState(false)
   const location = useLocation()
   useEffect(() => {
     if (location.hash) {
@@ -216,9 +217,32 @@ const WhoWeServe = () => {
       }
     }
   }, [location.hash])
+  function scrollToId(id) {
+    const el = document.getElementById(id)
+    if (!el) return
+    const y = el.getBoundingClientRect().top + window.pageYOffset
+    const offset = 90
+    window.scrollTo({ top: y - offset, behavior: 'smooth' })
+    setOpen(false)
+  }
   return (
     <div className="wws-page">
       <IntroSection />
+      <div className="page-mobile-dropdown">
+        <button type="button" className="dropdown-toggle" onClick={() => setOpen(v => !v)}>
+          <span>Segments</span>
+          <span>{open ? '▴' : '▾'}</span>
+        </button>
+        {open && (
+          <div className="dropdown-panel">
+            {segments.map(s => (
+              <button key={s.id} className="dropdown-link" onClick={() => scrollToId(s.id)}>
+                {s.tag}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* Alternating rows */}
       <section className="wws-rows-section" aria-label="Audiences">

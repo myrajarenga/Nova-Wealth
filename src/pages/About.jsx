@@ -44,6 +44,21 @@ const About = () => {
   return (
     <main className="w-full space-y-20 md:space-y-24 bg-white">
       <IntroSection />
+      <div className="page-mobile-dropdown">
+        <button type="button" className="dropdown-toggle" onClick={() => setOpen(v => !v)}>
+          <span>Sections</span>
+          <span>{open ? '▴' : '▾'}</span>
+        </button>
+        {open && (
+          <div className="dropdown-panel">
+            {anchors.map(a => (
+              <button key={a.id} className="dropdown-link" onClick={() => scrollToId(a.id)}>
+                {a.label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
       <OurStory />
       <OurPurposeSection />
       <ValuesGrid />

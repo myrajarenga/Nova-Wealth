@@ -114,46 +114,11 @@ const Navbar = () => {
         {isMobileMenuOpen && (
           <div className="mobile-menu">
             <Link to="/" className="mobile-menu-link">Home</Link>
-            <div className="mobile-menu-item">
-              <Link to="/services" className="mobile-menu-link">Services</Link>
-              <div className="mobile-submenu">
-                <Link to="/services#financial-planning" className="mobile-submenu-item">Financial Planning</Link>
-                <Link to="/services#investment-management" className="mobile-submenu-item">Investment Management</Link>
-                <Link to="/services#retirement-planning" className="mobile-submenu-item">Retirement Planning</Link>
-                <Link to="/services#insurance-risk-solutions" className="mobile-submenu-item">Insuarance & Risk Solutions</Link>
-                <Link to="/services#estate-planning" className="mobile-submenu-item">Estate Planning</Link>
-                <Link to="/services#tax-planning-compliance" className="mobile-submenu-item">Tax Planning & Compliance</Link>
-                <Link to="/services#portfolio-management" className="mobile-submenu-item">Portfolio Management</Link>
-                <Link to="/services#corporate-advisory" className="mobile-submenu-item">Corporate Advisory</Link>
-              </div>
-            </div>
-            <div className="mobile-menu-item">
-              <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
-              <div className="mobile-submenu">
-                <Link to="/who-we-serve#hni" className="mobile-submenu-item">High‑Net‑Worth Individuals (HNWI)</Link>
-                <Link to="/who-we-serve#growing-professionals" className="mobile-submenu-item">Growing Professionals</Link>
-                <Link to="/who-we-serve#diaspora-clients" className="mobile-submenu-item">Diaspora Clients</Link>
-                <Link to="/who-we-serve#business-owners" className="mobile-submenu-item">Business Owners</Link>
-                <Link to="/who-we-serve#families-multi-generationl-wealth" className="mobile-submenu-item">Families & Multi‑Generationl-Wealth</Link>
-              </div>
-            </div>
-            <div className="mobile-menu-item">
-              <Link to="/about" className="mobile-menu-link">About Us</Link>
-              <div className="mobile-submenu">
-                <Link to="/about#about-nova-wealth" className="mobile-submenu-item">About Nova Wealth</Link>
-                <Link to="/about#our-story" className="mobile-submenu-item">Our Story</Link>
-                <Link to="/about#our-values" className="mobile-submenu-item">Our Values</Link>
-                <Link to="/about#why-nova-wealth" className="mobile-submenu-item">Why Nova Wealth</Link>
-                <Link to="/about#our-process" className="mobile-submenu-item">Our Process</Link>
-                <Link to="/about#meet-our-founders" className="mobile-submenu-item">Meet Our Founders</Link>
-              </div>
-            </div>
-            <div className="mobile-menu-item">
-              <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
-              <div className="mobile-submenu">
-                <Link to="/client-center/resources" className="mobile-submenu-item">Resources</Link>
-              </div>
-            </div>
+            <Link to="/services" className="mobile-menu-link">Services</Link>
+            <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
+            <Link to="/about" className="mobile-menu-link">About Us</Link>
+            <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
+            <Link to="/client-center/resources" className="mobile-menu-link">Resources</Link>
             <Link to="/contact" className="mobile-menu-link">Contact Us</Link>
             <Link to="/login" className="mobile-menu-link">Client Login</Link>
             <Link to="/login" className="mobile-cta btn-primary">Get Started</Link>

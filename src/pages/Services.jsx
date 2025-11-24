@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './Services.css';
 import './WhoWeServe.css';
@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 const ServicesPage = () => {
   const location = useLocation()
+  const [open, setOpen] = useState(false)
   const ShieldIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M12 2l7 4v5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V6l7-4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -72,7 +73,7 @@ const ServicesPage = () => {
   const services = [
     {
       tag: 'Financial Planning & Advisory',
-      title: 'Financial Planning',
+      //title: 'Financial Planning',
       id: 'financial-planning',
       desc: 'Comprehensive planning across budgeting, tax, retirement and protection.Comprehensive financial planning to preserve and grow assets.',
       bullets: ['Personalized wealth plans',' Portfolio monitoring & rebalancing','Tax-aware strategies'],
@@ -82,7 +83,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Investment Management',
-      title: 'Investment Management',
+      //title: 'Investment Management',
       id: 'investment-management',
       desc: 'Tailored investment portfolios aligned with client objectives.',
       bullets: ['Risk-profiled asset allocation','Active & passive options','Regular performance reviews'],
@@ -102,7 +103,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Insurance & Risk Solutions',
-      title: 'Insuarance & Risk Solutions',
+      //title: 'Insuarance & Risk Solutions',
       id: 'insurance-risk-solutions',
       desc: 'Protect assets through risk assessment, coverage planning and optimization.',
       bullets: ['Asset protection', 'Risk assessment', 'Coverage planning', 'Premium optimization'],
@@ -112,7 +113,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Estate Planning',
-      title: 'Estate Planning',
+      //title: 'Estate Planning',
       id: 'estate-planning',
       desc: 'Structured legacy planning for future generations.',
       bullets: ['Wills & trusts guidance','Succession planning','Tax-efficient transfers'],
@@ -122,7 +123,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Tax Planning & Compliance',
-      title: 'Tax Planning & Compliance',
+      //title: 'Tax Planning & Compliance',
       id: 'tax-planning-compliance',
       desc: 'Optimize returns through efficient tax strategies.',
       bullets: ['Tax-efficient investing','Compliance & reporting support','Cross-border tax guidance'],
@@ -132,7 +133,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Portfolio Management',
-      title: 'Portfolio Management',
+      //title: 'Portfolio Management',
       id: 'portfolio-management',
       desc: 'Diversified investment oversight for consistent growth.',
       bullets: ['Diversification across asset classes','Ongoing risk management','Custom mandates available' ],
@@ -142,7 +143,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Corporate Advisory',
-      title: 'Corporate Advisory',
+      //title: 'Corporate Advisory',
       id: 'corporate-advisory',
       desc: 'Optimize SME planning, cashflow, restructuring and capital management.',
       bullets: ['SME planning', 'Cashflow strategy', 'Business restructuring', 'Capital management'],
@@ -151,6 +152,14 @@ const ServicesPage = () => {
       caption: 'Corporate Advisory'
     }
   ];
+  function scrollToId(id) {
+    const el = document.getElementById(id)
+    if (!el) return
+    const y = el.getBoundingClientRect().top + window.pageYOffset
+    const offset = 90
+    window.scrollTo({ top: y - offset, behavior: 'smooth' })
+    setOpen(false)
+  }
   useEffect(() => {
     if (location.hash) {
       const id = location.hash.slice(1)
@@ -175,6 +184,22 @@ const ServicesPage = () => {
           <p className="services-hero-subtitle">Comprehensive wealth management solutions tailored to your unique goals and aspirations.</p>
         </div>
       </section>
+
+      <div className="page-mobile-dropdown">
+        <button type="button" className="dropdown-toggle" onClick={() => setOpen(v => !v)}>
+          <span>Services</span>
+          <span>{open ? '▴' : '▾'}</span>
+        </button>
+        {open && (
+          <div className="dropdown-panel">
+            {services.map(s => (
+              <button key={s.id} className="dropdown-link" onClick={() => scrollToId(s.id)}>
+                {s.title}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
       <section className="services-rows-section" aria-label="Services">
         <div className="container">

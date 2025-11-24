@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 const Footer = () => {
@@ -19,14 +20,14 @@ const Footer = () => {
           <div className="footer-column">
             <h3 className="footer-title">Services</h3>
             <ul className="footer-links">
-              <li><a href="#" className="footer-link">Financial Planning</a></li>
-              <li><a href="#" className="footer-link">Investment Management</a></li>
-              <li><a href="#" className="footer-link">Retirement Planning</a></li>
-              <li><a href="#" className="footer-link">Insuarance & Risk Solutions</a></li>
-              <li><a href="#" className="footer-link">Estate Planning</a></li>
-              <li><a href="#" className="footer-link">Tax Planning & Compliance</a></li>
-              <li><a href="#" className="footer-link">Portfolio Management</a></li>
-              <li><a href="#" className="footer-link">Corporate Advisory</a></li>
+              <li><Link to="/services#financial-planning" className="footer-link">Financial Planning</Link></li>
+              <li><Link to="/services#investment-management" className="footer-link">Investment Management</Link></li>
+              <li><Link to="/services#retirement-planning" className="footer-link">Retirement Planning</Link></li>
+              <li><Link to="/services#insurance-risk-solutions" className="footer-link">Insuarance & Risk Solutions</Link></li>
+              <li><Link to="/services#estate-planning" className="footer-link">Estate Planning</Link></li>
+              <li><Link to="/services#tax-planning-compliance" className="footer-link">Tax Planning & Compliance</Link></li>
+              <li><Link to="/services#portfolio-management" className="footer-link">Portfolio Management</Link></li>
+              <li><Link to="/services#corporate-advisory" className="footer-link">Corporate Advisory</Link></li>
             </ul>
           </div>
 
