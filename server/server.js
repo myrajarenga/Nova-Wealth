@@ -29,6 +29,9 @@ app.use(morgan(config.logFormat))
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', env: config.env })
 })
+app.get('/', (req, res) => {
+  res.send('Nova Wealth API is running.')
+})
 
 app.use('/api/auth', authRoutes)
 app.use('/api/leads', leadRoutes)
@@ -45,9 +48,9 @@ async function start() {
       console.warn('No MONGO_URI provided and mongodb-memory-server not installed; API calls needing DB will fail.')
     }
     app.listen(port, () => {
-      console.log(`Server running on port ${PORT}`);
-)
-    }
+      console.log(`server listening on http://localhost:${port}`)
+    })
+    
   } catch (err) {
     console.error('mongo connection error')
     process.exit(1)
@@ -55,6 +58,3 @@ async function start() {
 }
 
 start()
-app.get("/", (req, res) => {
-  res.send("Nova Wealth API is running.");
-});
