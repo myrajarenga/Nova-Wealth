@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import CTASection from './components/CTASection';
@@ -15,6 +15,8 @@ import Login from './pages/Login';
 import OAuthCallback from './pages/OAuthCallback';
 
 function App() {
+  const location = useLocation();
+  const hideFooter = location.pathname === '/login';
   return (
     <div className="App">
       <Navbar />
@@ -40,7 +42,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
-      <Footer />
+      {!hideFooter && <Footer />}
     </div>
   );
 }

@@ -16,7 +16,7 @@ const userSchema = mongoose.Schema(
     },
     phoneNumber: {
       type: String,
-      required: true,
+      required: false,
     },
     password: {
       type: String,
@@ -28,7 +28,15 @@ const userSchema = mongoose.Schema(
       default: false, // User must set this up after registration
     },
     mfaSecret: {
-      type: String, // This will store the secret key for Google Authenticator/Authy
+      type: String,
+      default: null,
+    },
+    mfaEmailCode: {
+      type: String,
+      default: null,
+    },
+    mfaEmailExpires: {
+      type: Date,
       default: null,
     },
     // Admin/Role fields (useful for later if you have admins vs clients)

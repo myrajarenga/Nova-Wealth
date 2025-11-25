@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { login, mfaVerify, mfaSetup, getToken } from '../services/authService'
+import { login, mfaVerify, mfaSetup, getToken, logout } from '../services/authService'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -14,6 +14,7 @@ export default function Login() {
   const [secret, setSecret] = useState('')
   const [name, setName] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [info, setInfo] = useState('')
 
   useEffect(() => {
@@ -36,17 +37,27 @@ export default function Login() {
     setError('')
     setLoading(true)
     try {
-      const res = await login({ email, password })
+      const res = await login({ email: String(email).trim(), password: String(password) })
       if (res && res.mfaRequired) {
+        setInfo('A verification code has been sent to your email. Enter it below to complete MFA.')
+        setStage('mfa')
+      } else if (res && res.token && res.isMfaEnabled === false) {
+        await mfaSetup()
+        setInfo('A verification code has been sent to your email. Enter it below to complete MFA.')
         setStage('mfa')
       } else {
         navigate('/client-center')
       }
     } catch (err) {
-      setError('Login failed. Check your credentials.')
+      const msg = err?.response?.data?.message || 'Login failed. Check your credentials.'
+      setError(msg)
     } finally {
       setLoading(false)
     }
+  }
+
+  function isStrongPassword(p) {
+    return /^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/.test(p)
   }
 
   async function handleRegister(e) {
@@ -54,12 +65,26 @@ export default function Login() {
     setError('')
     setLoading(true)
     try {
+      if (!email || !password) {
+        setLoading(false)
+        return setError('Email and password are required.')
+      }
+      if (!isStrongPassword(password)) {
+        setLoading(false)
+        return setError('Password must be at least 8 characters and include letters, numbers, and a special character.')
+      }
+      if (password !== confirmPassword) {
+        setLoading(false)
+        return setError('Passwords do not match.')
+      }
       const svc = await import('../services/authService')
-      const res = await svc.register({ name, email, password, phoneNumber })
-      if (res && res.token) {
-        navigate('/client-center')
-      } else {
-        setStage('setup')
+      const payload = { name: String(name).trim(), email: String(email).trim(), password }
+      if (phoneNumber) payload.phoneNumber = phoneNumber
+      const res = await svc.register(payload)
+      if (res) {
+        logout()
+        setInfo('Account created. Please sign in to set up MFA.')
+        setStage('login')
       }
     } catch (err) {
       setError('Sign up failed. Try a different email.')
@@ -90,9 +115,8 @@ export default function Login() {
     try {
       const res = await mfaSetup()
       if (res) {
-        setQrCode(res.qrCode || '')
-        setSecret(res.secret || '')
-        setStage('setup')
+        setInfo('A verification code has been sent to your email.')
+        setStage('mfa')
       }
     } catch (err) {
       setError('Unable to start MFA setup.')
@@ -106,7 +130,7 @@ export default function Login() {
       <div className="flex flex-col justify-center md:items-start px-6 md:px-8 py-10 md:col-span-2">
         <div className="w-full max-w-sm">
           <div className="flex items-center gap-3 mb-8">
-          <img src="/images/favicon.png" alt="Nova Wealth" className="h-16 md:h-20" /> <div className="font-montserrat text-2xl font-bold text-black mb-2">NOVA Wealth</div>
+          
             <div className="font-montserrat text-xl font-bold">Client Login</div>
           </div>
         <div className="font-montserrat text-2xl font-bold text-black mb-2">Log in to your account</div>
@@ -152,23 +176,19 @@ export default function Login() {
         )}
         {stage === 'mfa' && (
           <form onSubmit={handleVerify} className="space-y-6">
-            <div className="font-opensans text-gray-700">Enter the 6-digit code from your authenticator app</div>
+            <div className="font-opensans text-gray-700">Enter the 6-digit code sent to your email</div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">One-Time Code</label>
-              <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="123456" />
+              <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} value={otp} onChange={(e) => setOtp(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="123456" />
             </div>
             <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Verifying...' : 'Verify Code'}</button>
           </form>
         )}
         {stage === 'setup' && (
           <div className="space-y-6">
-            <div className="font-opensans text-gray-700">Scan the QR code to add Nova Wealth to your authenticator</div>
-            {qrCode && <img src={qrCode} alt="MFA QR" className="w-56 h-56" />}
-            {secret && (
-              <div className="text-sm text-black">Manual code: <span className="font-mono">{secret}</span></div>
-            )}
+            <div className="font-opensans text-gray-700">We have sent a verification code to your email. Enter it to complete MFA.</div>
             <div>
-              <button className="text-sm text-black underline" onClick={() => setStage('mfa')}>Already scanned? Verify code</button>
+              <button className="text-sm text-black underline" onClick={() => setStage('mfa')}>Verify code</button>
             </div>
           </div>
         )}
@@ -183,15 +203,20 @@ export default function Login() {
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Email</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
+              <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
             </div>
             <div>
-              <label className="block text-sm font-semibold text-black mb-2">Phone Number</label>
+              <label className="block text-sm font-semibold text-black mb-2">Phone Number (optional)</label>
               <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="+254..." />
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Password</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Choose a password" />
+              <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Choose a password" />
+              <div className="text-xs text-gray-600 mt-1">Must be 8+ characters and include letters, numbers, and a special character.</div>
+            </div>
+            <div>
+              <label className="block text-sm font-semibold text-black mb-2">Confirm Password</label>
+              <input required type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Re-enter password" />
             </div>
             <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Creating account...' : 'Sign Up'}</button>
             <div className="text-center text-sm">
@@ -204,9 +229,9 @@ export default function Login() {
       <div className="relative hidden md:block md:col-span-3">
         <img src="/images/professionals-login-page.jpg" alt="Wealth management" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/30"></div>
-        <div className="absolute inset-x-0 bottom-0 p-8 text-white">
-          <div className="font-montserrat text-2xl mb-2">Plan, diversify, and grow your wealth</div>
-          <div className="font-opensans text-sm">Personalised advisory across retirement, savings, and global investments.</div>
+        <div className="absolute inset-x-0 bottom-0 p-8">
+          <div className="font-montserrat text-2xl mb-2 text-[#D4AF37]">Plan, diversify, and grow your wealth</div>
+          <div className="font-opensans text-sm text-[#D4AF37]">Personalised advisory across retirement, savings, and global investments.</div>
         </div>
       </div>
     </div>

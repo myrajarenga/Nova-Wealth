@@ -57,25 +57,36 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email: normalizedEmail });
 
   if (user && (await user.matchPassword(password))) {
-    
-    // MFA CHECK
     if (user.isMfaEnabled) {
-      // If MFA is on, do NOT send token yet. 
-      // Send signal to frontend to show OTP screen.
-      res.json({
-        _id: user._id,
-        email: user.email,
-        mfaRequired: true, 
-      });
+      const code = Math.floor(100000 + Math.random() * 900000).toString()
+      user.mfaEmailCode = code
+      user.mfaEmailExpires = new Date(Date.now() + 10 * 60 * 1000)
+      await user.save()
+
+      let sent = false
+      if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+        try {
+          const transporter = nodemailer.createTransport({
+            host: process.env.EMAIL_HOST,
+            port: Number(process.env.EMAIL_PORT),
+            secure: process.env.EMAIL_SECURE === 'true',
+            auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+          })
+          await transporter.sendMail({
+            from: process.env.EMAIL_USER,
+            to: user.email,
+            subject: 'Your Nova Wealth login code',
+            text: `Your login verification code is ${code}. It expires in 10 minutes.`
+          })
+          sent = true
+        } catch (e) {
+          sent = false
+        }
+      }
+
+      res.json({ _id: user._id, email: user.email, mfaRequired: true, devCode: sent ? undefined : code })
     } else {
-      // If MFA is OFF (e.g. first login), send token so they can proceed to Setup
-      res.json({
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        isMfaEnabled: user.isMfaEnabled, 
-        token: generateToken(user._id),
-      });
+      res.json({ _id: user._id, name: user.name, email: user.email, isMfaEnabled: user.isMfaEnabled, token: generateToken(user._id) })
     }
   } else {
     res.status(401);
@@ -83,81 +94,80 @@ const loginUser = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Generate MFA Secret and QR Code
+// @desc    Generate MFA email OTP
 // @route   POST /api/auth/mfa/setup
 // @access  Private (Requires Token from Register/Login)
 const mfaSetup = asyncHandler(async (req, res) => {
-    // req.user comes from the authMiddleware
-    const user = await User.findById(req.user._id);
+  const user = await User.findById(req.user._id)
 
-    if (!user) {
-        res.status(404);
-        throw new Error('User not found');
+  if (!user) {
+    res.status(404)
+    throw new Error('User not found')
+  }
+
+  const code = Math.floor(100000 + Math.random() * 900000).toString()
+  user.mfaEmailCode = code
+  user.mfaEmailExpires = new Date(Date.now() + 10 * 60 * 1000)
+  await user.save()
+
+  let sent = false
+  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+    try {
+      const transporter = nodemailer.createTransport({
+        host: process.env.EMAIL_HOST,
+        port: Number(process.env.EMAIL_PORT),
+        secure: process.env.EMAIL_SECURE === 'true',
+        auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+      })
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: user.email,
+        subject: 'Your Nova Wealth verification code',
+        text: `Your verification code is ${code}. It expires in 10 minutes.`
+      })
+      sent = true
+    } catch (e) {
+      sent = false
     }
+  }
 
-    // 1. Generate a temporary secret
-    const secret = speakeasy.generateSecret({
-        name: `Nova Wealth (${user.email})` // This name shows up in their Authenticator App
-    });
-
-    // 2. Save the secret to the user (but don't enable MFA yet until verified)
-    user.mfaSecret = secret.base32;
-    await user.save();
-
-    // 3. Generate QR Code Image URL
-    qrcode.toDataURL(secret.otpauth_url, (err, data_url) => {
-        if (err) {
-            res.status(500);
-            throw new Error('Error generating QR code');
-        }
-
-        // Send secret (for manual entry) and QR code (for scanning)
-        res.json({
-            secret: secret.base32,
-            qrCode: data_url
-        });
-    });
+  res.json({ message: 'Verification code sent', devCode: sent ? undefined : code })
 });
 
-// @desc    Verify MFA Token (Used for Setup confirmation AND Login)
+// @desc    Verify MFA email OTP (Used for Setup confirmation AND Login)
 // @route   POST /api/auth/mfa/verify
 // @access  Public (Because during login, user might not have a JWT yet)
 const mfaVerify = asyncHandler(async (req, res) => {
-    const { email, token } = req.body;
-    const normalizedEmail = String(email || '').toLowerCase().trim();
+  const { email, token } = req.body
+  const normalizedEmail = String(email || '').toLowerCase().trim()
 
-    const user = await User.findOne({ email: normalizedEmail });
+  const user = await User.findOne({ email: normalizedEmail })
 
-    if (!user) {
-        res.status(404);
-        throw new Error('User not found');
-    }
+  if (!user) {
+    res.status(404)
+    throw new Error('User not found')
+  }
 
-    // 1. Verify the token using the stored secret
-    const verified = speakeasy.totp.verify({
-        secret: user.mfaSecret,
-        encoding: 'base32',
-        token: token,
-        window: 1 // Allow 30sec slack (prevents time sync issues)
-    });
+  const now = new Date()
+  const valid = user.mfaEmailCode && user.mfaEmailExpires && user.mfaEmailCode === token && user.mfaEmailExpires > now
 
-    if (verified) {
-        // 2. If verified, enable MFA status (idempotent - safe to call multiple times)
-        user.isMfaEnabled = true;
-        await user.save();
+  if (valid) {
+    user.isMfaEnabled = true
+    user.mfaEmailCode = null
+    user.mfaEmailExpires = null
+    await user.save()
 
-        // 3. Login Successful! Return the final JWT
-        res.json({
-            _id: user._id,
-            name: user.name,
-            email: user.email,
-            isMfaEnabled: true,
-            token: generateToken(user._id),
-        });
-    } else {
-        res.status(400);
-        throw new Error('Invalid MFA Code');
-    }
+    res.json({
+      _id: user._id,
+      name: user.name,
+      email: user.email,
+      isMfaEnabled: true,
+      token: generateToken(user._id)
+    })
+  } else {
+    res.status(400)
+    throw new Error('Invalid or expired verification code')
+  }
 });
 
 module.exports = { registerUser, loginUser, mfaSetup, mfaVerify }
