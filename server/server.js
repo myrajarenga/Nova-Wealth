@@ -15,7 +15,14 @@ try {
 const app = express()
 
 app.use(helmet())
-app.use(cors({ origin: true }))
+app.use(cors({
+  origin: [
+    "https://your-frontend.vercel.app",
+    "http://localhost:3000"
+  ],
+  credentials: true
+}))
+
 app.use(express.json())
 app.use(morgan(config.logFormat))
 
