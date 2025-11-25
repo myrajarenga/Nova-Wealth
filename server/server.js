@@ -55,3 +55,6 @@ async function start() {
 }
 
 start()
+app.get("/", (req, res) => {
+  res.send("Nova Wealth API is running.");
+});
