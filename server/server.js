@@ -17,8 +17,8 @@ const app = express()
 app.use(helmet())
 app.use(cors({
   origin: [
-    "https://your-frontend.vercel.app",
-    "http://localhost:3000"
+    "https://nova-wealth-sigma.vercel.app/",
+    "http://localhost:5173"
   ],
   credentials: true
 }))
