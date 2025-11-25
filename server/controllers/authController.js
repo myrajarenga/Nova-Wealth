@@ -67,9 +67,9 @@ const loginUser = asyncHandler(async (req, res) => {
       if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
         try {
           const transporter = nodemailer.createTransport({
-            host: process.env.EMAIL_HOST,
-            port: Number(process.env.EMAIL_PORT),
-            secure: process.env.EMAIL_SECURE === 'true',
+            host: 'mail.novawealth.co.ke',
+            port: 465,
+            secure: true,
             auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
           })
           await transporter.sendMail({
@@ -114,9 +114,9 @@ const mfaSetup = asyncHandler(async (req, res) => {
   if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
     try {
       const transporter = nodemailer.createTransport({
-        host: process.env.EMAIL_HOST,
-        port: Number(process.env.EMAIL_PORT),
-        secure: process.env.EMAIL_SECURE === 'true',
+        host: 'mail.novawealth.co.ke',
+        port: 465,
+        secure: true,
         auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
       })
       await transporter.sendMail({
@@ -190,7 +190,9 @@ const forgotPassword = asyncHandler(async (req, res) => {
   if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
     try {
       const transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'mail.novawealth.co.ke',
+        port: 465,
+        secure: true,
         auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
       })
       await transporter.sendMail({
