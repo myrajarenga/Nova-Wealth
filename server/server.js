@@ -6,11 +6,6 @@ const { config } = require('./config')
 const authRoutes = require('./routes/authRoutes')
 const leadRoutes = require('./routes/leadRoutes')
 const mongoose = require('mongoose')
-let MongoMemoryServer
-try {
-  const memPkg = require('mongodb-memory-server')
-  MongoMemoryServer = memPkg.MongoMemoryServer || memPkg.default
-} catch {}
 
 const app = express()
 
@@ -41,13 +36,13 @@ const port = config.port
 
 async function start() {
   try {
-    if (process.env.MONGO_URI) {
-      await mongoose.connect(process.env.MONGO_URI)
-    } else if (MongoMemoryServer) {
-      console.warn('Skipping mongodb-memory-server fallback; continuing without DB')
-    } else {
-      console.warn('No MONGO_URI provided and mongodb-memory-server not installed; API calls needing DB will fail.')
+    if (!process.env.MONGO_URI) {
+      console.error('❌ MONGO_URI is missing. Server cannot start.')
+      process.exit(1)
     }
+
+    await mongoose.connect(process.env.MONGO_URI)
+
     app.listen(port, () => {
       console.log(`server listening on http://localhost:${port}`)
     })
