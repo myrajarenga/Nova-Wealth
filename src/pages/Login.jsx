@@ -49,7 +49,8 @@ export default function Login() {
         navigate('/client-center')
       }
     } catch (err) {
-      const msg = err?.response?.data?.message || 'Login failed. Check your credentials.'
+      console.error("Login error:", err)
+      const msg = err?.response?.data?.message || err?.message || 'Login failed. Check your credentials.'
       setError(msg)
     } finally {
       setLoading(false)
@@ -87,7 +88,9 @@ export default function Login() {
         setStage('login')
       }
     } catch (err) {
-      setError('Sign up failed. Try a different email.')
+      console.error("Registration error:", err)
+      const msg = err?.response?.data?.message || err?.message || 'Sign up failed. Try a different email.'
+      setError(msg)
     } finally {
       setLoading(false)
     }

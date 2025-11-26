@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://nova-wealth-1.onrender.com/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://nova-wealth-1.onrender.com',
   withCredentials: true,
   timeout: 15000,
   headers: {
