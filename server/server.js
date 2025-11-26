@@ -18,8 +18,9 @@ app.use(helmet())
 app.use(cors({
   origin: [
     "https://nova-wealth-sigma.vercel.app",
-    "http://localhost:5173"
-  ],
+    "http://localhost:5173",
+    process.env.FRONTEND_URL
+  ].filter(Boolean),
   credentials: true
 }))
 
