@@ -259,7 +259,10 @@ const googleAuth = asyncHandler(async (req, res) => {
     throw new Error('Google OAuth not configured')
   }
   const scope = encodeURIComponent('openid email profile')
-  const state = encodeURIComponent(String(req.query.state || ''))
+  // We use the 'state' parameter to pass the frontend callback URL (req.query.redirect)
+  // This allows the callback to know where to redirect the user back to.
+  const state = req.query.redirect ? encodeURIComponent(req.query.redirect) : ''
+  
   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}&access_type=offline&prompt=consent${state ? `&state=${state}` : ''}`
   res.redirect(authUrl)
 })
@@ -358,16 +361,30 @@ const googleCallback = asyncHandler(async (req, res) => {
     })
   }
   if (user.isMfaEnabled) {
-    res.json({ _id: user._id, email: user.email, mfaRequired: true })
-    return
+    // If MFA is enabled, we need to redirect to frontend with mfaRequired flag
+    // The frontend should handle this (e.g., show MFA input)
+    let frontendCallback = process.env.FRONTEND_URL || 'http://localhost:5173'
+    if (req.query.state) {
+      const decodedState = decodeURIComponent(req.query.state)
+      if (decodedState.startsWith('http')) {
+        frontendCallback = decodedState
+      }
+    }
+    return res.redirect(`${frontendCallback}?mfaRequired=true&email=${encodeURIComponent(user.email)}`)
   }
-  res.json({
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    isMfaEnabled: user.isMfaEnabled,
-    token: generateToken(user._id)
-  })
+  
+  // Generate token and redirect to frontend
+  const token = generateToken(user._id)
+  
+  let frontendCallback = process.env.FRONTEND_URL || 'http://localhost:5173'
+  if (req.query.state) {
+    const decodedState = decodeURIComponent(req.query.state)
+    if (decodedState.startsWith('http')) {
+      frontendCallback = decodedState
+    }
+  }
+  
+  res.redirect(`${frontendCallback}?token=${token}`)
 })
 
 module.exports.googleAuth = googleAuth

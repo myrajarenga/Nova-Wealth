@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import { login, mfaVerify, mfaSetup, getToken, logout } from '../services/authService'
 
 export default function Login() {
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [otp, setOtp] = useState('')
@@ -22,6 +23,16 @@ export default function Login() {
     if (token) {
       navigate('/client-center')
     }
+
+    // Check for MFA requirements from OAuth redirect
+    const mfaRequired = searchParams.get('mfaRequired')
+    const emailParam = searchParams.get('email')
+    if (mfaRequired === 'true' && emailParam) {
+      setEmail(emailParam)
+      setStage('mfa')
+      setInfo('Please verify your identity to complete Google sign in.')
+    }
+
     try {
       const flag = sessionStorage.getItem('logoutSuccess')
       if (flag) {
@@ -30,7 +41,7 @@ export default function Login() {
         sessionStorage.removeItem('logoutSuccess')
       }
     } catch {}
-  }, [])
+  }, [searchParams])
 
   async function handleLogin(e) {
     e.preventDefault()
@@ -128,6 +139,68 @@ export default function Login() {
     }
   }
 
+  // --- GOOGLE OAUTH HANDLERS ---
+  const handleGoogleSignIn = () => {
+    openGooglePopup()
+  }
+
+  const handleGoogleSignUp = () => {
+    openGooglePopup()
+  }
+
+  const openGooglePopup = () => {
+    // Construct the redirect URL for the frontend callback
+    const redirect = `${window.location.origin}/oauth/callback`
+    // Use the API URL from environment variables or fallback
+    const baseUrl = import.meta.env.VITE_API_URL || 'https://nova-wealth-1.onrender.com'
+    // Redirect to backend Google OAuth endpoint
+    const url = `${baseUrl}/api/auth/google?redirect=${encodeURIComponent(redirect)}`
+    
+    // Open popup
+    const width = 500
+    const height = 600
+    const left = window.screen.width / 2 - width / 2
+    const top = window.screen.height / 2 - height / 2
+    window.open(
+      url,
+      'google_oauth',
+      `width=${width},height=${height},top=${top},left=${left},toolbar=no,menubar=no`
+    )
+  }
+
+  useEffect(() => {
+    const handleMessage = (event) => {
+      // Verify origin if needed, but for now we accept messages
+      // from our own domain (which the popup will be on when it redirects back)
+      if (event.origin !== window.location.origin) return
+
+      const { type, data } = event.data
+      if (type === 'GOOGLE_AUTH_SUCCESS') {
+        const { token, mfaRequired, email } = data
+        
+        if (mfaRequired && email) {
+          setEmail(email)
+          setStage('mfa')
+          setInfo('Please verify your identity to complete Google sign in.')
+        } else if (token) {
+          // Token is already set in localStorage by the popup before sending message?
+          // Actually, better to pass token back and set it here to be sure,
+          // OR let popup set it. Let's let popup pass it and we set it here to be safe/reactive.
+          // But authService.getToken() reads from localStorage.
+          // So let's have the popup pass the token, we set it via setToken (which saves to LS)
+          // then we navigate.
+           import('../services/authService').then(({ setToken }) => {
+             setToken(token)
+             navigate('/client-center')
+           })
+        }
+      }
+    }
+
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [navigate])
+
   return (
     <div className="min-h-screen bg-white grid grid-cols-1 md:grid-cols-5">
       <div className="flex flex-col justify-center md:items-start px-6 md:px-8 py-10 md:col-span-2">
@@ -146,11 +219,7 @@ export default function Login() {
         )}
         {stage === 'login' && (
           <form onSubmit={handleLogin} className="space-y-6">
-            <button type="button" className="w-full border rounded-lg py-3 font-semibold flex items-center justify-center gap-2 border-[#D4AF37] text-black hover:bg-[#F8F3E6]" onClick={() => {
-              const redirect = `${window.location.origin}/oauth/callback`
-              const url = `https://nova-wealth-1.onrender.com/api/auth/oauth/google?redirect=${encodeURIComponent(redirect)}`
-              window.open(url, '_blank', 'noopener')
-            }}>
+            <button type="button" className="w-full border rounded-lg py-3 font-semibold flex items-center justify-center gap-2 border-[#D4AF37] text-black hover:bg-[#F8F3E6]" onClick={handleGoogleSignIn}>
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6,20.5H42V20H24v8h11.3c-1.6,4.6-6,8-11.3,8c-6.6,0-12-5.4-12-12s5.4-12,12-12c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C12.9,4,4,12.9,4,24s8.9,20,20,20c11,0,20-9,20-20C44,22.7,43.8,21.6,43.6,20.5z"/><path fill="#FF3D00" d="M6.3,14.7l6.6,4.8C14.3,16.2,18.8,14,24,14c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C16.7,4,10.2,7.6,6.3,14.7z"/><path fill="#4CAF50" d="M24,44c6,0,11.5-2.3,15.6-6.1l-7.2-5.9C30.1,33.9,27.2,35,24,35c-5.3,0-9.7-3.4-11.3-8H6.4l-6.7,5.1C10.2,40.4,16.7,44,24,44z"/><path fill="#1976D2" d="M43.6,20.5H42V20H24v8h11.3c-0.8,2.3-2.3,4.3-4.3,5.7l7.2,5.9C41.5,36.6,44,31,44,24C44,22.7,43.8,21.6,43.6,20.5z"/></svg>
               <span>Continue with Google</span>
             </button>
@@ -200,6 +269,15 @@ export default function Login() {
         )}
         {stage === 'signup' && (
           <form onSubmit={handleRegister} className="space-y-6">
+            <button type="button" className="w-full border rounded-lg py-3 font-semibold flex items-center justify-center gap-2 border-[#D4AF37] text-black hover:bg-[#F8F3E6]" onClick={handleGoogleSignUp}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6,20.5H42V20H24v8h11.3c-1.6,4.6-6,8-11.3,8c-6.6,0-12-5.4-12-12s5.4-12,12-12c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C12.9,4,4,12.9,4,24s8.9,20,20,20c11,0,20-9,20-20C44,22.7,43.8,21.6,43.6,20.5z"/><path fill="#FF3D00" d="M6.3,14.7l6.6,4.8C14.3,16.2,18.8,14,24,14c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C16.7,4,10.2,7.6,6.3,14.7z"/><path fill="#4CAF50" d="M24,44c6,0,11.5-2.3,15.6-6.1l-7.2-5.9C30.1,33.9,27.2,35,24,35c-5.3,0-9.7-3.4-11.3-8H6.4l-6.7,5.1C10.2,40.4,16.7,44,24,44z"/><path fill="#1976D2" d="M43.6,20.5H42V20H24v8h11.3c-0.8,2.3-2.3,4.3-4.3,5.7l7.2,5.9C41.5,36.6,44,31,44,24C44,22.7,43.8,21.6,43.6,20.5z"/></svg>
+              <span>Sign Up with Google</span>
+            </button>
+            <div className="flex items-center gap-3">
+              <div className="h-px bg-black/10 flex-1" />
+              <span className="text-xs text-gray-500">Or with email</span>
+              <div className="h-px bg-black/10 flex-1" />
+            </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Full Name</label>
               <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Your name" />

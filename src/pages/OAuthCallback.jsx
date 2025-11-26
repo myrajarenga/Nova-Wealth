@@ -10,7 +10,35 @@ export default function OAuthCallback() {
   useEffect(() => {
     async function run() {
       const token = params.get('token')
+      const mfaRequired = params.get('mfaRequired')
+      const email = params.get('email')
       const redirect = params.get('redirect') || '/client-center'
+
+      // Check if we are in a popup
+      if (window.opener) {
+        if (mfaRequired === 'true' && email) {
+           window.opener.postMessage({
+             type: 'GOOGLE_AUTH_SUCCESS',
+             data: { mfaRequired: true, email }
+           }, window.location.origin)
+        } else if (token) {
+           setToken(token) // Set in local storage of popup (might not share with opener depending on browser)
+           // Actually, opener needs the token.
+           window.opener.postMessage({
+             type: 'GOOGLE_AUTH_SUCCESS',
+             data: { token }
+           }, window.location.origin)
+        }
+        window.close()
+        return
+      }
+
+      // Fallback for non-popup flow
+      if (mfaRequired === 'true' && email) {
+        navigate(`/login?mfaRequired=true&email=${encodeURIComponent(email)}`, { replace: true })
+        return
+      }
+
       if (token) {
         setToken(token)
         try {
