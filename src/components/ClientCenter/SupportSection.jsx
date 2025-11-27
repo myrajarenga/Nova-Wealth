@@ -10,11 +10,11 @@ const SupportSection = () => {
         <div className="mt-4 flex flex-col md:flex-row gap-4 items-center justify-center font-opensans text-sm">
           <div className="flex items-center gap-2 text-black">
             <span>📞</span>
-            <a href="tel:+254720000000" className="hover:underline">+254 720 000 000</a>
+            <a href="tel:+254737648915" className="hover:underline">+254 737648915</a>
           </div>
           <div className="flex items-center gap-2 text-black">
             <span>✉️</span>
-            <a href="mailto:info@novawealth.com" className="hover:underline">info@novawealth.com</a>
+            <a href="mailto:info@novawealth.co.ke" className="hover:underline">info@novawealth.co.ke</a>
           </div>
         </div>
       </div>

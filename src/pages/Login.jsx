@@ -169,6 +169,27 @@ export default function Login() {
   }
 
   useEffect(() => {
+    const handleAuthData = (data) => {
+      const { token, mfaRequired, email } = data
+      
+      if (mfaRequired && email) {
+        setEmail(email)
+        setStage('mfa')
+        setInfo('Please verify your identity to complete Google sign in.')
+      } else if (token) {
+        // Token is already set in localStorage by the popup before sending message?
+        // Actually, better to pass token back and set it here to be sure,
+        // OR let popup set it. Let's let popup pass it and we set it here to be safe/reactive.
+        // But authService.getToken() reads from localStorage.
+        // So let's have the popup pass the token, we set it via setToken (which saves to LS)
+        // then we navigate.
+         import('../services/authService').then(({ setToken }) => {
+           setToken(token)
+           navigate('/client-center')
+         })
+      }
+    }
+
     const handleMessage = (event) => {
       // Verify origin if needed, but for now we accept messages
       // from our own domain (which the popup will be on when it redirects back)
@@ -176,30 +197,27 @@ export default function Login() {
 
       const { type, data } = event.data
       if (type === 'GOOGLE_AUTH_SUCCESS') {
-        const { token, mfaRequired, email } = data
-        
-        if (mfaRequired && email) {
-          setEmail(email)
-          setStage('mfa')
-          setInfo('Please verify your identity to complete Google sign in.')
-        } else if (token) {
-          // Token is already set in localStorage by the popup before sending message?
-          // Actually, better to pass token back and set it here to be sure,
-          // OR let popup set it. Let's let popup pass it and we set it here to be safe/reactive.
-          // But authService.getToken() reads from localStorage.
-          // So let's have the popup pass the token, we set it via setToken (which saves to LS)
-          // then we navigate.
-           import('../services/authService').then(({ setToken }) => {
-             setToken(token)
-             navigate('/client-center')
-           })
-        }
+        handleAuthData(data)
       }
     }
 
     window.addEventListener('message', handleMessage)
-    return () => window.removeEventListener('message', handleMessage)
+
+    // BroadcastChannel for more robust cross-window communication
+    const channel = new BroadcastChannel('auth_channel')
+    channel.onmessage = (event) => {
+      const { type, data } = event.data
+      if (type === 'GOOGLE_AUTH_SUCCESS') {
+        handleAuthData(data)
+      }
+    }
+
+    return () => {
+      window.removeEventListener('message', handleMessage)
+      channel.close()
+    }
   }, [navigate])
+
 
   return (
     <div className="min-h-screen bg-white grid grid-cols-1 md:grid-cols-5">
@@ -230,11 +248,11 @@ export default function Login() {
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Email</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Password</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Your password" />
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Your password" />
             </div>
             <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Signing in...' : 'Sign In'}</button>
             <div className="flex items-center justify-between text-sm">
@@ -251,7 +269,7 @@ export default function Login() {
             <div className="font-opensans text-gray-700">Enter the 6-digit code sent to your email</div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">One-Time Code</label>
-              <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} value={otp} onChange={(e) => setOtp(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="123456" />
+              <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} value={otp} onChange={(e) => setOtp(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="123456" />
             </div>
             <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Verifying...' : 'Verify Code'}</button>
           </form>
@@ -280,24 +298,24 @@ export default function Login() {
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Full Name</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Your name" />
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Your name" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Email</label>
-              <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
+              <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Phone Number (optional)</label>
-              <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="+254..." />
+              <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="+254..." />
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Password</label>
-              <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Choose a password" />
+              <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Choose a password" />
               <div className="text-xs text-gray-600 mt-1">Must be 8+ characters and include letters, numbers, and a special character.</div>
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Confirm Password</label>
-              <input required type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Re-enter password" />
+              <input required type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Re-enter password" />
             </div>
             <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Creating account...' : 'Sign Up'}</button>
             <div className="text-center text-sm">
@@ -310,9 +328,9 @@ export default function Login() {
       <div className="relative hidden md:block md:col-span-3">
         <img src="/images/professionals-login-page.jpg" alt="Wealth management" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/30"></div>
-        <div className="absolute inset-x-0 bottom-0 p-8">
-          <div className="font-montserrat text-2xl mb-2 text-[#D4AF37]">Plan, diversify, and grow your wealth</div>
-          <div className="font-opensans text-sm text-[#D4AF37]">Personalised advisory across retirement, savings, and global investments.</div>
+        <div className="absolute inset-x-0 bottom-0 p-8 text-white">
+          <div className="font-montserrat text-2xl mb-2">Plan, diversify, and grow your wealth</div>
+          <div className="font-opensans text-sm">Personalised advisory across retirement, savings, and global investments.</div>
         </div>
       </div>
     </div>
@@ -367,7 +385,7 @@ function ForgotPassword({ email, onBack }) {
         <form onSubmit={requestCode} className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-black mb-2">Email</label>
-            <input type="email" value={mail} onChange={(e) => setMail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
+            <input type="email" value={mail} onChange={(e) => setMail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
           </div>
           <div className="flex gap-3">
             <button type="submit" disabled={loading} className="flex-1 bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Sending...' : 'Send Code'}</button>
@@ -379,11 +397,11 @@ function ForgotPassword({ email, onBack }) {
         <form onSubmit={doReset} className="space-y-4">
           <div>
             <label className="block text-sm font-semibold text-black mb-2">Verification Code</label>
-            <input type="text" value={code} onChange={(e) => setCode(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="6-digit code" />
+            <input type="text" value={code} onChange={(e) => setCode(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="6-digit code" />
           </div>
           <div>
             <label className="block text-sm font-semibold text-black mb-2">New Password</label>
-            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="New password" />
+            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="New password" />
           </div>
           <div className="flex gap-3">
             <button type="submit" disabled={loading} className="flex-1 bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Resetting...' : 'Reset Password'}</button>

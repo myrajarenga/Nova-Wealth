@@ -357,13 +357,46 @@ const googleCallback = asyncHandler(async (req, res) => {
       name: safeName,
       email: normalizedEmail,
       password: randomPassword,
-      phoneNumber: 'N/A'
+      phoneNumber: 'N/A',
+      isMfaEnabled: true
     })
   }
+
+  // Force enable MFA for Google Sign In
+  if (!user.isMfaEnabled) {
+    user.isMfaEnabled = true
+    await user.save()
+  }
+
   if (user.isMfaEnabled) {
-    // If MFA is enabled, we need to redirect to frontend with mfaRequired flag
-    // The frontend should handle this (e.g., show MFA input)
-    let frontendCallback = process.env.FRONTEND_URL || 'http://localhost:5173'
+    const code = Math.floor(100000 + Math.random() * 900000).toString()
+    user.mfaEmailCode = code
+    user.mfaEmailExpires = new Date(Date.now() + 10 * 60 * 1000)
+    await user.save()
+
+    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
+      try {
+        const transporter = nodemailer.createTransport({
+          host: 'mail.novawealth.co.ke',
+          port: 465,
+          secure: true,
+          auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+        })
+        await transporter.sendMail({
+          from: process.env.EMAIL_USER,
+          to: user.email,
+          subject: 'Your Nova Wealth verification code',
+          text: `Your verification code is ${code}. It expires in 10 minutes.`
+        })
+      } catch (e) {
+        console.error('MFA Email Error:', e)
+      }
+    }
+
+    let frontendBase = process.env.FRONTEND_URL || 'http://localhost:5173'
+    // Default to the specific callback route to ensure popup handling works
+    let frontendCallback = `${frontendBase.replace(/\/$/, '')}/oauth/callback`
+
     if (req.query.state) {
       const decodedState = decodeURIComponent(req.query.state)
       if (decodedState.startsWith('http')) {
@@ -373,17 +406,16 @@ const googleCallback = asyncHandler(async (req, res) => {
     return res.redirect(`${frontendCallback}?mfaRequired=true&email=${encodeURIComponent(user.email)}`)
   }
   
-  // Generate token and redirect to frontend
   const token = generateToken(user._id)
-  
-  let frontendCallback = process.env.FRONTEND_URL || 'http://localhost:5173'
+  let frontendBase = process.env.FRONTEND_URL || 'http://localhost:5173'
+  let frontendCallback = `${frontendBase.replace(/\/$/, '')}/oauth/callback`
+
   if (req.query.state) {
     const decodedState = decodeURIComponent(req.query.state)
     if (decodedState.startsWith('http')) {
       frontendCallback = decodedState
     }
   }
-  
   res.redirect(`${frontendCallback}?token=${token}`)
 })
 

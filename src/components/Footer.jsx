@@ -48,15 +48,15 @@ const Footer = () => {
             <div className="footer-contact">
               <div className="contact-item">
                 <span className="contact-label">Call us at:</span>
-                <a href="tel:+254720000000" className="contact-value">+254 720 000 000</a>
+                <a href="tel:+254737648915" className="contact-value">+254 737648915</a>
               </div>
               <div className="contact-item">
                 <span className="contact-label">Email us at:</span>
                 <a
-                  href="mailto:info@novawealth.com?subject=Inquiry%20from%20Nova%20Wealth%20Website&body=Hello%20Nova%20Wealth%20Team,%0D%0A%0D%0AI%20would%20like%20to%20learn%20more%20about%20your%20services.%20Please%20get%20back%20to%20me.%0D%0A%0D%0AThank%20you."
+                  href="mailto:info@novawealth.co.ke?subject=Inquiry%20from%20Nova%20Wealth%20Website&body=Hello%20Nova%20Wealth%20Team,%0D%0A%0D%0AI%20would%20like%20to%20learn%20more%20about%20your%20services.%20Please%20get%20back%20to%20me.%0D%0A%0D%0AThank%20you."
                   className="contact-value"
                 >
-                  info@novawealth.com
+                  info@novawealth.co.ke
                 </a>
               </div>
               <div className="contact-item">
