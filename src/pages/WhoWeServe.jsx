@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './WhoWeServe.css';
 import { motion } from "framer-motion";
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 
 /*
@@ -120,10 +120,10 @@ const CTASection = () => (
   <section className="wws-cta-band" aria-labelledby="wws-cta-title">
     <div className="container cta-container">
       <h2 id="wws-cta-title" className="cta-title">See How We Can Help You</h2>
-      <p className="cta-subtext">Schedule a consultation with Nova Wealth to explore a strategy tailored to you.</p>
+      <p className="cta-subtext">Book an appointment with Nova Wealth to explore a strategy tailored to you.</p>
       <div className="cta-actions">
-        <button className="btn btn-outline-light" aria-label="Schedule Consultation">Schedule Consultation</button>
-        <button className="btn btn-light" aria-label="Contact Nova Wealth">Contact Us</button>
+        <Link to="/assessment" className="btn btn-outline-light" aria-label="Book Appointment">Book Appointment</Link>
+        <Link to="/contact" className="btn btn-light" aria-label="Contact Nova Wealth">Contact Us</Link>
       </div>
     </div>
   </section>

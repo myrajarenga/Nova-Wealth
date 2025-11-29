@@ -251,9 +251,9 @@ const ServicesPage = () => {
       <section className="services-cta-band" aria-labelledby="cta-heading">
         <div className="container cta-container">
           <h2 id="cta-heading" className="cta-title">Ready to Start Your Wealth Journey?</h2>
-          <p className="cta-subtext">Schedule a consultation with our wealth management experts and discover how we can help you achieve your financial goals.</p>
+          <p className="cta-subtext">Book an appointment with our wealth management experts and discover how we can help you achieve your financial goals.</p>
           <div className="cta-actions">
-            <button className="btn btn-outline-light">Schedule Consultation</button>
+            <Link to="/assessment" className="btn btn-outline-light">Book Appointment</Link>
             
             <Link to="/contact" className="btn btn-light">
               Contact Us

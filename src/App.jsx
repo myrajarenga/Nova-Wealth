@@ -13,10 +13,12 @@ import Contact from './pages/Contact';
 import Resources from './pages/Resources';
 import Login from './pages/Login';
 import OAuthCallback from './pages/OAuthCallback';
+import Assessment from './pages/Assessment';
+import AssessmentResults from './pages/AssessmentResults';
 
 function App() {
   const location = useLocation();
-  const hideFooter = location.pathname === '/login';
+  const hideFooter = ['/login', '/assessment', '/assessment-results'].includes(location.pathname);
   return (
     <div className="App">
       <Navbar />
@@ -39,6 +41,8 @@ function App() {
           <Route path="/client-center/resources" element={<Resources />} />
           <Route path="/login" element={<Login />} />
           <Route path="/oauth/callback" element={<OAuthCallback />} />
+          <Route path="/assessment" element={<Assessment />} />
+          <Route path="/assessment-results" element={<AssessmentResults />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>

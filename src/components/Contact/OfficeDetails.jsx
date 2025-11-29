@@ -79,15 +79,6 @@ const OfficeDetails = () => {
         </div>
       </div>
 
-      {/* Schedule Consultation Button */}
-      <button
-        onClick={() => {/* Add scheduling functionality */}}
-        className="w-full bg-black text-white font-bold py-4 px-6 rounded-lg
-          transition-all duration-200 hover:bg-[#111] focus:outline-none focus:ring-2
-          focus:ring-black focus:ring-offset-2"
-      >
-        Book Appointment
-      </button>
     </div>
   );
 };

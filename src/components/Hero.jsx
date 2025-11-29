@@ -54,8 +54,8 @@ const Hero = () => {
               )}
             </div>
             <div className="hero-buttons">
-              <Link to="/login" className="btn-primary hero-btn">start Your Wealth Journey Today</Link>
-              <Link to="/contact" className="btn-outline-gold hero-btn">Schedule A Consultation</Link>
+              <Link to="/assessment" className="btn-primary hero-btn">Start Your Wealth Journey Today</Link>
+              <Link to="/assessment" className="btn-outline-gold hero-btn">Book Appointment</Link>
             </div>
           </div>
         </div>

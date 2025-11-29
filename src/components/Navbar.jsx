@@ -109,7 +109,7 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/login" className="navbar-link">Login</Link>
-                <Link to="/login"><button className="btn-primary">get started</button></Link>
+                <Link to="/assessment"><button className="btn-primary">Get Started</button></Link>
               </>
             )}
           </div>
@@ -142,7 +142,7 @@ const Navbar = () => {
             )}
             <Link to="/contact" className="mobile-menu-link">Contact Us</Link>
             {!isLoggedIn && <Link to="/login" className="mobile-menu-link">Client Login</Link>}
-            <Link to={isLoggedIn ? "/client-center" : "/login"} className="mobile-cta btn-primary">{isLoggedIn ? 'Client Portal' : 'Get Started'}</Link>
+            <Link to={isLoggedIn ? "/client-center" : "/assessment"} className="mobile-cta btn-primary">{isLoggedIn ? 'Client Portal' : 'Get Started'}</Link>
           </div>
         )}
       </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './CTASection.css';
 
 const CTASection = () => {
@@ -11,8 +12,12 @@ const CTASection = () => {
             Take the first step towards securing your financial future with our expert guidance and personalized strategies.
           </p>
           <div className="cta-buttons">
-            <button className="btn-outline-gold cta-btn">Schedule Consultation</button>
-            <button className="btn-primary cta-btn">Contact Us</button>
+            <Link to="/assessment" className="btn-outline-gold cta-btn text-center inline-flex items-center justify-center">
+              Book Appointment
+            </Link>
+            <Link to="/contact" className="btn-primary cta-btn text-center inline-flex items-center justify-center">
+              Contact Us
+            </Link>
           </div>
         </div>
       </div>

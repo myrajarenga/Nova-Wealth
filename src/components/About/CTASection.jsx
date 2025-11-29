@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // CTASection — gold background, centered layout, contrasting buttons
 const CTASection = () => {
@@ -10,18 +11,18 @@ const CTASection = () => {
           Schedule a consultation with our team and discover how we can help secure your financial future.
         </p>
         <div className="flex flex-wrap gap-4 justify-center mt-10">
-          <a
-            href="/contact"
+          <Link
+            to="/assessment"
             className="inline-block px-6 py-3 rounded-md border border-white text-white bg-transparent font-montserrat hover:bg-white/10"
           >
-            Schedule Consultation
-          </a>
-          <a
-            href="/contact"
+            Book Appointment
+          </Link>
+          <Link
+            to="/contact"
             className="inline-block px-6 py-3 rounded-md bg-white text-black font-montserrat hover:opacity-90"
           >
             Contact Us
-          </a>
+          </Link>
         </div>
       </div>
     </section>

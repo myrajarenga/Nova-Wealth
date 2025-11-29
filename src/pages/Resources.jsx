@@ -65,16 +65,23 @@ const Resources = () => {
       {/* Section 1: Hero with Video/Image Background */}
       <div className="relative h-[500px] w-full overflow-hidden bg-black">
          {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/60 z-10"></div>
+       
         
         {/* Background Image/Video Placeholder */}
         <div className="absolute inset-0 flex items-center justify-center z-0">
             {/* Placeholder for the video/image the user will provide */}
             <div className="text-gray-600 text-xl font-bold animate-pulse">
-               [Background Video/Image Placeholder]
+               <video 
+        src="/videos/Resources-video.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-40"
+    />
             </div>
              <img 
-                src="https://placehold.co/1920x1080/000000/333333?text= " 
+                src="vidoes/Resources-video" 
                 alt="Background Placeholder" 
                 className="absolute inset-0 w-full h-full object-cover opacity-40"
             />
