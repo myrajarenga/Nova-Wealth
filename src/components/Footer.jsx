@@ -9,7 +9,11 @@ const Footer = () => {
         <div className="footer-content">
           {/* Logo and Tagline Column */}
           <div className="footer-column">
-            <h3 className="footer-title">Nova Wealth</h3>
+            <img
+              src="images/NOVA.png"
+              alt="Nova Wealth Logo"
+              className="footer-logo"
+            />
             
           
             <p className="footer-tagline"><i>Here for generations.</i></p>
