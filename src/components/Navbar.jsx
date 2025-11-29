@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { getToken } from '../services/authService';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -8,6 +9,8 @@ const Navbar = () => {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isServeOpen, setIsServeOpen] = useState(false);
+  const location = useLocation(); // Force re-render on route change
+  const isLoggedIn = !!getToken();
 
   return (
     <nav className="navbar">
@@ -77,26 +80,38 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-            <div
-              className="navbar-item dropdown"
-              onMouseEnter={() => setIsClientOpen(true)}
-              onMouseLeave={() => setIsClientOpen(false)}
-            >
-              <Link to="/client-center" className="navbar-link" aria-haspopup="true" aria-expanded={isClientOpen}>Client Centre</Link>
-              {isClientOpen && (
-                <div className="dropdown-menu">
-                  <Link to="/client-center/resources" className="dropdown-item">Resources</Link>
-                </div>
-              )}
-            </div>
+            
+            {isLoggedIn ? (
+              <div
+                className="navbar-item dropdown"
+                onMouseEnter={() => setIsClientOpen(true)}
+                onMouseLeave={() => setIsClientOpen(false)}
+              >
+                <Link to="/client-center" className="navbar-link" aria-haspopup="true" aria-expanded={isClientOpen}>Client Centre</Link>
+                {isClientOpen && (
+                  <div className="dropdown-menu">
+                    <Link to="/client-center/resources" className="dropdown-item">Resources</Link>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link to="/client-center/resources" className="navbar-link">Resources & Insights</Link>
+            )}
+
             <Link to="/contact" className="navbar-link">Contact Us</Link>
           </div>
            
 
           {/* CTA Buttons */}
           <div className="navbar-cta">
-            <Link to="/login" className="navbar-link">Client Login</Link>
-            <Link to="/login"><button className="btn-primary">get started</button></Link>
+            {isLoggedIn ? (
+               <Link to="/client-center"><button className="btn-primary">Client Portal</button></Link>
+            ) : (
+              <>
+                <Link to="/login" className="navbar-link">Login</Link>
+                <Link to="/login"><button className="btn-primary">get started</button></Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,11 +132,17 @@ const Navbar = () => {
             <Link to="/services" className="mobile-menu-link">Services</Link>
             <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
             <Link to="/about" className="mobile-menu-link">About Us</Link>
-            <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
-            <Link to="/client-center/resources" className="mobile-menu-link">Resources</Link>
+            {isLoggedIn ? (
+               <>
+                <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
+                <Link to="/client-center/resources" className="mobile-menu-link">Resources</Link>
+               </>
+            ) : (
+                <Link to="/client-center/resources" className="mobile-menu-link">Resources & Insights</Link>
+            )}
             <Link to="/contact" className="mobile-menu-link">Contact Us</Link>
-            <Link to="/login" className="mobile-menu-link">Client Login</Link>
-            <Link to="/login" className="mobile-cta btn-primary">Get Started</Link>
+            {!isLoggedIn && <Link to="/login" className="mobile-menu-link">Client Login</Link>}
+            <Link to={isLoggedIn ? "/client-center" : "/login"} className="mobile-cta btn-primary">{isLoggedIn ? 'Client Portal' : 'Get Started'}</Link>
           </div>
         )}
       </div>

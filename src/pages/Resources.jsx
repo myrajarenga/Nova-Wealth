@@ -1,94 +1,147 @@
-import React, { useEffect, useState } from 'react';
-import { useResources } from '../hooks/useResources.js';
-import { fetchCategories, fetchPopular } from '../lib/resourcesApi.js';
-import ResourceCard from '../components/Resources/ResourceCard.jsx';
-import ResourceFilters from '../components/Resources/ResourceFilters.jsx';
-import PopularList from '../components/Resources/PopularList.jsx';
-import CategoriesList from '../components/Resources/CategoriesList.jsx';
-import SubscribeCTA from '../components/Resources/SubscribeCTA.jsx';
-import Pagination from '../components/Resources/Pagination.jsx';
-import { track } from '../lib/analytics.js';
+import React from 'react';
+import CTASection from '../components/CTASection';
 
-export default function Resources() {
-  const { state, dispatch, items, total } = useResources();
-  const [categories, setCategories] = useState([]);
-  const [popular, setPopular] = useState([]);
+// Placeholder data for articles
+const articles = [
+  {
+    id: 1,
+    title: "Best Investment Options for Canadian Expats",
+    author: "Best Investment Options for Canadian Expats",
+    date: "November 19, 2025",
+    excerpt: "Best Investment Options for Canadian Expats",
+    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=Canadian+Expats", 
+    link: "#"
+  },
+  {
+    id: 2,
+    title: "Sarwa Investment Review",
+    author: "Sarwa Investment Review",
+    date: "November 18, 2025",
+    excerpt: "Sarwa investment review",
+    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=Sarwa+Review",
+    link: "#"
+  },
+  {
+    id: 3,
+    title: "Investment Advisory Black Friday Offer - November 2025",
+    author: "Free Investment Advisory Consultations",
+    date: "November 12, 2025",
+    excerpt: "Free Investment Advisory Sessions",
+    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=Black+Friday",
+    link: "#"
+  },
+  {
+    id: 4,
+    title: "CPF For Expats Singapore",
+    author: "Nova Wealth Team",
+    date: "November 10, 2025",
+    excerpt: "Understanding CPF for expatriates in Singapore.",
+    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=Singapore+CPF",
+    link: "#"
+  },
+  {
+    id: 5,
+    title: "Ardan International Review",
+    author: "Nova Wealth Team",
+    date: "November 5, 2025",
+    excerpt: "Is Ardan International the right platform for you?",
+    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=Ardan+Review",
+    link: "#"
+  },
+  {
+    id: 6,
+    title: "The Best Investment Options for British Expats",
+    author: "Nova Wealth Team",
+    date: "November 1, 2025",
+    excerpt: "Tailored investment strategies for British expats.",
+    image: "https://placehold.co/600x400/1a1a1a/D4AF37?text=British+Expats",
+    link: "#"
+  }
+];
 
-  useEffect(() => {
-    fetchCategories().then(setCategories);
-  }, []);
-
-  useEffect(() => {
-    fetchPopular().then(setPopular);
-  }, []);
-
-  useEffect(() => {
-    track('resources_filter_apply', { ...state, count: items.length });
-  }, [items.length]);
-
+const Resources = () => {
   return (
-    <main className="bg-white text-black">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="text-center">
-          <h1 className="font-montserrat text-3xl font-bold text-black">Insights &amp; Resources</h1>
-          <p className="font-opensans mt-2 text-[#2C3E50]">Stay informed with the latest financial insights, market analysis, and expert guidance to help you make smarter investment decisions.</p>
-          <div className="mt-3 flex items-center gap-2 justify-center text-xs text-gray-700">
-            <span className="rounded-full bg-gray-100 px-2 py-1">Updated Daily</span>
-            <span className="rounded-full bg-gray-100 px-2 py-1">From Experts</span>
-          </div>
+    <div className="min-h-screen bg-white font-sans">
+      {/* Section 1: Hero with Video/Image Background */}
+      <div className="relative h-[500px] w-full overflow-hidden bg-black">
+         {/* Overlay for better text readability */}
+        <div className="absolute inset-0 bg-black/60 z-10"></div>
+        
+        {/* Background Image/Video Placeholder */}
+        <div className="absolute inset-0 flex items-center justify-center z-0">
+            {/* Placeholder for the video/image the user will provide */}
+            <div className="text-gray-600 text-xl font-bold animate-pulse">
+               [Background Video/Image Placeholder]
+            </div>
+             <img 
+                src="https://placehold.co/1920x1080/000000/333333?text= " 
+                alt="Background Placeholder" 
+                className="absolute inset-0 w-full h-full object-cover opacity-40"
+            />
         </div>
 
-        <div className="mt-8">
-          <ResourceFilters state={state} dispatch={dispatch} categories={categories} />
+        {/* Hero Content */}
+        <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
+          <h1 className="text-white font-montserrat font-bold text-4xl md:text-6xl tracking-wider mb-6 leading-tight uppercase">
+            The Nova Wealth<br />
+            Investment Business<br />
+            Review
+          </h1>
+          <p className="text-white font-montserrat font-bold text-xl md:text-2xl tracking-widest uppercase border-t-2 border-[#D4AF37] pt-4 mt-2">
+            Investment News and Updates
+          </p>
         </div>
-
-        <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-9">
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {items.map((r) => (
-                <ResourceCard key={r.id} r={r} />
-              ))}
-            </div>
-            <div className="mt-8">
-              <Pagination
-                page={state.page}
-                total={total}
-                pageSize={state.pageSize}
-                onPage={(p) => dispatch({ type: 'page', page: p })}
-              />
-            </div>
-          </div>
-          <aside className="lg:col-span-3 space-y-6">
-            <div className="rounded-lg border border-gray-200 p-4 bg-white">
-              <h3 className="text-sm font-medium text-black">Stay Informed</h3>
-              <SubscribeCTA />
-            </div>
-            <div className="rounded-lg border border-gray-200 p-4 bg-white">
-              <h3 className="text-sm font-medium text-black">Popular Articles</h3>
-              <div className="mt-3">
-                <PopularList items={popular} />
-              </div>
-            </div>
-            <div className="rounded-lg border border-gray-200 p-4 bg-white">
-              <h3 className="text-sm font-medium text-black">Categories</h3>
-              <div className="mt-3">
-                <CategoriesList categories={categories} />
-              </div>
-            </div>
-          </aside>
-        </div>
-
-        <section className="mt-12 bg-[#D4AF37]">
-          <div className="mx-auto max-w-6xl px-4 md:px-6 py-20 text-center">
-            <div className="font-montserrat text-lg font-semibold">Ready to Take Control of Your Financial Future?</div>
-            <div className="font-opensans mt-2 text-sm">Get personalized financial advice from our expert advisors. Schedule your free consultation today.</div>
-            <div className="flex flex-wrap gap-4 justify-center mt-10">
-              <a href="/contact" className="inline-block px-6 py-3 rounded-md border border-white text-white bg-transparent font-montserrat hover:bg-white/10">Book Consultation</a>
-              <a href="#" className="inline-block px-6 py-3 rounded-md bg-white text-black font-montserrat hover:opacity-90">WhatsApp us</a>
-            </div>
-          </div>
-        </section>
       </div>
-    </main>
+
+      {/* Section 2: Articles Grid */}
+      <div className="container mx-auto px-4 py-20">
+        <h2 className="text-center text-black font-montserrat font-bold text-3xl md:text-4xl mb-16 uppercase tracking-wide">
+          Investment Review Articles
+        </h2>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {articles.map((article) => (
+            <div key={article.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col group">
+              {/* Article Image */}
+              <div className="h-56 overflow-hidden bg-gray-100 relative">
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 z-10"></div>
+                <img 
+                  src={article.image} 
+                  alt={article.title} 
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                />
+              </div>
+              
+              {/* Article Content */}
+              <div className="p-8 flex flex-col flex-grow text-center">
+                <h3 className="text-black font-montserrat font-bold text-lg mb-4 uppercase leading-snug min-h-[3.5rem]">
+                  {article.title}
+                </h3>
+                
+                <div className="text-gray-500 text-xs font-opensans mb-5 uppercase tracking-wide">
+                  By {article.author} <span className="mx-2">•</span> {article.date}
+                </div>
+                
+                <p className="text-gray-600 text-sm font-opensans mb-8 flex-grow leading-relaxed">
+                  {article.excerpt}
+                </p>
+                
+                <a 
+                  href={article.link} 
+                  className="text-black font-bold text-sm hover:text-[#D4AF37] transition-colors mt-auto inline-block uppercase tracking-widest border-b-2 border-transparent hover:border-[#D4AF37] pb-1"
+                >
+                  Read more →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Section 3: Call to Action */}
+      <CTASection />
+    </div>
   );
-}
+};
+
+export default Resources;
