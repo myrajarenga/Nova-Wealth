@@ -69,22 +69,14 @@ const Resources = () => {
         
         {/* Background Image/Video Placeholder */}
         <div className="absolute inset-0 flex items-center justify-center z-0">
-            {/* Placeholder for the video/image the user will provide */}
-            <div className="text-gray-600 text-xl font-bold animate-pulse">
-               <video 
-                    src="/videos/Resources-video.mp4"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    className="absolute inset-0 w-full h-full object-cover opacity-40"
-                   />
-            </div>
-             <img 
-                src="vidoes/Resources-video" 
-                alt="Background Placeholder" 
+           <video 
+                src="/videos/Resources-video.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
                 className="absolute inset-0 w-full h-full object-cover opacity-40"
-            />
+               />
         </div>
 
         {/* Hero Content */}

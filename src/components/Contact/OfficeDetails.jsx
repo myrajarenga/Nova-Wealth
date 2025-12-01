@@ -2,9 +2,9 @@ import React from 'react';
 
 const OfficeDetails = () => {
   return (
-    <div className="space-y-8">
+    <div className="h-full">
       {/* Office Info Card */}
-      <div className="bg-white rounded-xl shadow-lg p-8">
+      <div className="bg-white rounded-xl shadow-lg p-8 h-full">
         <h2 className="font-montserrat text-2xl font-bold text-black mb-6">
           Our Office
         </h2>
