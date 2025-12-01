@@ -219,8 +219,8 @@ const ContactForm = () => {
 
         {/* Status Messages */}
         {submitStatus === 'success' && (
-          <p className="text-green-600 text-center mt-4">
-            Thank you! Your message has been sent successfully.
+          <p className="text-green-600 text-center mt-4 font-medium">
+            We have received your details. Our wealth advisors will be in touch with you in less than 24 hrs.
           </p>
         )}
         {submitStatus === 'error' && (
