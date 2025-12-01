@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import OAuthCallback from './pages/OAuthCallback';
 import Assessment from './pages/Assessment';
 import AssessmentResults from './pages/AssessmentResults';
+import FAQ from './pages/FAQ';
 
 function App() {
   const location = useLocation();
@@ -43,6 +44,7 @@ function App() {
           <Route path="/oauth/callback" element={<OAuthCallback />} />
           <Route path="/assessment" element={<Assessment />} />
           <Route path="/assessment-results" element={<AssessmentResults />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
