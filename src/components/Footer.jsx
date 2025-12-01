@@ -17,7 +17,7 @@ const Footer = () => {
             
           
             <p className="footer-tagline"><i>Securing Tomorrow’s Legacy, Today.</i></p>
-            
+
             <p className="footer-tagline">Building lasting wealth through personalized financial strategies and expert guidance.</p>
           </div>
 
@@ -43,7 +43,8 @@ const Footer = () => {
               <li><a href="#" className="footer-link">About Us</a></li>
               <li><a href="#" className="footer-link">Our Team</a></li>
               <li><a href="#" className="footer-link">Privacy Policy</a></li>
-              <li><a href="/client-center/resources" className="footer-link">Resources</a></li>
+              <li><a href="#" className="footer-link">FAQ's</a></li>
+              <li><a href="#" className="footer-link">Resources & Insights</a></li>
             </ul>
           </div>
 

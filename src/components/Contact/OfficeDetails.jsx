@@ -36,10 +36,10 @@ const OfficeDetails = () => {
           <div>
             <p className="font-semibold text-black">Phone</p>
             <a 
-              href="tel:+254700 000 000" 
+              href="tel:+254 737648915" 
               className="text-black hover:text-[#D4AF37] transition-colors mt-1 block"
             >
-              +254 700 000 000
+              +254 737648915
             </a>
           </div>
         </div>
@@ -54,10 +54,10 @@ const OfficeDetails = () => {
           <div>
             <p className="font-semibold text-black">Email</p>
             <a 
-              href="mailto:info@novawealth.com" 
+              href="mailto:info@novawealth.co.ke" 
               className="text-black hover:text-[#D4AF37] transition-colors mt-1 block"
             >
-              info@novawealth.com
+              info@novawealth.co.ke
             </a>
           </div>
         </div>

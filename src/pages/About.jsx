@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import IntroSection from '../components/About/IntroSection';
 import OurStory from '../components/About/OurStory';
+import OurProcess from '../components/About/OurProcess';
 import OurPurposeSection from '../components/About/OurPurposeSection';
 import ValuesGrid from '../components/About/ValuesGrid';
 import TeamGrid from '../components/About/TeamGrid';
@@ -86,34 +87,7 @@ If you’re spending too much or not saving enough to stay on track for your goa
           </div>
         </div>
       </section>
-      <section id="our-process" className="bg-white">
-        <div className="mx-auto max-w-6xl px-4 md:px-6 py-16">
-          <h2 className="font-montserrat text-3xl md:text-4xl font-bold text-[#000000] text-center">The Nova Way - Our Process</h2>
-          <div className="border-b border-[#FFD700] w-24 mx-auto my-5" aria-hidden="true"/>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mt-8">
-            <div className="rounded-xl border border-black/10 bg-white p-6">
-              <div className="text-[#FFD700] font-montserrat font-bold">01</div>
-              <h3 className="font-montserrat text-xl font-semibold text-[#333333] mt-1">Discover</h3>
-              <p className="font-opensans text-gray-700 mt-2">Understand goals, values, timelines, and constraints.</p>
-            </div>
-            <div className="rounded-xl border border-black/10 bg-white p-6">
-              <div className="text-[#FFD700] font-montserrat font-bold">02</div>
-              <h3 className="font-montserrat text-xl font-semibold text-[#333333] mt-1">Design</h3>
-              <p className="font-opensans text-gray-700 mt-2">Build tailored strategies across planning and investment.</p>
-            </div>
-            <div className="rounded-xl border border-black/10 bg-white p-6">
-              <div className="text-[#FFD700] font-montserrat font-bold">03</div>
-              <h3 className="font-montserrat text-xl font-semibold text-[#333333] mt-1">Deploy</h3>
-              <p className="font-opensans text-gray-700 mt-2">Implement portfolios and action plans with clear steps.</p>
-            </div>
-            <div className="rounded-xl border border-black/10 bg-white p-6">
-              <div className="text-[#FFD700] font-montserrat font-bold">04</div>
-              <h3 className="font-montserrat text-xl font-semibold text-[#333333] mt-1">Review</h3>
-              <p className="font-opensans text-gray-700 mt-2">Monitor, report, and adapt as life and markets evolve.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <OurProcess />
       <TeamGrid />
       <CTASection />
     </main>

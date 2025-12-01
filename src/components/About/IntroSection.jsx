@@ -67,7 +67,7 @@ const IntroSection = () => {
 
       {/* Bottom text */}
       <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-[#D4AF37] text-sm tracking-wide">
-        Here for generations
+        Securing Tomorrow’s Legacy, Today
       </div>
 
       {/* CUSTOM KEYFRAMES */}

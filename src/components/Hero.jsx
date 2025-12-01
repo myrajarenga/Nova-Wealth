@@ -48,7 +48,7 @@ const Hero = () => {
                 <div className="logo-center">
                   <div className="logo-stack">
                     <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth" className="logo-zoom" />
-                    <div className="logo-tagline">Here For Generations</div>
+                    <div className="logo-tagline">Securing Tomorrow’s Legacy, Today</div>
                   </div>
                 </div>
               )}
