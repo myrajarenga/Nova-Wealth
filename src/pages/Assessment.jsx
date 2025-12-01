@@ -180,7 +180,7 @@ const Assessment = () => {
            Most professionals lose millions in potential growth by using outdated strategies. Are you one of them?
         </p>
         <p className="mt-2 text-center text-sm text-gray-600">
-          Discover your financial persona in 60 seconds.
+          Before you book an appointment, kindly discover your financial persona in 60 seconds.
         </p>
       </div>
 

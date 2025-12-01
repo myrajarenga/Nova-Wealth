@@ -45,6 +45,16 @@ const AssessmentResults = () => {
   const result = location.state?.result || { persona: "Planner", fullName: "Guest" }; // Fallback
   const personaData = personas[result.persona] || personas["Planner"];
 
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      if (window.Calendly) {
+        window.Calendly.initPopupWidget({ url: 'https://calendly.com/novawealth-info/30min' });
+      }
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white font-sans">
       {/* Header */}

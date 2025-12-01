@@ -1,16 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const OfficeDetails = () => {
-  // Smooth-scroll to footer when booking appointment
-  const scrollToFooter = () => {
-    const footer = document.getElementById('site-footer') || document.querySelector('footer');
-    if (footer) {
-      footer.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      // fallback: scroll to bottom of page
-      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
-    }
-  };
+
 
   return (
     <div className="space-y-8">
@@ -91,15 +83,15 @@ const OfficeDetails = () => {
       </div>
 
       {/* Schedule Consultation Button */}
-      <button
-        onClick={scrollToFooter}
-        className="w-full bg-black text-white font-bold py-4 px-6 rounded-lg
+      <Link
+        to="/assessment"
+        className="w-full block text-center bg-black text-white font-bold py-4 px-6 rounded-lg
           transition-all duration-200 hover:bg-black/90 focus:outline-none focus:ring-2
           focus:ring-black focus:ring-offset-2"
-        aria-label="Book appointment - jump to contact information in footer"
+        aria-label="Book Appointment"
       >
         Book Appointment
-      </button>
+      </Link>
     </div>
   );
 };

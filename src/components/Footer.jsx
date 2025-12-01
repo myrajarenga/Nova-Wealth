@@ -16,7 +16,8 @@ const Footer = () => {
             />
             
           
-            <p className="footer-tagline"><i>Here for generations.</i></p>
+            <p className="footer-tagline"><i>Securing Tomorrow’s Legacy, Today.</i></p>
+            
             <p className="footer-tagline">Building lasting wealth through personalized financial strategies and expert guidance.</p>
           </div>
 

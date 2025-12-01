@@ -72,13 +72,13 @@ const Resources = () => {
             {/* Placeholder for the video/image the user will provide */}
             <div className="text-gray-600 text-xl font-bold animate-pulse">
                <video 
-        src="/videos/Resources-video.mp4"
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover opacity-40"
-    />
+                    src="/videos/Resources-video.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover opacity-40"
+                   />
             </div>
              <img 
                 src="vidoes/Resources-video" 
