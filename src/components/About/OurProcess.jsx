@@ -59,7 +59,10 @@ const processSteps = [
 const ProcessCard = ({ step }) => (
   <div className="flex-shrink-0 w-80 mx-4 relative group">
     <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
-      <div className="bg-gray-50 rounded-full w-14 h-14 flex items-center justify-center text-[#D4AF37] mb-4 group-hover:bg-[#D4AF37] group-hover:text-white transition-colors duration-300">
+      <div className="bg-gray-50 rounded-full w-14 h-14 flex items-center justify-center text-[#D4AF37] mb-4 group-hover:bg-[#D4AF37] group-hover:text-white transition-colors duration-300 relative">
+        <span className="absolute -top-2 -left-2 bg-[#D4AF37] text-white w-8 h-8 rounded-full flex items-center justify-center font-bold border-2 border-white shadow-sm z-10 text-base font-montserrat">
+          {step.id}
+        </span>
         {step.icon}
       </div>
       <h3 className="text-xl font-bold text-[#0B1215] mb-2 font-montserrat">{step.title}</h3>
