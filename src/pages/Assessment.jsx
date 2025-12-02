@@ -150,8 +150,15 @@ const Assessment = () => {
       // Call API (Mocking the service call if backend isn't ready, but we'll assume service exists)
       const response = await submitAssessment(payload);
       
+      // Normalize response data (handle structure difference between mock and real API)
+      const resultData = response.data || response || payload;
+      // Ensure answers are present (in case mock response doesn't include them fully)
+      if (!resultData.answers) {
+        resultData.answers = answers;
+      }
+
       // Redirect to results with data
-      navigate('/assessment-results', { state: { result: response || payload } });
+      navigate('/assessment-results', { state: { result: resultData } });
       
     } catch (error) {
       console.error("Assessment submission failed", error);
@@ -160,6 +167,7 @@ const Assessment = () => {
         state: { 
           result: {
             ...formData,
+            answers,
             persona: Object.values(answers).find(a => a.type)?.type || "Planner",
             score: Object.values(answers).reduce((a, b) => a + b.score, 0)
           } 
@@ -207,17 +215,24 @@ const Assessment = () => {
               </div>
 
               <div className="grid gap-4">
-                {currentQuestion.options.map((option, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => handleOptionClick(option)}
-                    className="w-full text-left px-6 py-4 border border-gray-200 rounded-lg hover:border-[#D4AF37] hover:bg-[#FFFDF5] transition-all duration-200 group"
-                  >
-                    <span className="font-medium text-gray-700 group-hover:text-black">
-                      {option.text}
-                    </span>
-                  </button>
-                ))}
+                {currentQuestion.options.map((option, idx) => {
+                  const isSelected = answers[currentQuestion.id]?.text === option.text;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => handleOptionClick(option)}
+                      className={`w-full text-left px-6 py-4 border rounded-lg transition-all duration-200 group
+                        ${isSelected 
+                          ? 'border-[#D4AF37] border-2 bg-[#FFFDF5] shadow-md' 
+                          : 'border-gray-200 hover:border-[#D4AF37] hover:bg-[#FFFDF5]'
+                        }`}
+                    >
+                      <span className={`font-medium group-hover:text-black ${isSelected ? 'text-black font-bold' : 'text-gray-700'}`}>
+                        {option.text}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           ) : (
