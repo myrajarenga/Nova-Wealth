@@ -90,7 +90,7 @@ const Navbar = () => {
                 <Link to="/client-center" className="navbar-link" aria-haspopup="true" aria-expanded={isClientOpen}>Client Centre</Link>
                 {isClientOpen && (
                   <div className="dropdown-menu">
-                    <Link to="/client-center/resources" className="dropdown-item">Resources</Link>
+                    <Link to="/client-center/Resources" className="dropdown-item">Resources</Link>
                   </div>
                 )}
               </div>
