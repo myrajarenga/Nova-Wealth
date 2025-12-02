@@ -227,7 +227,6 @@ const WhoWeServe = () => {
   }
   return (
     <div className="wws-page">
-      <IntroSection />
       <div className="page-mobile-dropdown">
         <button type="button" className="dropdown-toggle" onClick={() => setOpen(v => !v)}>
           <span>Segments</span>
@@ -243,6 +242,7 @@ const WhoWeServe = () => {
           </div>
         )}
       </div>
+      <IntroSection />
 
       {/* Alternating rows */}
       <section className="wws-rows-section" aria-label="Audiences">

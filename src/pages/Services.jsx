@@ -173,18 +173,6 @@ const ServicesPage = () => {
   }, [location.hash])
   return (
     <div className="services-page">
-      {/* Hero */}
-      <section className="services-hero" aria-labelledby="services-title">
-        <img className="services-hero-bg" src="/images/home page image.png" alt="Wealth management services" />
-        <div className="services-hero-overlay" />
-        <div className="services-hero-content container">
-          <h1 id="services-title" className="services-hero-title">
-            <span className="services-title-our">Our</span> <span className="services-title-services">Services</span>
-          </h1>
-          <p className="services-hero-subtitle">Comprehensive wealth management solutions tailored to your unique goals and aspirations.</p>
-        </div>
-      </section>
-
       <div className="page-mobile-dropdown">
         <button type="button" className="dropdown-toggle" onClick={() => setOpen(v => !v)}>
           <span>Services</span>
@@ -200,6 +188,18 @@ const ServicesPage = () => {
           </div>
         )}
       </div>
+
+      {/* Hero */}
+      <section className="services-hero" aria-labelledby="services-title">
+        <img className="services-hero-bg" src="/images/home page image.png" alt="Wealth management services" />
+        <div className="services-hero-overlay" />
+        <div className="services-hero-content container">
+          <h1 id="services-title" className="services-hero-title">
+            <span className="services-title-our">Our</span> <span className="services-title-services">Services</span>
+          </h1>
+          <p className="services-hero-subtitle">Comprehensive wealth management solutions tailored to your unique goals and aspirations.</p>
+        </div>
+      </section>
 
       <section className="services-rows-section" aria-label="Services">
         <div className="container">
