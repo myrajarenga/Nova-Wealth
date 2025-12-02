@@ -43,8 +43,7 @@ const About = () => {
   }, [location.hash])
 
   return (
-    <main className="w-full space-y-20 md:space-y-24 bg-white">
-      <IntroSection />
+    <main className="w-full bg-white">
       <div className="page-mobile-dropdown">
         <button type="button" className="dropdown-toggle" onClick={() => setOpen(v => !v)}>
           <span>Sections</span>
@@ -60,6 +59,8 @@ const About = () => {
           </div>
         )}
       </div>
+      <div className="space-y-20 md:space-y-24">
+        <IntroSection />
       <OurStory />
       <OurPurposeSection />
       <ValuesGrid />
@@ -90,6 +91,7 @@ If you’re spending too much or not saving enough to stay on track for your goa
       <OurProcess />
       <TeamGrid />
       <CTASection />
+      </div>
     </main>
   );
 };
