@@ -5,7 +5,7 @@ import './Hero.css';
 const Hero = () => {
   const sequence = [
     { type: 'video', src: '/videos/wrong-wealth-advise.mp4', duration: 8000, variant: 'first' },
-    { type: 'video', src: '/videos/hero-sec-video1.mp4', duration: 13000, variant: 'second' },
+    { type: 'video', src: '/videos/wealth-management.mp4', duration: 13000, variant: 'second' },
     { type: 'image', src: '/images/about us page background image.png', duration: 9000, variant: 'third' }
   ]
   const [index, setIndex] = useState(0)
