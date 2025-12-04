@@ -79,7 +79,8 @@ const ServicesPage = () => {
       bullets: ['Personalized wealth plans',' Portfolio monitoring & rebalancing','Tax-aware strategies'],
       type: 'planning',
       video: '/videos/Financial-Planning-and-Advisory.mp4',
-      caption: 'Financial Planning'
+      // caption: 'Financial Planning',
+      btnText: 'Start Your Financial Planning'
     },
     {
       tag: 'Investment Management',
@@ -89,7 +90,8 @@ const ServicesPage = () => {
       bullets: ['Risk-profiled asset allocation','Active & passive options','Regular performance reviews'],
       type: 'investment',
       video: '/videos/Investment-Management.mp4',
-      caption: 'Investment Management'
+      // caption: 'Investment Management',
+      btnText: 'Start Your Investment Management'
     },
     {
       tag: 'Retirement & Planning',
@@ -99,7 +101,8 @@ const ServicesPage = () => {
       bullets: ['Retirement income modelling','Pension & savings optimisation','Estate planning & suggestions'],
       type: 'retirement',
       video: '/videos/Retirement-and-Pension-Solutions.mp4',
-      caption: 'Retirement Planning'
+      // caption: 'Retirement Planning',
+      btnText: 'Start Your Retirement Plan'
     },
     {
       tag: 'Insurance & Risk Solutions',
@@ -109,7 +112,8 @@ const ServicesPage = () => {
       bullets: ['Asset protection', 'Risk assessment', 'Coverage planning', 'Premium optimization'],
       type: 'insurance',
       video: '/videos/Insurance-and-Risk-Management.mp4',
-      caption: 'Insurance & Risk'
+      // caption: 'Insurance & Risk',
+      btnText: 'Start Your Risk Solutions'
     },
     {
       tag: 'Estate Planning',
@@ -119,7 +123,8 @@ const ServicesPage = () => {
       bullets: ['Wills & trusts guidance','Succession planning','Tax-efficient transfers'],
       type: 'estate',
       video: '/videos/Estate-Planning-and-Trusts.mp4',
-      caption: 'Estate Panning'
+      // caption: 'Estate Panning',
+      btnText: 'Start Your Estate Plan'
     },
     {
       tag: 'Tax Planning & Compliance',
@@ -129,7 +134,8 @@ const ServicesPage = () => {
       bullets: ['Tax-efficient investing','Compliance & reporting support','Cross-border tax guidance'],
       type: 'tax',
       video: '/videos/Tax-Planning-and-Compliance.mp4',
-      caption: 'Tax Planning'
+      // caption: 'Tax Planning',
+      btnText: 'Start Your Tax Planning'
     },
     {
       tag: 'Portfolio Management',
@@ -139,7 +145,8 @@ const ServicesPage = () => {
       bullets: ['Diversification across asset classes','Ongoing risk management','Custom mandates available' ],
       type: 'portfolio',
       video: '/videos/Portfolio-Management.mp4',
-      caption: 'Portfolio management'
+      // caption: 'Portfolio management',
+      btnText: 'Start Your Portfolio Management'
     },
     {
       tag: 'Corporate Advisory',
@@ -149,7 +156,8 @@ const ServicesPage = () => {
       bullets: ['SME planning', 'Cashflow strategy', 'Business restructuring', 'Capital management'],
       type: 'corporate',
       video: '/videos/Corporate-Advisory.mp4',
-      caption: 'Corporate Advisory'
+      // caption: 'Corporate Advisory',
+      btnText: 'Start Your Corporate Advisory'
     }
   ];
   function scrollToId(id) {
@@ -228,6 +236,11 @@ const ServicesPage = () => {
                       </li>
                     ))}
                   </ul>
+                  <div className="service-action-area" style={{ marginTop: '1.5rem' }}>
+                    <Link to="/assessment" className="service-cta-btn">
+                      {s.btnText || 'Start Your Wealth Journey'}
+                    </Link>
+                  </div>
                 </div>
                 <figure className="wws-media">
                   <div className="wws-image-card">
@@ -237,7 +250,6 @@ const ServicesPage = () => {
                       <img src={s.image} alt={`${s.title} illustration`} />
                     )}
                   </div>
-                  <figcaption className="wws-image-caption">{s.caption}</figcaption>
                 </figure>
               </article>
             ))}
