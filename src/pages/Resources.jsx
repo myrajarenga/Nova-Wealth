@@ -1,5 +1,6 @@
 import React from 'react';
 import CTASection from '../components/CTASection';
+import './Resources.css';
 
 // Placeholder data for articles
 const articles = [
@@ -81,12 +82,12 @@ const Resources = () => {
 
         {/* Hero Content */}
         <div className="relative z-20 h-full flex flex-col items-center justify-center text-center px-4">
-          <h1 className="text-white font-montserrat font-bold text-4xl md:text-6xl tracking-wider mb-6 leading-tight uppercase">
+          <h1 className="text-white resources-hero-title font-bold text-4xl md:text-6xl tracking-wider mb-6 leading-tight uppercase">
             The Nova Wealth<br />
             Investment Business<br />
             Review
           </h1>
-          <p className="text-white font-montserrat font-bold text-xl md:text-2xl tracking-widest uppercase border-t-2 border-[#D4AF37] pt-4 mt-2">
+          <p className="text-white resources-hero-subtitle font-bold text-xl md:text-2xl tracking-widest uppercase border-t-2 border-[#D4AF37] pt-4 mt-2">
             Investment News and Updates
           </p>
         </div>

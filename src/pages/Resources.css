@@ -1,0 +1,26 @@
+/* Resources Page Styles */
+
+/* Zoom Out Animation */
+@keyframes zoomOutEntry {
+  0% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.resources-hero-title {
+  font-family: 'Copperplate', 'Copperplate Gothic Light', serif;
+  animation: zoomOutEntry 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  opacity: 0; /* Start hidden */
+}
+
+.resources-hero-subtitle {
+  font-family: 'Copperplate', 'Copperplate Gothic Light', serif;
+  animation: zoomOutEntry 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 0.3s;
+  opacity: 0; /* Start hidden */
+}
