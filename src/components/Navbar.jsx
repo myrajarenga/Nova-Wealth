@@ -118,7 +118,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button 
-            className="mobile-menu-btn"
+            className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             <span></span>
@@ -130,21 +130,74 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="mobile-menu">
-            <Link to="/" className="mobile-menu-link">Home</Link>
-            <Link to="/services" className="mobile-menu-link">Services</Link>
-            <Link to="/who-we-serve" className="mobile-menu-link">Who We Serve</Link>
-            <Link to="/about" className="mobile-menu-link">About Us</Link>
+            <Link to="/" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+            
+            <div className="mobile-dropdown">
+              <div className="mobile-dropdown-header" onClick={() => setIsServicesOpen(!isServicesOpen)}>
+                Services
+                <span>{isServicesOpen ? '−' : '+'}</span>
+              </div>
+              {isServicesOpen && (
+                <div className="mobile-dropdown-content">
+                  <Link to="/services#financial-planning" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Financial Planning</Link>
+                  <Link to="/services#investment-management" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Investment Management</Link>
+                  <Link to="/services#retirement-planning" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Retirement Planning</Link>
+                  <Link to="/services#insurance-risk-solutions" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Insuarance & Risk Solutions</Link>
+                  <Link to="/services#estate-planning" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Estate Planning</Link>
+                  <Link to="/services#tax-planning-compliance" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Tax Planning & Compliance</Link>
+                  <Link to="/services#portfolio-management" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Portfolio Management</Link>
+                  <Link to="/services#corporate-advisory" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Corporate Advisory</Link>
+                  <Link to="/services" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>View All Services</Link>
+                </div>
+              )}
+            </div>
+
+            <div className="mobile-dropdown">
+              <div className="mobile-dropdown-header" onClick={() => setIsServeOpen(!isServeOpen)}>
+                Who We Serve
+                <span>{isServeOpen ? '−' : '+'}</span>
+              </div>
+              {isServeOpen && (
+                <div className="mobile-dropdown-content">
+                  <Link to="/who-we-serve#hni" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>High‑Net‑Worth Individuals</Link>
+                  <Link to="/who-we-serve#growing-professionals" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Growing Professionals</Link>
+                  <Link to="/who-we-serve#diaspora-clients" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Diaspora Clients</Link>
+                  <Link to="/who-we-serve#business-owners" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Business Owners</Link>
+                  <Link to="/who-we-serve#families-multi-generationl-wealth" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Families & Multi‑Gen Wealth</Link>
+                  <Link to="/who-we-serve" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>View All</Link>
+                </div>
+              )}
+            </div>
+
+            <div className="mobile-dropdown">
+              <div className="mobile-dropdown-header" onClick={() => setIsAboutOpen(!isAboutOpen)}>
+                About Us
+                <span>{isAboutOpen ? '−' : '+'}</span>
+              </div>
+              {isAboutOpen && (
+                <div className="mobile-dropdown-content">
+                  <Link to="/about#about-nova-wealth" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>About Nova Wealth</Link>
+                  <Link to="/about#our-story" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Our Story</Link>
+                  <Link to="/about#our-purpose" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Our Purpose</Link>
+                  <Link to="/about#our-values" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Our Values</Link>
+                  <Link to="/about#why-nova-wealth" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Why Nova Wealth</Link>
+                  <Link to="/about#our-process" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Our Process</Link>
+                  <Link to="/about#meet-our-founders" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Meet Our Founders</Link>
+                </div>
+              )}
+            </div>
+
             {isLoggedIn ? (
                <>
-                <Link to="/client-center" className="mobile-menu-link">Client Centre</Link>
-                <Link to="/client-center/resources" className="mobile-menu-link">Resources</Link>
+                <Link to="/client-center" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Client Centre</Link>
+                <Link to="/client-center/resources" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
                </>
             ) : (
-                <Link to="/client-center/resources" className="mobile-menu-link">Resources & Insights</Link>
+                <Link to="/client-center/resources" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Resources & Insights</Link>
             )}
-            <Link to="/contact" className="mobile-menu-link">Contact Us</Link>
-            {!isLoggedIn && <Link to="/login" className="mobile-menu-link">Client Login</Link>}
-            <Link to={isLoggedIn ? "/client-center" : "/assessment"} className="mobile-cta btn-primary">{isLoggedIn ? 'Client Portal' : 'Get Started'}</Link>
+            <Link to="/contact" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link>
+            {!isLoggedIn && <Link to="/login" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Client Login</Link>}
+            <Link to={isLoggedIn ? "/client-center" : "/assessment"} className="mobile-cta btn-primary" onClick={() => setIsMobileMenuOpen(false)}>{isLoggedIn ? 'Client Portal' : 'Get Started'}</Link>
           </div>
         )}
       </div>
