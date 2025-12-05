@@ -59,7 +59,7 @@
 /* Alternating service rows */
 .services-list-section { padding: 2rem 0 3rem; }
 
-.service-rows { display: flex; flex-direction: column; gap: 2rem; }
+.services-rows { display: flex; flex-direction: column; gap: 8rem; }
 
 .service-row {
   display: grid;
@@ -67,6 +67,19 @@
   gap: 1.5rem;
   align-items: start;
 }
+
+/* Override for the services page rows to match spacious design */
+.services-page .wws-row {
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Responsive gap adjustment */
+@media (max-width: 1024px) {
+  .services-rows { gap: 4rem; }
+  .services-page .wws-row { gap: 2rem; }
+}
+
 .service-row.reverse { grid-auto-flow: dense; }
 .service-row.reverse .service-text { order: 2; }
 .service-row.reverse .service-media { order: 1; }

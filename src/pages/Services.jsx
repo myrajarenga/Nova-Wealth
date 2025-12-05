@@ -95,7 +95,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Retirement & Planning',
-      title: 'Retirement Planning',
+      //title: 'Retirement Planning',
       id: 'retirement-planning',
       desc: 'Secure your future with income and savings strategies.',
       bullets: ['Retirement income modelling','Pension & savings optimisation','Estate planning & suggestions'],
