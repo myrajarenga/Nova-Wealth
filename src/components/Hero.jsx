@@ -5,7 +5,8 @@ import './Hero.css';
 const Hero = () => {
   const sequence = [
     { type: 'video', src: '/videos/wrong-wealth-advise.mp4', duration: 8000, variant: 'first' },
-    { type: 'video', src: '/videos/wealth-management.mp4', duration: 9000, variant: 'second' },
+    { type: 'text', src: '', duration: 10000, variant: 'text-intro' },
+    { type: 'video', src: '/videos/wealth-management.mp4', duration: 9000, variant: 'second-video' },
     { type: 'image', src: '/images/home page image.png', duration: 13000, variant: 'third' }
   ]
   const [index, setIndex] = useState(0)
@@ -24,11 +25,11 @@ const Hero = () => {
     
     if (current.variant === 'first') {
       t1 = setTimeout(() => setStep(1), 2800)
-    } else if (current.variant === 'second') {
-      // Typewriter effect for second slide
+    } else if (current.variant === 'text-intro') {
+      // Typewriter effect for text intro
       const fullText = "NOVA WEALTH DELIVERS EXPERT WEALTH MANAGEMENT IN KENYA WITH CLEAR STRATEGIES TO GROW, PROTECT, AND PLAN YOUR FINANCIAL FUTURE."
       
-      // Delay before typing starts (minimal delay to ensure video is ready)
+      // Delay before typing starts
       const startDelay = 500
       
       t1 = setTimeout(() => {
@@ -75,6 +76,8 @@ const Hero = () => {
       <div className="hero-background">
         {sequence[index].type === 'video' ? (
           <video key={index} className="hero-bg-video" src={sequence[index].src} autoPlay muted loop playsInline />
+        ) : sequence[index].type === 'text' ? (
+          <div key={index} className="hero-bg-color" style={{backgroundColor: '#000000', width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: -2}}></div>
         ) : (
           <img key={index} src={sequence[index].src} alt="Background" className="hero-bg-image" />
         )}
@@ -89,7 +92,7 @@ const Hero = () => {
                   <div className={`overlay-line ${step >= 1 ? 'show' : ''}`}>THAT LEAVES YOUR WEALTH AT RISK?</div>
                 </>
               )}
-              {sequence[index].variant === 'second' && (
+              {sequence[index].variant === 'text-intro' && (
                 <div className="overlay-longtext">
                   <span className="gold">{displayedText.slice(0, 11)}</span>
                   {displayedText.slice(11)}
