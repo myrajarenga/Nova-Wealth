@@ -188,11 +188,13 @@
   opacity: 0;
   transform: translateY(8px);
   transition: opacity 0.8s ease, transform 0.8s ease;
-  font-size: 2rem;
+  font-size: 3.5rem;
   font-weight: 700;
   font-family: 'Montserrat', sans-serif; /* Modern, clean look for typing text */
   color: #ffffff;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.25);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
 
 .overlay-line.gold { color: goldenrod; }
@@ -200,14 +202,15 @@
 
 .overlay-longtext {
   color: #ffffff;
-  font-size: 1.8rem;
+  font-size: 2.8rem;
   line-height: 1.4;
-  max-width: 1000px;
+  max-width: 1200px;
   text-align: center;
   font-weight: 700;
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  letter-spacing: 0.15em;
 }
 
 .overlay-longtext .gold { color: #FFD700; }
@@ -229,8 +232,10 @@
 .logo-tagline { 
   color: #ffffff; 
   font-weight: 700; 
-  font-size: 1.25rem;
+  font-size: 1.8rem;
   font-family: 'Montserrat', sans-serif; /* Matches the other typewriter text */
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
 }
 
 @keyframes fadeInHold { from { opacity: 0 } to { opacity: 1 } }
@@ -274,6 +279,21 @@
     margin-bottom: 0.875rem;
   }
 
+  .overlay-line {
+    font-size: 1.8rem;
+    letter-spacing: 0.1em;
+  }
+
+  .overlay-longtext {
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  .logo-tagline {
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+  }
+
   .hero-description {
     font-size: 1.1rem;
     margin-bottom: 2rem;
@@ -315,6 +335,21 @@
 
   .hero-headline {
     font-size: 1.9rem;
+  }
+
+  .overlay-line {
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  .overlay-longtext {
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+  }
+  
+  .logo-tagline {
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
   }
 
   .hero-description {
