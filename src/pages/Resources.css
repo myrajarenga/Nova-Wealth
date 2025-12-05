@@ -13,13 +13,13 @@
 }
 
 .resources-hero-title {
-  font-family: 'Copperplate', 'Copperplate Gothic Light', serif;
+  font-family: 'Montserrat', sans-serif;
   animation: zoomOutEntry 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   opacity: 0; /* Start hidden */
 }
 
 .resources-hero-subtitle {
-  font-family: 'Copperplate', 'Copperplate Gothic Light', serif;
+  font-family: 'Montserrat', sans-serif;
   animation: zoomOutEntry 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: 0.3s;
   opacity: 0; /* Start hidden */

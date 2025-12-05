@@ -9,7 +9,7 @@
   --white-text: #FFFFFF;
   --gray-text: #E5E7EB;
   
-  font-family: 'Open Sans', system-ui, sans-serif;
+  font-family: 'Montserrat', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
   
@@ -46,38 +46,38 @@ body {
 }
 
 h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 3.2em;
   line-height: 1.1;
   font-weight: 700;
 }
 
 h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 2.4em;
   line-height: 1.2;
   font-weight: 600;
 }
 
 h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 1.8em;
   line-height: 1.3;
   font-weight: 600;
 }
 
 h4 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
 }
 
 h5 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
 }
 
 h6 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
 }
 
