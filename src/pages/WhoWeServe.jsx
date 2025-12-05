@@ -78,7 +78,7 @@ const IntroSection = () => (
 );
 
 // Alternating row component (text + image card)
-const AudienceRow = ({ id, tag, title, desc, bullets, type, image, caption, reverse }) => (
+const AudienceRow = ({ id, tag, title, desc, bullets, type, image, caption, reverse, btnText }) => (
   <article id={id} className={`wws-row ${reverse ? 'reverse' : ''}`} aria-label={title}>
     <div className="wws-text">
       
@@ -105,6 +105,12 @@ const AudienceRow = ({ id, tag, title, desc, bullets, type, image, caption, reve
           </li>
         ))}
       </ul>
+
+      <div className="wws-action-area" style={{ marginTop: '2rem' }}>
+        <Link to="/assessment" className="wws-cta-btn">
+          {btnText}
+        </Link>
+      </div>
     </div>
     <figure className="wws-media">
       <div className="wws-image-card">
@@ -144,6 +150,7 @@ const segments = [
     ],
     image: '/images/HNWI.png',
     caption: 'Ksh.1M+ Assets',
+    btnText: 'Unlock Advanced Wealth Solutions',
   },
   {
     key: 'pro',
@@ -158,6 +165,7 @@ const segments = [
     ],
     image: '/images/Career-Growth.png',
     caption: 'Career Growth',
+    btnText: 'Start Your Wealth-Building Journey',
   },
   {
     key: 'diaspora',
@@ -172,6 +180,7 @@ const segments = [
     ],
     image: '/images/Global-reach.png',
     caption: 'Global Reach',
+    btnText: 'Start Your Global Wealth Journey Today',
   },
   {
     key: 'owners',
@@ -186,6 +195,7 @@ const segments = [
     ],
     image: '/images/Enterprise- Focus.png',
     caption: 'Enterprise Focus',
+    btnText: 'Secure Your Business & Family Future',
   },
   {
     key: 'families',
@@ -200,6 +210,7 @@ const segments = [
     ],
     image: '/images/Multi-Generationl-Wealth.png',
     caption: 'Legacy Planning',
+    btnText: 'Protect Your Family Wealth for Generations',
   },
 ];
 
@@ -260,6 +271,7 @@ const WhoWeServe = () => {
                 image={s.image}
                 caption={s.caption}
                 reverse={idx % 2 === 1}
+                btnText={s.btnText}
               />
             ))}
           </div>
