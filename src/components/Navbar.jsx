@@ -73,6 +73,7 @@ const Navbar = () => {
                 <div className="dropdown-menu">
                   <Link to="/about#about-nova-wealth" className="dropdown-item">About Nova Wealth</Link>
                   <Link to="/about#our-story" className="dropdown-item">Our Story</Link>
+                  <Link to="/about#our-purpose" className="dropdown-item">Our Purpose</Link>
                   <Link to="/about#our-values" className="dropdown-item">Our Values</Link>
                   <Link to="/about#why-nova-wealth" className="dropdown-item">Why Nova Wealth</Link>
                   <Link to="/about#our-process" className="dropdown-item">Our Process</Link>

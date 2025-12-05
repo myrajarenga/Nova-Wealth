@@ -15,6 +15,7 @@ const About = () => {
   const anchors = [
     { label: 'About Nova Wealth', id: 'about-nova-wealth' },
     { label: 'Our Story', id: 'our-story' },
+    { label: 'Our Purpose', id: 'our-purpose' },
     { label: 'Our Values', id: 'our-values' },
     { label: 'Why Nova Wealth', id: 'why-nova-wealth' },
     { label: 'Our Process', id: 'our-process' },

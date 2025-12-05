@@ -20,7 +20,7 @@ const OurPurposeSection = () => {
   ];
 
   return (
-    <section className="relative bg-gradient-to-b from-white via-[#FAF8F2] to-[#F9F7F1] text-black py-20 md:py-28 overflow-hidden">
+    <section id="our-purpose" className="relative bg-gradient-to-b from-white via-[#FAF8F2] to-[#F9F7F1] text-black py-20 md:py-28 overflow-hidden">
       <div className="mx-auto max-w-6xl px-4 md:px-6 text-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -49,10 +49,10 @@ const OurPurposeSection = () => {
           {items.map((it, index) => (
             <motion.article
               key={it.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, x: index === 0 ? -100 : 100 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: index * 0.2 }}
+              transition={{ duration: 1.5, delay: 0.2, type: "spring", bounce: 0.2 }}
               className="rounded-2xl bg-white shadow-md border border-[#EAEAEA] p-8 text-left hover:shadow-lg transition-shadow"
             >
               <div className="w-14 h-14 rounded-full bg-[#D4AF37]/20 text-[#D4AF37] flex items-center justify-center text-2xl font-bold mb-4" aria-hidden="true">
