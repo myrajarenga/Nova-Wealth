@@ -1,10 +1,20 @@
 /* Navbar.css */
 .navbar {
   width: 100%;
-  background-color: #000000; /* solid black */
-  position: sticky;
+  background-color: transparent; /* Default transparent for transitions */
+  position: sticky; /* Default sticky for non-home */
   top: 0;
   z-index: 50;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.fixed {
+  position: fixed; /* Overlay for home page */
+}
+
+.navbar.scrolled {
+  background-color: #000000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-container {
@@ -16,14 +26,31 @@
 .navbar-content {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 72px;
+  justify-content: flex-end; /* Push content to right */
+  height: 90px; /* Slightly taller to accommodate logo */
+  transition: height 0.3s ease;
+}
+
+.navbar.scrolled .navbar-content {
+  height: 110px; /* Maintain height for better visibility */
 }
 
 /* Logo */
+.navbar-logo {
+  margin-right: auto; /* Push logo to far left */
+  display: flex;
+  align-items: center;
+}
+
 .navbar-logo img {
-  height: 200px; /* larger logo within 72px navbar height */
+  height: 200px; /* larger logo */
   display: block;
+  transition: height 0.3s ease;
+}
+
+.navbar.scrolled .navbar-logo img {
+  height: 160px; /* Increased from 80px to be more visible */
+  width: auto;
 }
 
 /* Desktop menu */
@@ -31,6 +58,7 @@
   display: flex;
   align-items: center;
   gap: 28px;
+  margin-right: 32px; /* Space between menu and CTA */
 }
 
 .navbar-link {
@@ -39,6 +67,8 @@
   font-weight: 500;
   transition: color 0.2s ease;
   font-family: 'Montserrat', sans-serif;
+  font-size: 15px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Ensure readability on hero */
 }
 
 .navbar-link:hover {

@@ -5,7 +5,7 @@ import './Hero.css';
 const Hero = () => {
   const sequence = [
     { type: 'video', src: '/videos/wrong-wealth-advise.mp4', duration: 8000, variant: 'first' },
-    { type: 'text', src: '', duration: 10000, variant: 'text-intro' },
+    { type: 'text', src: '', duration: 11000, variant: 'text-intro' },
     { type: 'video', src: '/videos/wealth-management.mp4', duration: 9000, variant: 'second-video' },
     { type: 'image', src: '/images/home page image.png', duration: 13000, variant: 'third' }
   ]
@@ -27,7 +27,7 @@ const Hero = () => {
       t1 = setTimeout(() => setStep(1), 2800)
     } else if (current.variant === 'text-intro') {
       // Typewriter effect for text intro
-      const fullText = "NOVA WEALTH DELIVERS EXPERT WEALTH MANAGEMENT IN KENYA WITH CLEAR STRATEGIES TO GROW, PROTECT, AND PLAN YOUR FINANCIAL FUTURE."
+      const fullText = "NOVA WEALTH PROVIDES EXPERT WEALTH MANAGEMENT IN KENYA WITH CLEAR, STRATEGIC SOLUTIONS TO GROW AND PROTECT YOUR FINANCIAL FUTURE."
       
       // Delay before typing starts
       const startDelay = 500
@@ -41,7 +41,7 @@ const Hero = () => {
           } else {
             clearInterval(typeInterval)
           }
-        }, 40) // Speed of typing
+        }, 80) // Speed of typing
       }, startDelay)
     } else if (current.variant === 'third') {
       // Typewriter effect for tagline on third slide
@@ -88,8 +88,8 @@ const Hero = () => {
             <div className="sequence-overlay">
               {sequence[index].variant === 'first' && (
                 <>
-                  <div className={`overlay-line gold ${step >= 0 ? 'show' : ''}`}>ARE YOU TIRED OF CONFUSING FINANCIAL ADVICE</div>
-                  <div className={`overlay-line ${step >= 1 ? 'show' : ''}`}>THAT LEAVES YOUR WEALTH AT RISK?</div>
+                  <div className={`overlay-line gold ${step >= 0 ? 'show' : ''}`}>EXPERIENCE WEALTH MANAGEMENT</div>
+                  <div className={`overlay-line ${step >= 1 ? 'show' : ''}`}>WITHOUT UNCERTAINTY</div>
                 </>
               )}
               {sequence[index].variant === 'text-intro' && (

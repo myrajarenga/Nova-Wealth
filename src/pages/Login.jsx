@@ -10,11 +10,10 @@ export default function Login() {
   const [otp, setOtp] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [stage, setStage] = useState('login')
+  const [stage, setStage] = useState('signup')
   const [qrCode, setQrCode] = useState('')
   const [secret, setSecret] = useState('')
   const [name, setName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [info, setInfo] = useState('')
 
@@ -91,7 +90,6 @@ export default function Login() {
       }
       const svc = await import('../services/authService')
       const payload = { name: String(name).trim(), email: String(email).trim(), password }
-      if (phoneNumber) payload.phoneNumber = phoneNumber
       const res = await svc.register(payload)
       if (res) {
         logout()
@@ -224,11 +222,25 @@ export default function Login() {
       <div className="flex flex-col justify-center md:items-start px-6 md:px-8 py-10 md:col-span-2">
         <div className="w-full max-w-sm">
           <div className="flex items-center gap-3 mb-8">
-          
-            <div className="font-montserrat text-xl font-bold">Client Login</div>
+            <div className="font-montserrat text-xl font-bold">
+              {stage === 'signup' ? 'Sign Up' : (stage === 'login' ? 'Client Login' : 'Account Access')}
+            </div>
           </div>
-        <div className="font-montserrat text-2xl font-bold text-black mb-2">Log in to your account</div>
-        <div className="font-opensans text-sm font-bold text-black mb-4"> Don't have an account?  <a href="#" onClick={(e) => { e.preventDefault(); setStage('signup'); }} className="text-blue-600 font-bold">Sign Up</a></div>
+        
+        {stage === 'login' && (
+          <>
+            <div className="font-montserrat text-2xl font-bold text-black mb-2">Log in to your account</div>
+            <div className="font-opensans text-sm font-bold text-black mb-4"> Don't have an account?  <a href="#" onClick={(e) => { e.preventDefault(); setStage('signup'); }} className="text-blue-600 font-bold">Sign Up</a></div>
+          </>
+        )}
+
+        {stage === 'signup' && (
+          <>
+            <div className="font-montserrat text-2xl font-bold text-black mb-2">Create your account</div>
+            <div className="font-opensans text-sm font-bold text-black mb-4"> Have an account?  <a href="#" onClick={(e) => { e.preventDefault(); setStage('login'); }} className="text-blue-600 font-bold">Log in</a></div>
+          </>
+        )}
+
         {info && (
           <div className="mb-4 rounded-md bg-green-50 text-green-700 px-4 py-3 text-sm">{info}</div>
         )}
@@ -256,8 +268,7 @@ export default function Login() {
             </div>
             <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Signing in...' : 'Sign In'}</button>
             <div className="flex items-center justify-between text-sm">
-              <button type="button" onClick={handleSetup} className="text-black underline">Set up MFA</button>
-              <div className="flex gap-4">
+              <div className="flex gap-4 w-full justify-between">
                 <a href="#" onClick={(e) => { e.preventDefault(); setStage('forgot'); }} className="text-black underline">Forgot password?</a>
                 <a href="#" onClick={(e) => { e.preventDefault(); setStage('signup'); }} className="text-black underline">Create account</a>
               </div>
@@ -303,10 +314,6 @@ export default function Login() {
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Email</label>
               <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-black mb-2">Phone Number (optional)</label>
-              <input type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="+254..." />
             </div>
             <div>
               <label className="block text-sm font-semibold text-black mb-2">Password</label>

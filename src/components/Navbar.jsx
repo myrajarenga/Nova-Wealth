@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getToken } from '../services/authService';
 import './Navbar.css';
@@ -9,11 +9,28 @@ const Navbar = () => {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isServeOpen, setIsServeOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation(); // Force re-render on route change
   const isLoggedIn = !!getToken();
+  
+  const transparentPages = ['/', '/about', '/client-center/resources', '/contact'];
+  const isTransparentPage = transparentPages.includes(location.pathname);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${isTransparentPage ? 'fixed' : ''} ${isScrolled || !isTransparentPage ? 'scrolled' : ''}`}>
       <div className="navbar-container">
         <div className="navbar-content">
           {/* Logo */}
@@ -91,12 +108,12 @@ const Navbar = () => {
                 <Link to="/client-center" className="navbar-link" aria-haspopup="true" aria-expanded={isClientOpen}>Client Centre</Link>
                 {isClientOpen && (
                   <div className="dropdown-menu">
-                    <Link to="/client-center/Resources" className="dropdown-item">Resources</Link>
+                    <Link to="/client-center/resources" className="dropdown-item">Resources</Link>
                   </div>
                 )}
               </div>
             ) : (
-              <Link to="/client-center/resources" className="navbar-link">Resources & Insights</Link>
+              <Link to="/client-center/resources" className="navbar-link">Resources</Link>
             )}
 
             <Link to="/faq" className="navbar-link">FAQ's</Link>
@@ -110,7 +127,7 @@ const Navbar = () => {
                <Link to="/client-center"><button className="btn-primary">Client Portal</button></Link>
             ) : (
               <>
-                <Link to="/login" className="navbar-link">Login</Link>
+                <Link to="/login" className="navbar-link">Sign Up</Link>
                 <Link to="/assessment"><button className="btn-primary">Get Started</button></Link>
               </>
             )}
@@ -193,10 +210,10 @@ const Navbar = () => {
                 <Link to="/client-center/resources" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
                </>
             ) : (
-                <Link to="/client-center/resources" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Resources & Insights</Link>
+                <Link to="/client-center/resources" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
             )}
             <Link to="/contact" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link>
-            {!isLoggedIn && <Link to="/login" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Client Login</Link>}
+            {!isLoggedIn && <Link to="/login" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Sign Up</Link>}
             <Link to={isLoggedIn ? "/client-center" : "/assessment"} className="mobile-cta btn-primary" onClick={() => setIsMobileMenuOpen(false)}>{isLoggedIn ? 'Client Portal' : 'Get Started'}</Link>
           </div>
         )}
