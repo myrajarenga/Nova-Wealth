@@ -71,7 +71,7 @@ const IntroSection = () => (
         <span className="title-black">Who We</span> <span className="title-gold">Serve</span>
       </h1>
       <p className="wws-subtitle">
-        Nova Wealth delivers personalized, expert wealth management for diverse clients — integrating advanced portfolio design, cross‑border planning, and multi‑generational solutions with your goals and values.
+        Expert wealth management for individuals, families, executives, and entrepreneurs in Kenya and beyond — with tailored portfolio strategies, cross-border planning, and long-term wealth protection designed to grow and secure your financial future.
       </p>
     </div>
   </section>

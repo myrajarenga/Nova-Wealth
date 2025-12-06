@@ -203,9 +203,9 @@ const ServicesPage = () => {
         <div className="services-hero-overlay" />
         <div className="services-hero-content container">
           <h1 id="services-title" className="services-hero-title">
-            <span className="services-title-our">Our</span> <span className="services-title-services">Services</span>
+            <span className="services-title-our">Expert Wealth Management</span> <span className="services-title-services">Services in Kenya and Beyound</span>
           </h1>
-          <p className="services-hero-subtitle">Comprehensive wealth management solutions tailored to your unique goals and aspirations.</p>
+          <p className="services-hero-subtitle">Tailored strategies to grow and protect your financial future.</p>
         </div>
       </section>
 

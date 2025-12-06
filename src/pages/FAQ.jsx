@@ -5,66 +5,53 @@ import { Link } from 'react-router-dom';
 // FAQ Data
 const faqData = [
   {
-    category: "About Nova Wealth",
+    category: "About Nova Wealth & Services",
     questions: [
       {
-        q: "What is Nova Wealth?",
-        a: "Nova Wealth is a boutique wealth management firm dedicated to helping individuals, families, and business owners build, preserve, and transfer wealth. We act as your fiduciary partner, providing personalized financial planning and investment strategies tailored to your unique goals."
+        q: "What services does Nova Wealth offer?",
+        a: "Nova Wealth provides end-to-end wealth management services, including financial planning, investment management, portfolio construction and management, retirement planning, risk management, legacy and estate planning, and tax-efficient wealth strategies. Our approach combines global best practices with deep local market expertise."
       },
       {
-        q: "Are you a fiduciary?",
-        a: "Yes. As a fiduciary, we are legally and ethically bound to act in your best interest at all times. We do not sell proprietary products or earn commissions on investment recommendations, ensuring our advice is objective and unbiased."
-      },
-      {
-        q: "Where are you located?",
-        a: "We are based in Nairobi, serving clients locally and across the diaspora. However, we operate as a digital-first firm, allowing us to work seamlessly with clients regardless of their physical location."
+        q: "What makes Nova Wealth different from other wealth management firms?",
+        a: "Nova Wealth is a boutique by design—meaning we provide highly personalized, relationship-driven advisory services. Our team blends global investment insights with a deep understanding of the Kenyan and East African financial landscape. Our difference lies in our deep, relationship-based approach, sophisticated investment research, and a firm-wide commitment to acting as your dedicated fiduciary—meaning your best interests are always our first priority."
       }
     ]
   },
   {
-    category: "Investment Philosophy & Strategy",
+    category: "Who We Serve",
     questions: [
       {
-        q: "What is your investment philosophy?",
-        a: "We believe in a goal-based, long-term investment approach. We focus on asset allocation, diversification, and cost efficiency to maximize returns while managing risk. Our strategies are data-driven and disciplined, avoiding short-term market speculation."
+        q: "Who does Nova Wealth work with?",
+        a: "We primarily serve high-net-worth individuals (HNWIs), working professionals, business owners, and expatriates/diaspora clients seeking structured wealth solutions. Whether you are building wealth, preserving it, or planning your financial legacy, our services are tailored to your unique life stage and goals."
       },
       {
-        q: "How do you manage risk?",
-        a: "Risk management is at the core of our process. We assess your personal risk tolerance and time horizon to construct a portfolio that balances growth potential with preservation. We continuously monitor and rebalance portfolios to ensure they stay aligned with your objectives."
+        q: "I'm a successful professional, but I'm not sure if I have enough assets to need a wealth manager. When is the right time to start?",
+        a: "The right time to build wealth is now. Proactive financial planning is the key to transitioning from being a high earner to being truly wealthy. We help working professionals like you structure your finances from the ground up—managing debt, maximizing investments, saving for retirement, and protecting your income. Starting early allows the power of compounding to work in your favor, setting up a strong foundation for future wealth."
       },
       {
-        q: "Do you use proprietary investment products?",
-        a: "No. We are an independent firm with an open architecture platform. This means we have the freedom to select the best-in-class investment vehicles from the entire market, without any pressure to sell specific products."
+        q: "As a high-net-worth individual, my financial situation is complex. How can you help me?",
+        a: "We specialize in navigating complexity. Our integrated approach brings together all aspects of your financial life—investments, business holdings, real estate, and legacy structures—into a single, coherent strategy. We provide sophisticated solutions for concentrated stock positions, succession planning for family businesses, and advanced tax-efficient strategies to preserve and grow your wealth across generations."
       }
     ]
   },
   {
-    category: "Getting Started",
+    category: "Investment Philosophy & Process",
     questions: [
       {
-        q: "How do I become a client?",
-        a: "Starting is simple. You can book a complimentary Discovery Call through our website. During this session, we'll discuss your financial situation and goals to determine if we are the right fit for each other."
+        q: "How does Nova Wealth develop a personalized financial plan?",
+        a: "We begin with a comprehensive financial discovery session to understand your goals, current financial situation, risk profile, and long-term aspirations. Using this information, we design a customized financial plan that aligns with your objectives and continually adjust it as your circumstances evolve."
       },
       {
-        q: "What is the minimum investment tailored for?",
-        a: "We work with a diverse range of clients. While we specialize in high-net-worth individuals, we also have tailored programs for growing professionals. We recommend booking a consultation to discuss which service tier best suits your current financial standing."
+        q: "What does the financial planning process at Nova Wealth look like?",
+        a: "Our process is collaborative and comprehensive. It begins with a deep discovery session to understand your complete financial picture and life goals. We then analyze your current situation, develop a customized plan, and present our recommendations. Once you approve, we implement the strategy and provide ongoing monitoring and reviews to ensure we stay on track as your life and the markets evolve."
       },
       {
-        q: "What documents do I need for the initial meeting?",
-        a: "For the initial Discovery Call, you don't need to prepare formal documents. Just bring a general idea of your assets, liabilities, income, and—most importantly—your financial goals and questions."
-      }
-    ]
-  },
-  {
-    category: "Retirement, Risk & Legacy Planning",
-    questions: [
-      {
-        q: "Do you help with estate planning?",
-        a: "Yes. We work closely with you to structure your estate plan, ensuring your assets are transferred efficiently and according to your wishes. We often collaborate with your legal advisors to draft wills, trusts, and beneficiary designations."
+        q: "What investment philosophy does Nova Wealth follow?",
+        a: "Our investment philosophy is grounded in principles of long-term value, strategic asset allocation, and evidence-based investing. We believe in constructing well-diversified, resilient portfolios tailored to your specific risk tolerance and time horizon. We avoid chasing short-term trends, focusing instead on high-quality assets and disciplined rebalancing to help you achieve your lifelong financial objectives. Whether investing locally or globally, our aim is to balance risk and return while protecting your capital."
       },
       {
-        q: "Can you help me plan for early retirement?",
-        a: "Absolutely. We specialize in modeling various retirement scenarios. We help you understand how much you need to save, how to invest for growth, and how to structure withdrawals to sustain your lifestyle throughout retirement."
+        q: "Do you provide specific investment products, or is your advice independent?",
+        a: "Our advice is entirely independent and conflict-free. We do not have any proprietary products to sell. This objectivity allows us to select from the best available local and international investment vehicles—including equities, bonds, unit trusts, and alternative assets—to construct a portfolio that is purely in your best interest. Our fee structure is transparent and aligned with your success."
       }
     ]
   },
@@ -72,34 +59,50 @@ const faqData = [
     category: "Specialized Needs",
     questions: [
       {
-        q: "Do you work with business owners?",
-        a: "Yes. We understand the unique challenges business owners face, from cash flow management to succession planning and exit strategies. We help integrate your business finances with your personal wealth plan."
+        q: "Can Nova Wealth manage international or multi-currency investments?",
+        a: "Yes. We support multi-currency portfolios and global investment access, allowing clients—especially expatriates and diaspora investors—to hold, grow, and diversify wealth across regional and international markets."
       },
       {
-        q: "I live abroad. Can you help with cross-border wealth management?",
-        a: "Yes. We have extensive experience working with diaspora clients. We understand the complexities of cross-border investing, tax compliance, and managing assets across different jurisdictions."
+        q: "We are expatriates living in Kenya / part of the diaspora abroad. Can you manage our cross-border financial complexities?",
+        a: "Absolutely. This is a core specialty at Nova Wealth. We understand the unique challenges of international mobility, including tax implications in multiple jurisdictions, currency risk (forex), and navigating diverse regulatory environments. We design portfolios and financial plans that are globally aware, helping you make sound financial decisions whether you are planning to return to Kenya, invest from abroad, or manage assets across borders."
+      },
+      {
+        q: "I'm a busy business owner. How can you help me separate my personal wealth from my business?",
+        a: "This is a critical step for long-term security. We work with you to create a clear demarcation between your corporate and personal finances. This includes strategies for extracting wealth from your business efficiently, building a diversified personal investment portfolio that isn't reliant on the company's performance, and integrating your business exit or succession plan with your personal retirement and legacy goals."
       }
     ]
   },
   {
-    category: "Fees & Independence",
+    category: "Retirement & Legacy Planning",
     questions: [
       {
-        q: "How are you compensated?",
-        a: "We operate on a transparent fee-only or fee-based structure, typically a percentage of assets under management or a flat planning fee. We will fully disclose all fees in writing before we begin our engagement."
+        q: "How does Nova Wealth help clients plan for retirement?",
+        a: "We develop personalised retirement strategies that incorporate income needs, longevity risk, inflation, healthcare costs, and diverse retirement income streams. Our solutions help you accumulate, protect, and distribute retirement assets in a tax-efficient and sustainable way."
       },
       {
-        q: "Are there any hidden fees?",
-        a: "No. Transparency is one of our core values. You will always know exactly what you are paying for our services. We do not receive kickbacks or hidden commissions from third parties."
+        q: "How do you approach risk management beyond investments?",
+        a: "True wealth preservation extends beyond the portfolio. Our risk management approach is holistic. We analyze risks to your income, health, and assets, and advise on appropriate structures and insurance solutions. For business owners, this includes key-person insurance and succession planning. For families, it involves legacy planning and ensuring your wealth is protected and transferred according to your wishes."
+      },
+      {
+        q: "Do you help with estate planning, legacy planning, and wealth transfer?",
+        a: "Yes. Nova Wealth guides clients through creating structured legacy plans, including wills, trusts, succession frameworks for business owners, and inter-generational wealth transfer strategies. We collaborate with legal and tax professionals to ensure your legacy is preserved and efficiently passed on."
       }
     ]
   },
   {
-    category: "For Working Professionals",
+    category: "Getting Started",
     questions: [
       {
-        q: "I'm just starting to build wealth. Can you help?",
-        a: "Yes. Our 'Growing Professionals' service is designed for high-earners who are in the accumulation phase of their wealth journey. We help you establish strong financial habits, optimize your savings, and build a robust investment portfolio."
+        q: "How do you charge for your services?",
+        a: "We believe in complete transparency. Nova Wealth operates primarily on a fee-based model. This aligns our success directly with the growth of your wealth. For specific planning projects, we may offer a fixed fee arrangement. All fees are discussed and agreed upon upfront, with no hidden charges or commissions."
+      },
+      {
+        q: "What is the minimum investment required to work with Nova Wealth?",
+        a: "Nova Wealth offers tailored solutions, and the minimum investment amount depends on the service level selected. Typically, our advisory and investment management services start at a threshold suitable for high-net-worth and affluent clients. We provide clarity on these thresholds during the initial consultation."
+      },
+      {
+        q: "How do I get started with Nova Wealth?",
+        a: "You can begin by scheduling a consultation through our website or contacting us directly. In the initial conversation, we’ll understand your financial goals, discuss your needs, and recommend the most suitable wealth management pathway. This session also helps us determine whether we are a good fit for each other."
       }
     ]
   }
@@ -180,7 +183,7 @@ const FAQ = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-24 px-4 overflow-hidden bg-[#D4AF37]">
+      <section className="relative py-16 px-4 overflow-hidden bg-[#D4AF37]">
         {/* Pattern Overlay */}
         <div className="absolute inset-0 opacity-10" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%230B1215' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
@@ -192,18 +195,9 @@ const FAQ = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#0B1215] mb-8 leading-tight">
-              Still got questions?<br />
-              We've got answers
+            <h1 className="text-4xl md:text-5xl font-bold font-montserrat text-[#0B1215] mb-0 leading-tight">
+              FAQs
             </h1>
-            <div className="space-y-4">
-              <p className="text-lg md:text-xl text-[#0B1215] font-medium max-w-3xl mx-auto font-opensans leading-relaxed">
-                Find all the information you need about our services, investments, and financial planning in one place.
-              </p>
-              <p className="text-lg md:text-xl text-[#0B1215] font-medium max-w-3xl mx-auto font-opensans leading-relaxed">
-                Can't find what you're looking for? We're just a message away.
-              </p>
-            </div>
           </motion.div>
         </div>
       </section>

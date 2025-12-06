@@ -116,7 +116,7 @@ const Navbar = () => {
               <Link to="/client-center/resources" className="navbar-link">Resources</Link>
             )}
 
-            <Link to="/faq" className="navbar-link">FAQ's</Link>
+            <Link to="/faq" className="navbar-link">FAQs</Link>
             <Link to="/contact" className="navbar-link">Contact Us</Link>
           </div>
            
