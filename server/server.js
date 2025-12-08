@@ -34,7 +34,8 @@ app.get('/', (req, res) => {
 app.use('/api/auth', authRoutes)
 app.use('/api/leads', leadRoutes)
 
-const port = config.port
+const port = process.env.PORT || config.port || 5000;
+
 
 async function start() {
   try {
