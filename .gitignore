@@ -3,3 +3,8 @@ node_modules/
 dist/ 
 .vercel
 .env*.local
+
+.dev.vars
+server/.dev.vars
+*.vars
+

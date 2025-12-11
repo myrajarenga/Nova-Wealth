@@ -1,59 +1,93 @@
 require('dotenv').config();
 
-const express = require('express')
-const cors = require('cors')
-const helmet = require('helmet')
-const morgan = require('morgan')
-const { config } = require('./config')
-const authRoutes = require('./routes/authRoutes')
-const leadRoutes = require('./routes/leadRoutes')
-const mongoose = require('mongoose')
+const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
 
-const app = express()
+const { config } = require('./config');
+const authRoutes = require('./routes/authRoutes');
+const leadRoutes = require('./routes/leadRoutes');
 
-app.use(helmet())
-app.use(cors({
-  origin: [
-    "https://nova-wealth-sigma.vercel.app",
-    "http://localhost:5173",
-    process.env.FRONTEND_URL
-  ].filter(Boolean),
-  credentials: true
-}))
+const app = express();
 
-app.use(express.json())
-app.use(morgan(config.logFormat))
+// ---------------------
+// Security & Performance
+// ---------------------
+app.use(helmet());
+app.use(compression()); // gzip compression
 
+// CORS handling
+app.use(
+  cors({
+    origin: [
+      "https://nova-wealth-sigma.vercel.app",
+      "http://localhost:5173",
+      process.env.FRONTEND_URL
+    ].filter(Boolean),
+    credentials: true
+  })
+);
+
+// JSON parsing
+app.use(express.json());
+
+// Smart logging (less noisy in production)
+app.use(
+  morgan(process.env.NODE_ENV === 'production' ? 'combined' : config.logFormat)
+);
+
+// ---------------------
+// Health Check
+// ---------------------
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', env: config.env })
-})
+  res.json({
+    status: 'ok',
+    env: config.env,
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
+  });
+});
+
+// Home route
 app.get('/', (req, res) => {
-  res.send('Nova Wealth API is running.')
-})
+  res.send('Nova Wealth API is running.');
+});
 
-app.use('/api/auth', authRoutes)
-app.use('/api/leads', leadRoutes)
+// ---------------------
+// Routes
+// ---------------------
+app.use('/api/auth', authRoutes);
+app.use('/api/leads', leadRoutes);
 
+// ---------------------
+// Start Server
+// ---------------------
 const port = process.env.PORT || config.port || 5000;
-
 
 async function start() {
   try {
     if (!process.env.MONGO_URI) {
-      console.error('❌ MONGO_URI is missing. Server cannot start.')
-      process.exit(1)
+      console.error('❌ Missing MONGO_URI. Cannot start server.');
+      process.exit(1);
     }
 
-    await mongoose.connect(process.env.MONGO_URI)
+    console.log('⏳ Connecting to MongoDB...');
+    await mongoose.connect(process.env.MONGO_URI, {
+      autoIndex: false, // faster for production
+    });
 
-    app.listen(port, () => {
-      console.log(`server listening on http://localhost:${port}`)
-    })
-    
+    console.log('✅ MongoDB connected.');
+
+    // --- Export for Cloudflare Worker ---
+    module.exports = app;
+
   } catch (err) {
-    console.error('mongo connection error')
-    process.exit(1)
+    console.error('❌ MongoDB connection error:', err.message);
+    process.exit(1);
   }
 }
 
-start()
+start();

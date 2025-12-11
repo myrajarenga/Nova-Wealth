@@ -115,7 +115,9 @@ export default function Login() {
         navigate('/client-center')
       }
     } catch (err) {
-      setError('Invalid code. Try again.')
+      console.error("MFA Verify Error:", err);
+      const msg = err?.response?.data?.message || err?.message || 'Invalid code. Try again.';
+      setError(msg)
     } finally {
       setLoading(false)
     }
@@ -149,8 +151,8 @@ export default function Login() {
   const openGooglePopup = () => {
     // Construct the redirect URL for the frontend callback
     const redirect = `${window.location.origin}/oauth/callback`
-    // Use the API URL from environment variables or fallback
-    const baseUrl = import.meta.env.VITE_API_URL || 'https://nova-wealth-1.onrender.com'
+    // Use the API URL from environment variables or fallback to current origin
+    const baseUrl = import.meta.env.VITE_API_URL || window.location.origin;
     // Redirect to backend Google OAuth endpoint
     const url = `${baseUrl}/api/auth/google?redirect=${encodeURIComponent(redirect)}`
     

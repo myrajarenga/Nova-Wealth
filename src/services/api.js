@@ -1,9 +1,15 @@
 import axios from 'axios'
 
+// In development, we use the Vite proxy.
+// In production (Cloudflare Pages), Functions are on the same origin, so we use relative path.
+const baseURL = import.meta.env.VITE_API_URL || '';
+
+console.log('[API] Initializing with baseURL:', baseURL || '(relative)');
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://nova-wealth-1.onrender.com',
+  baseURL: baseURL,
   withCredentials: true,
-  timeout: 15000,
+  timeout: 60000, // Increased to 60s for cold starts
   headers: {
     'Content-Type': 'application/json'
   }
