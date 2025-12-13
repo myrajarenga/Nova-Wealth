@@ -7,7 +7,9 @@ const Hero = () => {
     { type: 'video', src: '/videos/wrong-wealth-advise.mp4', duration: 8000, variant: 'first' },
     { type: 'text', src: '', duration: 11000, variant: 'text-intro' },
     { type: 'video', src: '/videos/wealth-management.mp4', duration: 9000, variant: 'second-video' },
+    { type: 'video', src: '/videos/wealth-management.mp4', duration: 9000, variant: 'second-video' },
     { type: 'image', src: '/images/home page image.png', duration: 13000, variant: 'third' }
+  
   ]
   const [index, setIndex] = useState(0)
   const [step, setStep] = useState(0)
