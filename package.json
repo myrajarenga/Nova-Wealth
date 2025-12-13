@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "pages:dev": "wrangler pages dev . --port 8788",
+    "build:backend": "echo 'Backend deployment - Skipping frontend build'",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "crop-team-images": "node ./scripts/crop-team-images.js",
