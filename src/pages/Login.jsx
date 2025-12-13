@@ -149,11 +149,9 @@ export default function Login() {
   }
 
   const openGooglePopup = () => {
-    // Construct the redirect URL for the frontend callback
     const redirect = `${window.location.origin}/oauth/callback`
-    // Use the API URL from environment variables or fallback to current origin
-    const baseUrl = import.meta.env.VITE_API_URL || window.location.origin;
-    // Redirect to backend Google OAuth endpoint
+    const rawBase = import.meta.env.VITE_API_URL || window.location.origin
+    const baseUrl = rawBase.replace(/\/+$/, '')
     const url = `${baseUrl}/api/auth/google?redirect=${encodeURIComponent(redirect)}`
     
     // Open popup
