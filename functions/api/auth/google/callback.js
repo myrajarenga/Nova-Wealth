@@ -1,5 +1,5 @@
 import generateToken from '../../../utils/generateToken.js';
-import crypto from 'crypto';
+import crypto from 'node:crypto';
 import { connectDB } from '../../../utils/db.js';
 import User from '../../../models/User.js';
 import { sendEmail } from '../../../utils/email.js';
