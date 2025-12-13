@@ -1,7 +1,7 @@
 import User from '../../models/User.js';
 import generateToken from '../../utils/generateToken.js';
 import { connectDB } from '../../utils/db.js';
-import nodemailer from 'nodemailer';
+import { sendEmail } from '../../utils/email.js';
 
 export const onRequestPost = async (context) => {
   const { request, env } = context;
@@ -29,25 +29,22 @@ export const onRequestPost = async (context) => {
         await user.save();
 
         let sent = false;
-        if (env.EMAIL_USER && env.EMAIL_PASS) {
-            try {
-              const transporter = nodemailer.createTransport({
-                host: 'mail.novawealth.co.ke',
-                port: 465,
-                secure: true,
-                auth: { user: env.EMAIL_USER, pass: env.EMAIL_PASS }
-              });
-              await transporter.sendMail({
-                from: env.EMAIL_USER,
-                to: user.email,
-                subject: 'Your Nova Wealth login code',
-                text: `Your login verification code is ${code}. It expires in 10 minutes.`
-              });
-              sent = true;
-            } catch (e) {
-              console.error('Email send failed:', e);
-              sent = false;
-            }
+        const emailSubject = 'Your Nova Wealth login code';
+        const emailHtml = `
+          <div style="font-family: Arial, sans-serif; padding: 20px;">
+            <h2>Verify your login</h2>
+            <p>Your login verification code is:</p>
+            <h1 style="color: #D4AF37; letter-spacing: 5px;">${code}</h1>
+            <p>This code will expire in 10 minutes.</p>
+          </div>
+        `;
+
+        try {
+          const result = await sendEmail(user.email, emailSubject, emailHtml, env);
+          sent = !!(result && result.success && !result.simulated);
+        } catch (e) {
+          console.error('Email send failed:', e);
+          sent = false;
         }
 
         return new Response(JSON.stringify({ 

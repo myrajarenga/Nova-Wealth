@@ -1,6 +1,6 @@
 import Lead from '../../models/Lead.js';
 import { connectDB } from '../../utils/db.js';
-import nodemailer from 'nodemailer';
+import { sendEmail } from '../../utils/email.js';
 
 export const onRequestPost = async (context) => {
   const { request, env } = context;
@@ -27,36 +27,25 @@ export const onRequestPost = async (context) => {
     });
 
     if (lead) {
-      if (env.EMAIL_USER && env.EMAIL_PASS) {
-         try {
-           const transporter = nodemailer.createTransport({
-             service: 'gmail', 
-             auth: {
-               user: env.EMAIL_USER,
-               pass: env.EMAIL_PASS
-             }
-           });
+      const emailSubject = `New Website Lead: ${name} (${source})`;
+      const emailHtml = `
+        <div style="font-family: Arial, sans-serif; padding: 20px;">
+          <h2>New submission from the Nova Wealth Website</h2>
+          <p><strong>Source:</strong> ${source}</p>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Subject:</strong> ${subject || 'N/A'}</p>
+          <p><strong>Message:</strong></p>
+          <p>${message || 'N/A'}</p>
+          <p>This lead has been saved to the database.</p>
+        </div>
+      `;
 
-           await transporter.sendMail({
-             from: env.EMAIL_USER,
-             to: 'info@novawealth.com',
-             subject: `New Website Lead: ${name} (${source})`,
-             text: `
-                 You have a new submission from the Nova Wealth Website.
-                 
-                 Source: ${source}
-                 Name: ${name}
-                 Email: ${email}
-                 Phone: ${phone}
-                 Subject: ${subject || 'N/A'}
-                 Message: ${message || 'N/A'}
-                 
-                 This lead has been saved to the database.
-             `
-           });
-         } catch (error) {
-           console.error('Error sending email:', error);
-         }
+      try {
+        await sendEmail('info@novawealth.com', emailSubject, emailHtml, env);
+      } catch (error) {
+        console.error('Error sending email:', error);
       }
 
       return new Response(JSON.stringify(lead), { status: 201 });
