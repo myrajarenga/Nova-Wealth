@@ -1,6 +1,6 @@
-import generateToken from '../../../utils/generateToken';
-import { connectDB } from '../../../utils/db';
-import User from '../../../models/User';
+import generateToken from '../../../utils/generateToken.js';
+import { connectDB } from '../../../utils/db.js';
+import User from '../../../models/User.js';
 
 export const onRequestPost = async (context) => {
   const { request, env } = context;

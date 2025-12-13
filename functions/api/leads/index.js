@@ -1,10 +1,20 @@
-import Lead from '../../models/Lead';
+import Lead from '../../models/Lead.js';
+import { connectDB } from '../../utils/db.js';
 import nodemailer from 'nodemailer';
 
 export const onRequestPost = async (context) => {
   const { request, env } = context;
 
   try {
+    // Connect to DB
+    if (env.MONGO_URI) {
+      const dbPromise = connectDB(env.MONGO_URI);
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Database connection timed out')), 15000)
+      );
+      await Promise.race([dbPromise, timeoutPromise]);
+    }
+
     const { name, email, phone, subject, message, source } = await request.json();
 
     const lead = await Lead.create({

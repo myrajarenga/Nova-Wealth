@@ -1,4 +1,4 @@
-import { connectDB } from '../utils/db';
+import { connectDB } from '../utils/db.js';
 import mongoose from 'mongoose';
 
 export const onRequest = async (context) => {

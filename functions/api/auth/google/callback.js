@@ -1,8 +1,8 @@
-import generateToken from '../../../utils/generateToken';
+import generateToken from '../../../utils/generateToken.js';
 import crypto from 'crypto';
-import { connectDB } from '../../../utils/db';
-import User from '../../../models/User';
-import { sendEmail } from '../../../utils/email';
+import { connectDB } from '../../../utils/db.js';
+import User from '../../../models/User.js';
+import { sendEmail } from '../../../utils/email.js';
 
 export const onRequestGet = async (context) => {
   const { request, env } = context;

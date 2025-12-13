@@ -1,7 +1,7 @@
 
 export const sendEmail = async (to, subject, html, env) => {
   // Check if we have a Resend API Key
-  const RESEND_API_KEY = env.RESEND_API_KEY;
+  const RESEND_API_KEY = env.RESEND_API_KEY ? env.RESEND_API_KEY.trim() : null;
 
   if (RESEND_API_KEY) {
     try {

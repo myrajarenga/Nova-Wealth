@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
-import { connectDB } from '../../utils/db';
-import User from '../../models/User';
+import { connectDB } from '../../utils/db.js';
+import User from '../../models/User.js';
 
 export const onRequestGet = async (context) => {
   const { request, env } = context;
