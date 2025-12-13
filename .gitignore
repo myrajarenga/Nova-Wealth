@@ -7,4 +7,4 @@ dist/
 .dev.vars
 server/.dev.vars
 *.vars
-
+.wrangler/
