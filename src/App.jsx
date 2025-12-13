@@ -26,17 +26,16 @@ function App() {
       <Navbar />
       <main>
         <Routes>
+          {/* redeploy trigger */}
           <Route
             path="/"
             element={(
               <>
                 <Hero />
                 <ServiceHighlights />
-                <CTASection />
               </>
             )}
           />
-          //redeploy trigger
           <Route path="/services" element={<Services />} />
           <Route path="/who-we-serve" element={<WhoWeServe />} />
           <Route path="/about" element={<About />} />

@@ -105,9 +105,9 @@ const ServicesPage = () => {
       btnText: 'Start Your Retirement Plan'
     },
     {
-      tag: 'Insurance & Risk Solutions',
+      tag: 'Insuarance & Risk Solutions',
       //title: 'Insuarance & Risk Solutions',
-      id: 'insurance-risk-solutions',
+      id: 'insuarance-risk-solutions',
       desc: 'Protect assets through risk assessment, coverage planning and optimization.',
       bullets: ['Asset protection', 'Risk assessment', 'Coverage planning', 'Premium optimization'],
       type: 'insurance',
@@ -149,15 +149,15 @@ const ServicesPage = () => {
       btnText: 'Start Your Portfolio Management'
     },
     {
-      tag: 'Corporate Advisory',
-      //title: 'Corporate Advisory',
+      tag: 'SME and Corporate Advisory',
+      //title: 'SME and Corporate Advisory',
       id: 'corporate-advisory',
       desc: 'Optimize SME planning, cashflow, restructuring and capital management.',
-      bullets: ['SME planning', 'Cashflow strategy', 'Business restructuring', 'Capital management'],
+      bullets: ['Corporate and SME Planning', 'Cashflow strategy', 'Business restructuring', 'Capital management'],
       type: 'corporate',
       video: '/videos/Corporate-Advisory.mp4',
-      // caption: 'Corporate Advisory',
-      btnText: 'Start Your Corporate Advisory'
+      // caption: 'SME and Corporate Advisory',
+      btnText: 'Talk to an Advisor'
     }
   ];
   function scrollToId(id) {
@@ -237,8 +237,8 @@ const ServicesPage = () => {
                     ))}
                   </ul>
                   <div className="service-action-area" style={{ marginTop: '1.5rem' }}>
-                    <Link to="/assessment" className="service-cta-btn">
-                      {s.btnText || 'Start Your Wealth Journey'}
+                    <Link to="/contact" className="service-cta-btn">
+                      {s.btnText || 'Talk to an Advisor'}
                     </Link>
                   </div>
                 </div>
@@ -262,11 +262,10 @@ const ServicesPage = () => {
       {/* CTA band */}
       <section className="services-cta-band" aria-labelledby="cta-heading">
         <div className="container cta-container">
-          <h2 id="cta-heading" className="cta-title">Ready to Start Your Wealth Journey?</h2>
-          <p className="cta-subtext">Book an appointment with our wealth management experts and discover how we can help you achieve your financial goals.</p>
+          <h2 id="cta-heading" className="cta-title">Ready to Talk to an Advisor?</h2>
+          <p className="cta-subtext">Connect with our wealth management experts and discover how we can help you achieve your financial goals.</p>
           <div className="cta-actions">
-            <Link to="/assessment" className="btn btn-outline-light">Book Appointment</Link>
-            
+            <Link to="/contact" className="btn btn-outline-light">Book Appointment</Link>
             <Link to="/contact" className="btn btn-light">
               Contact Us
               </Link>

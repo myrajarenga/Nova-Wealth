@@ -55,11 +55,11 @@ const Navbar = () => {
                   <Link to="/services#financial-planning" className="dropdown-item">Financial Planning</Link>
                   <Link to="/services#investment-management" className="dropdown-item">Investment Management</Link>
                   <Link to="/services#retirement-planning" className="dropdown-item">Retirement Planning</Link>
-                  <Link to="/services#insurance-risk-solutions" className="dropdown-item">Insuarance & Risk Solutions</Link>
+                  <Link to="/services#insurance-risk-solutions" className="dropdown-item">Insurance & Risk Solutions</Link>
                   <Link to="/services#estate-planning" className="dropdown-item">Estate Planning</Link>
                   <Link to="/services#tax-planning-compliance" className="dropdown-item">Tax Planning & Compliance</Link>
                   <Link to="/services#portfolio-management" className="dropdown-item">Portfolio Management</Link>
-                  <Link to="/services#corporate-advisory" className="dropdown-item">Corporate Advisory</Link>
+                  <Link to="/services#corporate-advisory" className="dropdown-item">SME and Corporate Advisory</Link>
                 </div>
               )}
             </div>
@@ -75,7 +75,7 @@ const Navbar = () => {
                   <Link to="/who-we-serve#hni" className="dropdown-item">High‑Net‑Worth Individuals (HNWI)</Link>
                   <Link to="/who-we-serve#growing-professionals" className="dropdown-item">Growing Professionals</Link>
                   <Link to="/who-we-serve#diaspora-clients" className="dropdown-item">Diaspora Clients</Link>
-                  <Link to="/who-we-serve#business-owners" className="dropdown-item">Business Owners</Link>
+                  <Link to="/who-we-serve#business-owners" className="dropdown-item">Entrepreneurs</Link>
                   <Link to="/who-we-serve#families-multi-generationl-wealth" className="dropdown-item">Families & Multi‑Generationl-Wealth</Link>
                 </div>
               )}
@@ -128,7 +128,7 @@ const Navbar = () => {
             ) : (
               <>
                 <Link to="/login" className="navbar-link">Sign Up</Link>
-                <Link to="/assessment"><button className="btn-primary">Get Started</button></Link>
+                <Link to="/contact"><button className="btn-primary">Book Appointment</button></Link>
               </>
             )}
           </div>
@@ -159,11 +159,11 @@ const Navbar = () => {
                   <Link to="/services#financial-planning" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Financial Planning</Link>
                   <Link to="/services#investment-management" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Investment Management</Link>
                   <Link to="/services#retirement-planning" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Retirement Planning</Link>
-                  <Link to="/services#insurance-risk-solutions" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Insuarance & Risk Solutions</Link>
+                  <Link to="/services#insurance-risk-solutions" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Insurance & Risk Solutions</Link>
                   <Link to="/services#estate-planning" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Estate Planning</Link>
                   <Link to="/services#tax-planning-compliance" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Tax Planning & Compliance</Link>
                   <Link to="/services#portfolio-management" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Portfolio Management</Link>
-                  <Link to="/services#corporate-advisory" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Corporate Advisory</Link>
+                  <Link to="/services#corporate-advisory" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>SME and Corporate Advisory</Link>
                   <Link to="/services" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>View All Services</Link>
                 </div>
               )}
@@ -179,7 +179,7 @@ const Navbar = () => {
                   <Link to="/who-we-serve#hni" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>High‑Net‑Worth Individuals</Link>
                   <Link to="/who-we-serve#growing-professionals" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Growing Professionals</Link>
                   <Link to="/who-we-serve#diaspora-clients" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Diaspora Clients</Link>
-                  <Link to="/who-we-serve#business-owners" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Business Owners</Link>
+                  <Link to="/who-we-serve#business-owners" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Entrepreneurs</Link>
                   <Link to="/who-we-serve#families-multi-generationl-wealth" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Families & Multi‑Gen Wealth</Link>
                   <Link to="/who-we-serve" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>View All</Link>
                 </div>
@@ -214,7 +214,7 @@ const Navbar = () => {
             )}
             <Link to="/contact" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link>
             {!isLoggedIn && <Link to="/login" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Sign Up</Link>}
-            <Link to={isLoggedIn ? "/client-center" : "/assessment"} className="mobile-cta btn-primary" onClick={() => setIsMobileMenuOpen(false)}>{isLoggedIn ? 'Client Portal' : 'Get Started'}</Link>
+            <Link to={isLoggedIn ? "/client-center" : "/contact"} className="mobile-cta btn-primary" onClick={() => setIsMobileMenuOpen(false)}>{isLoggedIn ? 'Client Portal' : 'Talk to an Advisor'}</Link>
           </div>
         )}
       </div>

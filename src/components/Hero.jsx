@@ -110,8 +110,8 @@ const Hero = () => {
               )}
             </div>
             <div className="hero-buttons">
-              <Link to="/assessment" className="btn-primary hero-btn">Start Your Wealth Journey Today</Link>
-              <Link to="/assessment" className="btn-outline-gold hero-btn">Book Appointment</Link>
+              <Link to="/contact" className="btn-primary hero-btn">Talk to an Advisor</Link>
+              <Link to="/contact" className="btn-outline-gold hero-btn">Book Appointment</Link>
             </div>
           </div>
         </div>

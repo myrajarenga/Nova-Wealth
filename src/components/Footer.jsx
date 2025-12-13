@@ -14,9 +14,7 @@ const Footer = () => {
               alt="Nova Wealth Logo"
               className="footer-logo"
             />
-            
-          
-            <p className="footer-tagline"><i>Securing Tomorrow’s Legacy, Today.</i></p>
+            <p className="footer-tagline"><i>Securing Tomorrow’s Legacy, Today.</i></p>
 
             <p className="footer-tagline">Building lasting wealth through personalized financial strategies and expert guidance.</p>
           </div>
@@ -32,7 +30,7 @@ const Footer = () => {
               <li><Link to="/services#estate-planning" className="footer-link">Estate Planning</Link></li>
               <li><Link to="/services#tax-planning-compliance" className="footer-link">Tax Planning & Compliance</Link></li>
               <li><Link to="/services#portfolio-management" className="footer-link">Portfolio Management</Link></li>
-              <li><Link to="/services#corporate-advisory" className="footer-link">Corporate Advisory</Link></li>
+              <li><Link to="/services#corporate-advisory" className="footer-link">SME and Corporate Advisory</Link></li>
             </ul>
           </div>
 

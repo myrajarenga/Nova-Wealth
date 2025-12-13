@@ -2,11 +2,59 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const values = [
-  { title: "Innovation", desc: "Forward-thinking strategies and digital tools to enhance outcomes.", icon: "💡" },
-  { title: "Expertise", desc: "Institutional-grade research and disciplined risk management.", icon: "📈" },
-  { title: "Client Focus", desc: "Personalized portfolios aligned with goals, values, and risk.", icon: "🎯" },
-  { title: "Integrity", desc: "Transparent fees, clear reporting, and fiduciary responsibility.", icon: "🛡️" },
-  { title: "Collaboration", desc: "Working with your advisors to deliver holistic solutions.", icon: "🤝" },
+  {
+    title: "Innovation",
+    desc: "Forward-thinking strategies and digital tools to enhance outcomes.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 3a7 7 0 00-4 12.75V18a1 1 0 001 1h6a1 1 0 001-1v-2.25A7 7 0 0012 3z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M10 21h4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Expertise",
+    desc: "Institutional-grade research and disciplined risk management.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M4 19h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M7 15l3-6 3 4 4-8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M6 11v8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Client Focus",
+    desc: "Personalized portfolios aligned with goals, values, and risk.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="12" cy="8" r="3" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M5 21a7 7 0 0114 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Integrity",
+    desc: "Transparent fees, clear reporting, and fiduciary responsibility.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M12 3l7 4v6c0 4-3 7-7 8-4-1-7-4-7-8V7l7-4z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    ),
+  },
+  {
+    title: "Collaboration",
+    desc: "Working with your advisors to deliver holistic solutions.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="7" cy="8" r="2.5" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="17" cy="8" r="2.5" stroke="currentColor" strokeWidth="1.8" />
+        <path d="M3.5 19a4.5 4.5 0 019 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+        <path d="M11.5 19a4.5 4.5 0 019 0" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    ),
+  },
 ];
 
 const ValuesGrid = () => {

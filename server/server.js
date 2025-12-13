@@ -76,14 +76,16 @@ async function start() {
 
     console.log('⏳ Connecting to MongoDB...');
     await mongoose.connect(process.env.MONGO_URI, {
-      autoIndex: false, // faster for production
+      autoIndex: false,
     });
 
     console.log('✅ MongoDB connected.');
 
-    // --- Export for Cloudflare Worker ---
-    module.exports = app;
+    app.listen(port, () => {
+      console.log(`🚀 Nova Wealth API listening on port ${port}`);
+    });
 
+    module.exports = app;
   } catch (err) {
     console.error('❌ MongoDB connection error:', err.message);
     process.exit(1);

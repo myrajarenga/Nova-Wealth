@@ -54,7 +54,11 @@ const IntroSection = () => {
             every generation.
           </p>
 
-          <div className="mt-10">
+          <p className="font-montserrat font-bold text-[#D4AF37] text-base md:text-lg mt-6">
+            Securing Tomorrow’s Legacy, Today
+          </p>
+
+          <div className="mt-6">
             <a
               href="/contact"
               className="inline-block bg-[#D4AF37] text-black font-semibold px-8 py-3 rounded-lg hover:bg-[#c39b32] transition-all duration-300 shadow-lg"
@@ -64,12 +68,6 @@ const IntroSection = () => {
           </div>
         </div>
       </div>
-
-      {/* Bottom text */}
-      <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-[#D4AF37] text-sm tracking-wide">
-        Securing Tomorrow’s Legacy, Today
-      </div>
-
       {/* CUSTOM KEYFRAMES */}
       <style>{`
         @keyframes fadeSlide {

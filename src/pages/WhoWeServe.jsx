@@ -107,8 +107,8 @@ const AudienceRow = ({ id, tag, title, desc, bullets, type, image, caption, reve
       </ul>
 
       <div className="wws-action-area" style={{ marginTop: '2rem' }}>
-        <Link to="/assessment" className="wws-cta-btn">
-          {btnText}
+        <Link to="/contact" className="wws-cta-btn">
+          {btnText || 'Talk to an Advisor'}
         </Link>
       </div>
     </div>
@@ -122,18 +122,37 @@ const AudienceRow = ({ id, tag, title, desc, bullets, type, image, caption, reve
 );
 
 // CTA section
-const CTASection = () => (
-  <section className="wws-cta-band" aria-labelledby="wws-cta-title">
-    <div className="container cta-container">
-      <h2 id="wws-cta-title" className="cta-title">See How We Can Help You</h2>
-      <p className="cta-subtext">Book an appointment with Nova Wealth to explore a strategy tailored to you.</p>
-      <div className="cta-actions">
-        <Link to="/assessment" className="btn btn-outline-light" aria-label="Book Appointment">Book Appointment</Link>
-        <Link to="/contact" className="btn btn-light" aria-label="Contact Nova Wealth">Contact Us</Link>
+const CTASection = () => {
+  const handleTalkToAdvisor = (e) => {
+    e.preventDefault();
+    if (window.Calendly) {
+      window.Calendly.initPopupWidget({
+        url: 'https://calendly.com/novawealth-info/30min'
+      });
+    } else {
+      window.location.href = 'https://calendly.com/novawealth-info/30min';
+    }
+  };
+
+  return (
+    <section className="wws-cta-band" aria-labelledby="wws-cta-title">
+      <div className="container cta-container">
+        <h2 id="wws-cta-title" className="cta-title">See How We Can Help You</h2>
+        <p className="cta-subtext">Book an appointment with Nova Wealth to explore a strategy tailored to you or,</p>
+        <div className="cta-actions">
+          <button
+            type="button"
+            onClick={handleTalkToAdvisor}
+            className="btn btn-outline-light"
+            aria-label="Talk to an Advisor"
+          >
+            Talk to an Advisor
+          </button>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 // Page data with images and captions for alternating layout
 const segments = [
@@ -185,7 +204,7 @@ const segments = [
   {
     key: 'owners',
     id: 'business-owners',
-    tag: 'Business Owners',
+    tag: 'Entrepreneurs',
     //title: 'Aligning Business Success with Personal Wealth',
     desc: 'As a business owner, your personal and business finances are intricately connected. We help you optimize both sides of the equation, from business succession planning to personal wealth extraction strategies that maximize your financial potential.',
     bullets: [
@@ -211,6 +230,20 @@ const segments = [
     image: '/images/Multi-Generationl-Wealth.png',
     caption: 'Legacy Planning',
     btnText: 'Protect Your Family Wealth for Generations',
+  },
+  {
+    key: 'sme-corporate',
+    id: 'sme-and-corporate',
+    tag: 'SME and Corporate',
+    desc: 'Specialised support for SMEs and corporates, aligning business finances with long-term wealth and governance goals.',
+    bullets: [
+      'Cash flow and treasury optimisation',
+      'Retirement and benefits solutions for teams',
+      'Succession and governance planning',
+    ],
+    image: '/images/sme-corporate.jpg',
+    caption: 'SME & Corporate Focus',
+    btnText: 'Talk to an Advisor',
   },
 ];
 

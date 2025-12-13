@@ -12,7 +12,7 @@ const CTASection = () => {
         </p>
         <div className="flex flex-wrap gap-4 justify-center mt-10">
           <Link
-            to="/assessment"
+            to="/contact"
             className="inline-block px-6 py-3 rounded-md border border-white text-white bg-transparent font-montserrat hover:bg-white/10"
           >
             Book Appointment

@@ -84,13 +84,13 @@ const OfficeDetails = () => {
 
       {/* Schedule Consultation Button */}
       <Link
-        to="/assessment"
+        to="/contact"
         className="w-full block text-center bg-black text-white font-bold py-4 px-6 rounded-lg
           transition-all duration-200 hover:bg-black/90 focus:outline-none focus:ring-2
           focus:ring-black focus:ring-offset-2"
-        aria-label="Book Appointment"
+        aria-label="Talk to an Advisor"
       >
-        Book Appointment
+        Talk to an Advisor
       </Link>
     </div>
   );

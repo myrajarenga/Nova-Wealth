@@ -158,10 +158,10 @@ const OurProcess = () => {
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-6">
             <Link 
-              to="/assessment" 
+              to="/contact" 
               className="inline-block bg-white text-[#0B1215] font-bold py-4 px-8 rounded-full hover:bg-[#D4AF37] hover:text-white transition-colors duration-300 shadow-lg transform hover:-translate-y-1"
             >
-              Let's Get Started
+              Talk to an Advisor
             </Link>
             <button 
               onClick={handleBookAppointment}

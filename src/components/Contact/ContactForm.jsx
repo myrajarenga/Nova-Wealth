@@ -17,6 +17,7 @@ const ContactForm = () => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     subject: '',
     comments: ''
   });
@@ -37,6 +38,9 @@ const ContactForm = () => {
       newErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email';
+    }
+    if (formData.phone && !/^\+?[0-9\s-]{7,20}$/.test(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number';
     }
     if (!formData.subject.trim()) {
       newErrors.subject = 'Subject is required';
@@ -71,7 +75,7 @@ const ContactForm = () => {
       try {
         await sendContactMessage(formData);
         setSubmitStatus('success');
-        setFormData({ firstName: '', lastName: '', email: '', subject: '', comments: '' });
+        setFormData({ firstName: '', lastName: '', email: '', phone: '', subject: '', comments: '' });
       } catch (error) {
         setSubmitStatus('error');
       } finally {
@@ -146,6 +150,27 @@ const ContactForm = () => {
             />
             {errors.email && (
               <p className="mt-1 text-red-500 text-sm">{errors.email}</p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="phone" className="block text-gray-700 font-semibold mb-2">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className={`w-full px-4 py-3 rounded-lg border ${
+                errors.phone ? 'border-red-500' : 'border-gray-300'
+              } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
+              placeholder="Add phone number"
+              aria-invalid={errors.phone ? 'true' : 'false'}
+            />
+            {errors.phone && (
+              <p className="mt-1 text-red-500 text-sm">{errors.phone}</p>
             )}
           </div>
 
