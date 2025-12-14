@@ -78,7 +78,7 @@ const ServicesPage = () => {
       desc: 'Comprehensive planning across budgeting, tax, retirement and protection.Comprehensive financial planning to preserve and grow assets.',
       bullets: ['Personalized wealth plans',' Portfolio monitoring & rebalancing','Tax-aware strategies'],
       type: 'planning',
-      video: '/videos/Financial-Planning-and-Advisory.mp4',
+      video: '/videos/financial-planning.mp4',
       // caption: 'Financial Planning',
       btnText: 'Start Your Financial Planning'
     },

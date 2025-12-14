@@ -26,7 +26,7 @@ const Footer = () => {
               <li><Link to="/services#financial-planning" className="footer-link">Financial Planning</Link></li>
               <li><Link to="/services#investment-management" className="footer-link">Investment Management</Link></li>
               <li><Link to="/services#retirement-planning" className="footer-link">Retirement Planning</Link></li>
-              <li><Link to="/services#insurance-risk-solutions" className="footer-link">Insuarance & Risk Solutions</Link></li>
+              <li><Link to="/services#insurance-risk-solutions" className="footer-link">Insurance & Risk Solutions</Link></li>
               <li><Link to="/services#estate-planning" className="footer-link">Estate Planning</Link></li>
               <li><Link to="/services#tax-planning-compliance" className="footer-link">Tax Planning & Compliance</Link></li>
               <li><Link to="/services#portfolio-management" className="footer-link">Portfolio Management</Link></li>

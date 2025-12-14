@@ -1,39 +1,106 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Hero.css';
 
 const Hero = () => {
+  const location = useLocation()
   const sequence = [
-    { type: 'video', src: '/videos/wrong-wealth-advise.mp4', duration: 8000, variant: 'first' },
-    { type: 'text', src: '', duration: 11000, variant: 'text-intro' },
-    { type: 'video', src: '/videos/wealth-management.mp4', duration: 9000, variant: 'second-video' },
-    { type: 'video', src: '/videos/wealth-management.mp4', duration: 9000, variant: 'second-video' },
-    { type: 'image', src: '/images/home page image.png', duration: 13000, variant: 'third' }
-  
+    {
+      type: 'video',
+      src: '/videos/problem-1.mp4',
+      duration: 6000,
+      variant: 'problem-1',
+      headline: 'TOO BUSY TO THINK ABOUT YOUR FINANCES',
+    },
+    {
+      type: 'video',
+      src: '/videos/problem-2.mp4',
+      duration: 6000,
+      variant: 'problem-2',
+      headline: 'UNSURE WHICH FINANCIAL DECISIONS ARE RIGHT FOR YOU?',
+    },
+    {
+      type: 'video',
+      src: '/videos/problem-3.mp4',
+      duration: 6000,
+      variant: 'problem-3',
+      headline: 'NO STRUCTURED PLAN FOR YOUR RETIREMENT?',
+    },
+    {
+      type: 'video',
+      src: '/videos/problem-4.mp4',
+      duration: 6000,
+      variant: 'problem-4',
+      headline: 'CONCERNED ABOUT YOUR FAMILY’S FUTURE LEGACY?',
+    },
+    {
+      type: 'text',
+      duration: 12000,
+      variant: 'welcome-typing',
+    },
+    {
+      type: 'video',
+      src: '/videos/hero-solution-1.mp4',
+      duration: 6000,
+      variant: 'solution-1',
+      headline: 'WHERE YOU ARE CONFIDENT THAT YOUR WEALTH IS PROTECTED',
+    },
+    {
+      type: 'video',
+      src: '/videos/hero-solution-2.mp4',
+      duration: 6000,
+      variant: 'solution-2',
+      headline: 'LONG-TERM PLAN FOR STABILITY AND GROWTH',
+    },
+    {
+      type: 'video',
+      src: '/videos/hero-solution-3.mp4',
+      duration: 6000,
+      variant: 'solution-3',
+      headline: 'INVESTMENTS SHAPED AROUND YOUR VALUES',
+    },
+    {
+      type: 'video',
+      src: '/videos/hero-solution-4.mp4',
+      duration: 6000,
+      variant: 'solution-4',
+      headline: 'MORE TIME TO ENJOY WHAT TRULY MATTERS',
+    },
+    {
+      type: 'video',
+      src: '/videos/hero-solution-5.mp4',
+      duration: 6000,
+      variant: 'solution-5',
+      headline: 'A LEGACY DESIGNED TO LAST FOR GENERATIONS',
+    },
+    {
+      type: 'image',
+      src: '/images/home page image.png',
+      duration: 13000,
+      variant: 'final-logo',
+    },
   ]
+
   const [index, setIndex] = useState(0)
-  const [step, setStep] = useState(0)
   const [displayedText, setDisplayedText] = useState('')
-  const [taglineText, setTaglineText] = useState('')
 
   useEffect(() => {
-    setStep(0)
-    setDisplayedText('') // Reset second slide text
-    setTaglineText('') // Reset third slide text
+    const params = new URLSearchParams(location.search)
+    if (params.get('hero') === 'restart') {
+      setIndex(0)
+    }
+  }, [location.search])
+
+  useEffect(() => {
+    setDisplayedText('')
     const current = sequence[index]
     let t1
     let typeInterval
     const t2 = setTimeout(() => setIndex((i) => (i + 1) % sequence.length), current.duration)
-    
-    if (current.variant === 'first') {
-      t1 = setTimeout(() => setStep(1), 2800)
-    } else if (current.variant === 'text-intro') {
-      // Typewriter effect for text intro
-      const fullText = "NOVA WEALTH PROVIDES EXPERT WEALTH MANAGEMENT IN KENYA WITH CLEAR, STRATEGIC SOLUTIONS TO GROW AND PROTECT YOUR FINANCIAL FUTURE."
-      
-      // Delay before typing starts
-      const startDelay = 500
-      
+
+    if (current.variant === 'welcome-typing') {
+      const fullText = 'WELCOME TO NOVA WEALTH WHERE WE SECURE YOUR TOMORROWS LEGACY TODAY'
+
       t1 = setTimeout(() => {
         let charIndex = 0
         typeInterval = setInterval(() => {
@@ -43,31 +110,14 @@ const Hero = () => {
           } else {
             clearInterval(typeInterval)
           }
-        }, 80) // Speed of typing
-      }, startDelay)
-    } else if (current.variant === 'third') {
-      // Typewriter effect for tagline on third slide
-      // Wait for zoom animation (approx 2-3 seconds into the slide)
-      const zoomDelay = 3000 
-      const fullTagline = "SECURING TOMORROW’S LEGACY, TODAY"
-      
-      t1 = setTimeout(() => {
-        let charIndex = 0
-        typeInterval = setInterval(() => {
-          if (charIndex < fullTagline.length) {
-            setTaglineText(fullTagline.substring(0, charIndex + 1))
-            charIndex++
-          } else {
-            clearInterval(typeInterval)
-          }
-        }, 50) // Slightly slower typing for elegance
-      }, zoomDelay)
+        }, 90)
+      }, 0)
     }
 
-    return () => { 
-      clearTimeout(t1); 
-      clearTimeout(t2);
-      if (typeInterval) clearInterval(typeInterval);
+    return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
+      if (typeInterval) clearInterval(typeInterval)
     }
   }, [index])
 
@@ -76,35 +126,84 @@ const Hero = () => {
   return (
     <section className="hero">
       <div className="hero-background">
-        {sequence[index].type === 'video' ? (
-          <video key={index} className="hero-bg-video" src={sequence[index].src} autoPlay muted loop playsInline />
-        ) : sequence[index].type === 'text' ? (
-          <div key={index} className="hero-bg-color" style={{backgroundColor: '#000000', width: '100%', height: '100%', position: 'absolute', top: 0, left: 0, zIndex: -2}}></div>
-        ) : (
-          <img key={index} src={sequence[index].src} alt="Background" className="hero-bg-image" />
+        {sequence[index].type === 'text' && (
+          <div
+            key={index}
+            className="hero-bg-color"
+            style={{
+              backgroundColor: '#000000',
+              width: '100%',
+              height: '100%',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              zIndex: -2,
+            }}
+          ></div>
+        )}
+
+        {sequence[index].type === 'image' && (
+          <img
+            key={index}
+            src={sequence[index].src}
+            alt="Background"
+            className="hero-bg-image"
+          />
+        )}
+
+        {sequence[index].type === 'video' && (
+          <video
+            key={index}
+            src={sequence[index].src}
+            className="hero-bg-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
         )}
       </div>
       <div className="container">
         <div className="hero-content">
           <div className="hero-text">
             <div className="sequence-overlay">
-              {sequence[index].variant === 'first' && (
-                <>
-                  <div className={`overlay-line gold ${step >= 0 ? 'show' : ''}`}>EXPERIENCE WEALTH MANAGEMENT</div>
-                  <div className={`overlay-line ${step >= 1 ? 'show' : ''}`}>WITHOUT UNCERTAINTY</div>
-                </>
-              )}
-              {sequence[index].variant === 'text-intro' && (
+              {sequence[index].variant === 'welcome-typing' && (
                 <div className="overlay-longtext">
-                  <span className="gold">{displayedText.slice(0, 11)}</span>
-                  {displayedText.slice(11)}
+                  {(() => {
+                    const text = displayedText
+                    const brand = 'NOVA WEALTH'
+                    const idx = text.indexOf(brand)
+                    if (idx === -1) return text
+                    return (
+                      <>
+                        {text.slice(0, idx)}
+                        <span className="gold">{brand}</span>
+                        {text.slice(idx + brand.length)}
+                      </>
+                    )
+                  })()}
                 </div>
               )}
-              {sequence[index].variant === 'third' && (
+
+              {sequence[index].variant !== 'welcome-typing' &&
+                sequence[index].variant !== 'final-logo' && (
+                  <div className="overlay-longtext">
+                    {sequence[index].headline}
+                  </div>
+                )}
+
+              {sequence[index].variant === 'final-logo' && (
                 <div className="logo-center">
                   <div className="logo-stack">
-                    <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth" className="logo-zoom" />
-                    <div className="logo-tagline">{taglineText}</div>
+                    <img
+                      src="/images/Logo for Nova Wealth - SVG.svg"
+                      alt="Nova Wealth"
+                      className="logo-zoom"
+                    />
+                    <div className="logo-tagline logo-tagline-main">INVEST WISELY WITH US</div>
+                    <div className="logo-tagline logo-tagline-sub">
+                      SECURE YOUR TOMORROW'S LEGACY, TODAY.
+                    </div>
                   </div>
                 </div>
               )}

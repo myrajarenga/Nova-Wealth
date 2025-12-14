@@ -206,14 +206,14 @@
   line-height: 1.4;
   max-width: 1200px;
   text-align: center;
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
 }
 
-.overlay-longtext .gold { color: #FFD700; }
+.overlay-longtext .gold { color: #D4AF37; }
 
 .logo-center {
   display: flex;
@@ -228,14 +228,31 @@
   animation: zoomInHold 9s ease forwards;
 }
 
-.logo-stack { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-.logo-tagline { 
-  color: #ffffff; 
-  font-weight: 700; 
-  font-size: 1.8rem;
-  font-family: 'Montserrat', sans-serif; /* Matches the other typewriter text */
-  letter-spacing: 0.25em;
+.logo-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-tagline {
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
+}
+
+.logo-tagline-main {
+  font-weight: 600;
+  font-size: 1.8rem;
+  letter-spacing: 0.18em;
+  margin-top: 0.1rem;
+}
+
+.logo-tagline-sub {
+  font-weight: 500;
+  font-size: 1.1rem;
+  letter-spacing: 0.28em;
+  margin-top: 0.05rem;
+  color: #D4AF37;
 }
 
 @keyframes fadeInHold { from { opacity: 0 } to { opacity: 1 } }
@@ -289,9 +306,14 @@
     letter-spacing: 0.1em;
   }
 
-  .logo-tagline {
-    font-size: 1rem;
-    letter-spacing: 0.15em;
+  .logo-tagline-main {
+    font-size: 1.1rem;
+    letter-spacing: 0.16em;
+  }
+
+  .logo-tagline-sub {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
   }
 
   .hero-description {
@@ -347,9 +369,14 @@
     letter-spacing: 0.05em;
   }
   
-  .logo-tagline {
-    font-size: 0.9rem;
-    letter-spacing: 0.1em;
+  .logo-tagline-main {
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+  }
+
+  .logo-tagline-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.18em;
   }
 
   .hero-description {

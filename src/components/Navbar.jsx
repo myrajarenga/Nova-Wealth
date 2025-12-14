@@ -32,17 +32,17 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${isTransparentPage ? 'fixed' : ''} ${isScrolled || !isTransparentPage ? 'scrolled' : ''}`}>
       <div className="navbar-container">
-        <div className="navbar-content">
+          <div className="navbar-content">
           {/* Logo */}
           <div className="navbar-logo">
-            <Link to="/" aria-label="Go to home">
+            <Link to="/?hero=restart" aria-label="Go to home">
               <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth Logo" />
             </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="navbar-menu">
-            <Link to="/" className="navbar-link">Home</Link>
+            <Link to="/?hero=restart" className="navbar-link">Home</Link>
 
             <div
               className="navbar-item dropdown"
@@ -147,7 +147,7 @@ const Navbar = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <div className="mobile-menu">
-            <Link to="/" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
+            <Link to="/?hero=restart" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
             
             <div className="mobile-dropdown">
               <div className="mobile-dropdown-header" onClick={() => setIsServicesOpen(!isServicesOpen)}>
