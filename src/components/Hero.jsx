@@ -35,7 +35,7 @@ const Hero = () => {
     },
     {
       type: 'text',
-      duration: 12000,
+      duration: 8000,
       variant: 'welcome-typing',
     },
     {
