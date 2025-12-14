@@ -157,7 +157,7 @@ const ServicesPage = () => {
       type: 'corporate',
       video: '/videos/Corporate-Advisory.mp4',
       // caption: 'SME and Corporate Advisory',
-      btnText: 'Talk to an Advisor'
+      btnText: 'Start Your SME & Corporate Advisory'
     }
   ];
   function scrollToId(id) {

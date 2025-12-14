@@ -77,6 +77,7 @@ const Navbar = () => {
                   <Link to="/who-we-serve#diaspora-clients" className="dropdown-item">Diaspora Clients</Link>
                   <Link to="/who-we-serve#business-owners" className="dropdown-item">Entrepreneurs</Link>
                   <Link to="/who-we-serve#families-multi-generationl-wealth" className="dropdown-item">Families & Multi‑Generationl-Wealth</Link>
+                  <Link to="/who-we-serve#sme-corporates" className="dropdown-item">SME & Corporates</Link>
                 </div>
               )}
             </div>
@@ -116,7 +117,7 @@ const Navbar = () => {
               <Link to="/client-center/resources" className="navbar-link">Resources</Link>
             )}
 
-            <Link to="/faq" className="navbar-link">FAQs</Link>
+            <Link to="/faq" className="navbar-link">FAQ's</Link>
             <Link to="/contact" className="navbar-link">Contact Us</Link>
           </div>
            
@@ -181,6 +182,7 @@ const Navbar = () => {
                   <Link to="/who-we-serve#diaspora-clients" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Diaspora Clients</Link>
                   <Link to="/who-we-serve#business-owners" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Entrepreneurs</Link>
                   <Link to="/who-we-serve#families-multi-generationl-wealth" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>Families & Multi‑Gen Wealth</Link>
+                  <Link to="/who-we-serve#sme-corporates" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>SME & Corporates</Link>
                   <Link to="/who-we-serve" className="mobile-dropdown-item" onClick={() => setIsMobileMenuOpen(false)}>View All</Link>
                 </div>
               )}

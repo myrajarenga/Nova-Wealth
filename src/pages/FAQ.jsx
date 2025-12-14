@@ -196,7 +196,7 @@ const FAQ = () => {
             transition={{ duration: 0.6 }}
           >
             <h1 className="text-4xl md:text-5xl font-bold font-montserrat text-[#0B1215] mb-0 leading-tight">
-              FAQs
+              FAQ's
             </h1>
           </motion.div>
         </div>

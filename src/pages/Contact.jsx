@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Background Image */}
-      <div className="relative h-[700px] w-full">
+      <div className="relative h-[420px] w-full">
         <div 
           className="absolute inset-0 bg-cover bg-bottom bg-no-repeat"
           style={{
@@ -26,7 +26,7 @@ const Contact = () => {
       </div>
 
       {/* Contact Content Section */}
-      <div className="relative -mt-20 z-20">
+      <div className="relative -mt-10 z-20">
         <div className="bg-white w-full py-16">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

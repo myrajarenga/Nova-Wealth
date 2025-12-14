@@ -233,7 +233,7 @@ const segments = [
   },
   {
     key: 'sme-corporate',
-    id: 'sme-and-corporate',
+    id: 'sme-corporates',
     tag: 'SME and Corporate',
     desc: 'Specialised support for SMEs and corporates, aligning business finances with long-term wealth and governance goals.',
     bullets: [
@@ -243,7 +243,7 @@ const segments = [
     ],
     image: '/images/sme-corporate.jpg',
     caption: 'SME & Corporate Focus',
-    btnText: 'Talk to an Advisor',
+    btnText: 'Protect your business legacy',
   },
 ];
 

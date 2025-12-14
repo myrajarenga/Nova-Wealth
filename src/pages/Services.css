@@ -154,7 +154,7 @@
 .process-desc { color: #374151; }
 
 /* CTA Band */
-.services-cta-band { background: var(--gold-accent); color: #000; padding: 2.5rem 0; }
+.services-cta-band { background: var(--gold-accent); color: #000; padding: 3.5rem 0 3rem; margin-top: 4rem; }
 
 .cta-container {
   text-align: center;

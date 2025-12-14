@@ -40,14 +40,14 @@ const Hero = () => {
     },
     {
       type: 'video',
-      src: '/videos/hero-solution-1.mp4',
+      src: '/videos/solution-1.mp4',
       duration: 6000,
       variant: 'solution-1',
-      headline: 'WHERE YOU ARE CONFIDENT THAT YOUR WEALTH IS PROTECTED',
+      headline: 'CONFIDENCE THAT YOUR WEALTH IS PROTECTED',
     },
     {
       type: 'video',
-      src: '/videos/hero-solution-2.mp4',
+      src: '/videos/solution-2.mp4',
       duration: 6000,
       variant: 'solution-2',
       headline: 'LONG-TERM PLAN FOR STABILITY AND GROWTH',
@@ -83,6 +83,7 @@ const Hero = () => {
 
   const [index, setIndex] = useState(0)
   const [displayedText, setDisplayedText] = useState('')
+  const [headlineVisible, setHeadlineVisible] = useState(false)
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
@@ -93,9 +94,11 @@ const Hero = () => {
 
   useEffect(() => {
     setDisplayedText('')
+    setHeadlineVisible(false)
     const current = sequence[index]
     let t1
     let typeInterval
+    let headlineTimeout
     const t2 = setTimeout(() => setIndex((i) => (i + 1) % sequence.length), current.duration)
 
     if (current.variant === 'welcome-typing') {
@@ -112,12 +115,17 @@ const Hero = () => {
           }
         }, 90)
       }, 0)
+    } else if (current.variant !== 'final-logo') {
+      headlineTimeout = setTimeout(() => {
+        setHeadlineVisible(true)
+      }, 900)
     }
 
     return () => {
       clearTimeout(t1)
       clearTimeout(t2)
       if (typeInterval) clearInterval(typeInterval)
+      clearTimeout(headlineTimeout)
     }
   }, [index])
 
@@ -186,7 +194,8 @@ const Hero = () => {
               )}
 
               {sequence[index].variant !== 'welcome-typing' &&
-                sequence[index].variant !== 'final-logo' && (
+                sequence[index].variant !== 'final-logo' &&
+                headlineVisible && (
                   <div className="overlay-longtext">
                     {sequence[index].headline}
                   </div>
