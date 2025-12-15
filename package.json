@@ -12,7 +12,8 @@
     "crop-team-images": "node ./scripts/crop-team-images.js",
     "preview": "vite preview",
     "server": "node server.js",
-    "server:start": "node server/server.js"
+    "server:start": "node server/server.js",
+    "start": "node server.js"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.7",
