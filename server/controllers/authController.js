@@ -4,6 +4,7 @@ const qrcode = require('qrcode')
 const https = require('https')
 const querystring = require('querystring')
 const crypto = require('crypto')
+const sendEmail = require('../utils/email')
 const User = require('../models/User')
 const generateToken = require('../utils/generateToken')
 const nodemailer = require('nodemailer')
@@ -64,24 +65,15 @@ const loginUser = asyncHandler(async (req, res) => {
       await user.save()
 
       let sent = false
-      if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-        try {
-          const transporter = nodemailer.createTransport({
-            host: 'mail.novawealth.co.ke',
-            port: 465,
-            secure: true,
-            auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
-          })
-          await transporter.sendMail({
-            from: process.env.EMAIL_USER,
-            to: user.email,
-            subject: 'Your Nova Wealth login code',
-            text: `Your login verification code is ${code}. It expires in 10 minutes.`
-          })
-          sent = true
-        } catch (e) {
-          sent = false
-        }
+      try {
+        const result = await sendEmail(
+          user.email,
+          'Your Nova Wealth login code',
+          `Your login verification code is ${code}. It expires in 10 minutes.`
+        )
+        sent = result.success
+      } catch (e) {
+        sent = false
       }
 
       res.json({ _id: user._id, email: user.email, mfaRequired: true, devCode: sent ? undefined : code })
@@ -111,24 +103,15 @@ const mfaSetup = asyncHandler(async (req, res) => {
   await user.save()
 
   let sent = false
-  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-    try {
-      const transporter = nodemailer.createTransport({
-        host: 'mail.novawealth.co.ke',
-        port: 465,
-        secure: true,
-        auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
-      })
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: user.email,
-        subject: 'Your Nova Wealth verification code',
-        text: `Your verification code is ${code}. It expires in 10 minutes.`
-      })
-      sent = true
-    } catch (e) {
-      sent = false
-    }
+  try {
+    const result = await sendEmail(
+      user.email,
+      'Your Nova Wealth verification code',
+      `Your verification code is ${code}. It expires in 10 minutes.`
+    )
+    sent = result.success
+  } catch (e) {
+    sent = false
   }
 
   res.json({ message: 'Verification code sent', devCode: sent ? undefined : code })
@@ -187,24 +170,15 @@ const forgotPassword = asyncHandler(async (req, res) => {
   await user.save()
 
   let sent = false
-  if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-    try {
-      const transporter = nodemailer.createTransport({
-        host: 'mail.novawealth.co.ke',
-        port: 465,
-        secure: true,
-        auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
-      })
-      await transporter.sendMail({
-        from: process.env.EMAIL_USER,
-        to: email,
-        subject: 'Your Nova Wealth reset code',
-        text: `Your password reset code is ${code}. It expires in 10 minutes.`
-      })
-      sent = true
-    } catch (e) {
-      sent = false
-    }
+  try {
+    const result = await sendEmail(
+      email,
+      'Your Nova Wealth reset code',
+      `Your password reset code is ${code}. It expires in 10 minutes.`
+    )
+    sent = result.success
+  } catch (e) {
+    sent = false
   }
   res.json({ message: 'If the email exists, a code has been sent.', devCode: sent ? undefined : code })
 })
@@ -374,23 +348,14 @@ const googleCallback = asyncHandler(async (req, res) => {
     user.mfaEmailExpires = new Date(Date.now() + 10 * 60 * 1000)
     await user.save()
 
-    if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
-      try {
-        const transporter = nodemailer.createTransport({
-          host: 'mail.novawealth.co.ke',
-          port: 465,
-          secure: true,
-          auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
-        })
-        await transporter.sendMail({
-          from: process.env.EMAIL_USER,
-          to: user.email,
-          subject: 'Your Nova Wealth verification code',
-          text: `Your verification code is ${code}. It expires in 10 minutes.`
-        })
-      } catch (e) {
-        console.error('MFA Email Error:', e)
-      }
+    try {
+      await sendEmail(
+        user.email,
+        'Your Nova Wealth verification code',
+        `Your verification code is ${code}. It expires in 10 minutes.`
+      )
+    } catch (e) {
+      console.error('MFA Email Error:', e)
     }
 
     let frontendBase = process.env.FRONTEND_URL || 'http://localhost:5173'
