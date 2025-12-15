@@ -7,7 +7,7 @@ const compression = require('compression');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 
-const { config } = require('./config');
+const config = require('./config');
 const authRoutes = require('./routes/authRoutes');
 const leadRoutes = require('./routes/leadRoutes');
 
