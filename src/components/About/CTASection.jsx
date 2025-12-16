@@ -11,12 +11,14 @@ const CTASection = () => {
           Schedule a consultation with our team and discover how we can help secure your financial future.
         </p>
         <div className="flex flex-wrap gap-4 justify-center mt-10">
-          <Link
-            to="/contact"
+          <a
+            href="https://calendly.com/novawealth"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block px-6 py-3 rounded-md border border-white text-white bg-transparent font-montserrat hover:bg-white/10"
           >
             Book Appointment
-          </Link>
+          </a>
           <Link
             to="/contact"
             className="inline-block px-6 py-3 rounded-md bg-white text-black font-montserrat hover:opacity-90"

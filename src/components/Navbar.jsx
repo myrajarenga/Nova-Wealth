@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { getToken } from '../services/authService';
 import './Navbar.css';
 
+const CALENDLY_POPUP_URL = 'https://calendly.com/novawealth-info/30min';
+
 const Navbar = () => {
   const [isClientOpen, setIsClientOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -15,6 +17,17 @@ const Navbar = () => {
   
   const transparentPages = ['/', '/about', '/client-center/resources', '/contact'];
   const isTransparentPage = transparentPages.includes(location.pathname);
+
+  const handleNavbarBookAppointment = (e) => {
+    if (location.pathname === '/client-center') {
+      e.preventDefault();
+      if (window.Calendly && window.Calendly.initPopupWidget) {
+        window.Calendly.initPopupWidget({ url: CALENDLY_POPUP_URL });
+      } else {
+        window.open(CALENDLY_POPUP_URL, '_blank', 'noopener,noreferrer');
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -124,14 +137,18 @@ const Navbar = () => {
 
           {/* CTA Buttons */}
           <div className="navbar-cta">
-            {isLoggedIn ? (
-               <Link to="/client-center"><button className="btn-primary">Client Portal</button></Link>
-            ) : (
-              <>
-                <Link to="/login" className="navbar-link">Sign Up</Link>
-                <Link to="/contact"><button className="btn-primary">Book Appointment</button></Link>
-              </>
+            {!isLoggedIn && (
+              <Link to="/login" className="navbar-link">Sign Up</Link>
             )}
+            <a
+              href={CALENDLY_POPUP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary"
+              onClick={handleNavbarBookAppointment}
+            >
+              Book Appointment
+            </a>
           </div>
 
           {/* Mobile Menu Button */}

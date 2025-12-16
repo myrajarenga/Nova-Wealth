@@ -265,10 +265,17 @@ const ServicesPage = () => {
           <h2 id="cta-heading" className="cta-title">Ready to Talk to an Advisor?</h2>
           <p className="cta-subtext">Connect with our wealth management experts and discover how we can help you achieve your financial goals.</p>
           <div className="cta-actions">
-            <Link to="/contact" className="btn btn-outline-light">Book Appointment</Link>
+            <a
+              href="https://calendly.com/novawealth"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-outline-light"
+            >
+              Book Appointment
+            </a>
             <Link to="/contact" className="btn btn-light">
               Contact Us
-              </Link>
+            </Link>
           </div>
         </div>
       </section>

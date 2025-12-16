@@ -5,10 +5,10 @@ const CallToActionBar = () => {
   return (
     <section className="bg-[#D4AF37] py-10">
       <div className="container mx-auto text-center">
-        <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-white">
+        <h3 className="font-montserrat text-2xl md:text-3xl font-bold text-black">
           Ready to Optimize Your Wealth Strategy?
         </h3>
-        <p className="font-opensans text-white/90 max-w-2xl mx-auto mt-2">
+        <p className="font-opensans text-black/90 max-w-2xl mx-auto mt-2">
           Connect with your dedicated advisor today to discuss personalized investment solutions and comprehensive
           financial planning.
         </p>

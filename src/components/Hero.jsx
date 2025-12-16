@@ -219,7 +219,14 @@ const Hero = () => {
             </div>
             <div className="hero-buttons">
               <Link to="/contact" className="btn-primary hero-btn">Talk to an Advisor</Link>
-              <Link to="/contact" className="btn-outline-gold hero-btn">Book Appointment</Link>
+              <a
+                href="https://calendly.com/novawealth"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-outline-gold hero-btn"
+              >
+                Book Appointment
+              </a>
             </div>
           </div>
         </div>
