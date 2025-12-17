@@ -102,7 +102,7 @@ const Hero = () => {
     const t2 = setTimeout(() => setIndex((i) => (i + 1) % sequence.length), current.duration)
 
     if (current.variant === 'welcome-typing') {
-      const fullText = 'WELCOME TO NOVA WEALTH WHERE WE SECURE TOMORROWS LEGACY TODAY'
+      const fullText = 'WELCOME TO NOVA WEALTH WHERE WE SECURE TOMORROWS LEGACY TODAY.'
 
       t1 = setTimeout(() => {
         let charIndex = 0
@@ -135,19 +135,31 @@ const Hero = () => {
     <section className="hero">
       <div className="hero-background">
         {sequence[index].type === 'text' && (
-          <div
-            key={index}
-            className="hero-bg-color"
-            style={{
-              backgroundColor: '#000000',
-              width: '100%',
-              height: '100%',
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              zIndex: -2,
-            }}
-          ></div>
+          sequence[index].variant === 'welcome-typing' ? (
+            <>
+              <img
+                key={index}
+                src="/images/home page image.png"
+                alt="Background"
+                className="hero-bg-image"
+              />
+              <div className="hero-bg-overlay" />
+            </>
+          ) : (
+            <div
+              key={index}
+              className="hero-bg-color"
+              style={{
+                backgroundColor: '#000000',
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                zIndex: -2,
+              }}
+            />
+          )
         )}
 
         {sequence[index].type === 'image' && (
