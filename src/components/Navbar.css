@@ -40,16 +40,17 @@
   margin-right: auto; /* Push logo to far left */
   display: flex;
   align-items: center;
+ 
 }
 
 .navbar-logo img {
-  height: 200px; /* larger logo */
+  height: 250px; /* larger logo */
   display: block;
   transition: height 0.3s ease;
 }
 
 .navbar.scrolled .navbar-logo img {
-  height: 160px; /* Increased from 80px to be more visible */
+  height: 200px; /* Increased from 80px to be more visible */
   width: auto;
 }
 

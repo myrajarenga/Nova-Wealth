@@ -10,18 +10,18 @@ const Hero = () => {
       src: '/videos/problem-1.mp4',
       duration: 6000,
       variant: 'problem-1',
-      headline: 'TOO BUSY TO THINK ABOUT YOUR FINANCES',
+      headline: 'TOO BUSY TO THINK ABOUT YOUR FINANCES.',
     },
     {
       type: 'video',
-      src: '/videos/problem-2.mp4',
+      src: '/videos/problem2.mp4',
       duration: 6000,
       variant: 'problem-2',
       headline: 'UNSURE WHICH FINANCIAL DECISIONS ARE RIGHT FOR YOU?',
     },
     {
       type: 'video',
-      src: '/videos/problem-3.mp4',
+      src: '/videos/problem3.mp4',
       duration: 6000,
       variant: 'problem-3',
       headline: 'NO STRUCTURED PLAN FOR YOUR RETIREMENT?',
@@ -43,35 +43,35 @@ const Hero = () => {
       src: '/videos/solution-1.mp4',
       duration: 6000,
       variant: 'solution-1',
-      headline: 'CONFIDENCE THAT YOUR WEALTH IS PROTECTED',
+      headline: 'CONFIDENCE THAT YOUR WEALTH IS PROTECTED.',
     },
     {
       type: 'video',
-      src: '/videos/solution-2.mp4',
+      src: '/videos/solution2.mp4',
       duration: 6000,
       variant: 'solution-2',
-      headline: 'LONG-TERM PLAN FOR STABILITY AND GROWTH',
+      headline: 'LONG-TERM PLAN FOR STABILITY AND GROWTH.',
     },
     {
       type: 'video',
       src: '/videos/solution-3.mp4',
       duration: 6000,
       variant: 'solution-3',
-      headline: 'INVESTMENTS SHAPED AROUND YOUR VALUES',
+      headline: 'INVESTMENTS SHAPED AROUND YOUR VALUES.',
     },
     {
       type: 'video',
       src: '/videos/solution-4.mp4',
       duration: 6000,
       variant: 'solution-4',
-      headline: 'MORE TIME TO ENJOY WHAT TRULY MATTERS',
+      headline: 'MORE TIME TO ENJOY WHAT TRULY MATTERS.',
     },
     {
       type: 'video',
       src: '/videos/solution-5.mp4',
       duration: 6000,
       variant: 'solution-5',
-      headline: 'A LEGACY DESIGNED TO LAST FOR GENERATIONS',
+      headline: 'A LEGACY DESIGNED TO LAST FOR GENERATIONS.',
     },
     {
       type: 'image',
@@ -102,7 +102,7 @@ const Hero = () => {
     const t2 = setTimeout(() => setIndex((i) => (i + 1) % sequence.length), current.duration)
 
     if (current.variant === 'welcome-typing') {
-      const fullText = 'WELCOME TO NOVA WEALTH WHERE WE SECURE YOUR TOMORROWS LEGACY TODAY'
+      const fullText = 'WELCOME TO NOVA WEALTH WHERE WE SECURE TOMORROWS LEGACY TODAY'
 
       t1 = setTimeout(() => {
         let charIndex = 0

@@ -224,7 +224,8 @@
 }
 
 .logo-zoom {
-  height: 450px;
+  height: 430px;
+  display: block;
   animation: zoomInHold 9s ease forwards;
 }
 
@@ -244,14 +245,14 @@
   font-weight: 600;
   font-size: 1.8rem;
   letter-spacing: 0.18em;
-  margin-top: 0.1rem;
+  margin-top: 0;
 }
 
 .logo-tagline-sub {
   font-weight: 500;
   font-size: 1.1rem;
   letter-spacing: 0.28em;
-  margin-top: 0.05rem;
+  margin-top: 0;
   color: #D4AF37;
 }
 

@@ -13,8 +13,8 @@ const members = [
     experience: "15+ years in Wealth Advisory",
     img: "/images/janet-image.png",
     linkedin: "https://www.linkedin.com/in/mavisi-janet-880ab716b/",
-    email: "mailto:info@novawealth.co.ke",
-    phone: "tel:+254700000000",
+    email: "mailto:janet.mavisi@novawealth.co.ke",
+    phone: "tel:+254721479494",
     whatsapp: "https://wa.me/254700000000"
   },
   {
@@ -25,7 +25,7 @@ const members = [
     experience: "16+ years in Investments & Strategy",
     img: "/images/frankline-image.png",
     linkedin: "https://www.linkedin.com/in/muteafrankline//",
-    email: "mailto:info@novawealth.co.ke",
+    email: "mailto:frankline.mutea@novawealth.co.ke",
     phone: "tel:+254700000000",
     whatsapp: "https://wa.me/254700000000"
 
