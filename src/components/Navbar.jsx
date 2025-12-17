@@ -15,7 +15,7 @@ const Navbar = () => {
   const location = useLocation(); // Force re-render on route change
   const isLoggedIn = !!getToken();
   
-  const transparentPages = ['/', '/about', '/client-center/resources', '/contact'];
+  const transparentPages = ['/', '/client-center/resources', '/contact'];
   const isTransparentPage = transparentPages.includes(location.pathname);
 
   const handleNavbarBookAppointment = (e) => {

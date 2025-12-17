@@ -1,12 +1,4 @@
 import React from "react";
-import { motion } from "framer-motion";
-
-const heroImages = [
-  "/images/Office -background1.jpg",
-  "/images/Office -background2.jpg",
-  "/images/Office -background3.jpg",
-  
-];
 
 const IntroSection = () => {
   return (
@@ -19,28 +11,11 @@ const IntroSection = () => {
 
       {/* HERO IMAGE LAYER */}
       <div className="relative h-[500px] md:h-[600px] w-full">
-        {heroImages.map((img, index) => (
-          <motion.img
-            key={index}
-            src={img}
-            alt="Background"
-            className="absolute inset-0 w-full h-full object-cover"
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-              duration: 2,
-              ease: "easeOut",
-              delay: index * 6, // rotates every 6 seconds
-            }}
-            style={{
-              animation: "fadeSlide 24s infinite",
-              animationDelay: `${index * 6}s`,
-            }}
-          />
-        ))}
-
-        {/* DARK OVERLAY */}
-        <div className="absolute inset-0 bg-black/70"></div>
+        <img
+          src="/images/about-us -background.png"
+          alt="About Nova Wealth"
+          className="absolute inset-0 w-full h-full object-cover"
+        />
 
         {/* CENTER CONTENT */}
         <div className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center">
@@ -49,13 +24,25 @@ const IntroSection = () => {
           </h1>
 
           <p className="font-opensans text-white/90 text-lg md:text-xl max-w-3xl mt-6 leading-relaxed">
-            We build enduring legacies through expert financial planning,
-            strategic investments, and a commitment to long-term prosperity for
-            every generation.
+            At Nova Wealth, we believe true wealth is more than numbers—it is
+            security, legacy, and the freedom to live with purpose. Founded in
+            Nairobi, we are a boutique wealth management firm dedicated to
+            guiding High Net Worth Individuals, working professionals, business
+            owners, families, expatriates, diaspora clients, SMEs, and
+            corporates toward financial clarity and resilience.
+          </p>
+
+          <p className="font-opensans text-white/90 text-lg md:text-xl max-w-3xl mt-4 leading-relaxed">
+            What sets us apart is our boutique philosophy: we take the time to
+            understand your ambitions, values, and challenges, then design
+            tailored pathways that protect today while building tomorrow.
+            Whether you are growing a business, securing your family’s future,
+            or planning across borders, Nova Wealth is your trusted partner in
+            navigating complexity with confidence.
           </p>
 
           <p className="font-montserrat font-bold text-[#D4AF37] text-base md:text-lg mt-6">
-            Securing Tomorrow’s Legacy, Today
+            Nova Wealth. Securing Tomorrow’s Legacy, Today.
           </p>
 
           <div className="mt-6">
@@ -68,16 +55,6 @@ const IntroSection = () => {
           </div>
         </div>
       </div>
-      {/* CUSTOM KEYFRAMES */}
-      <style>{`
-        @keyframes fadeSlide {
-          0% { opacity: 0; }
-          10% { opacity: 1; }
-          40% { opacity: 1; }
-          50% { opacity: 0; }
-          100% { opacity: 0; }
-        }
-      `}</style>
     </section>
   );
 };

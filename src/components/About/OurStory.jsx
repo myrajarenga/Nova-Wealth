@@ -27,7 +27,7 @@ const OurStory = () => {
         />
 
         {/* Two-column layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mt-10 md:mt-14">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-stretch mt-10 md:mt-14">
           {/* Left: Narrative */}
           <motion.article
             className="font-opensans space-y-6 text-[1.05rem] leading-relaxed text-gray-900"
@@ -60,14 +60,12 @@ const OurStory = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.8 }}
             >
-              “We built Nova Wealth on trust, empathy, and transparency —
-              because we believe financial advice should empower, not overwhelm.”
+              "Doing well with money has a little to do with how smart you are and a lot to do with how you behave.'' <span className="font-montserrat font-semibold">Morgan Housel</span> (Author of The Psychology of Money)
             </motion.div>
           </motion.article>
 
-          {/* Right: Image / visual */}
           <motion.div
-            className="rounded-xl overflow-hidden shadow-md relative"
+            className="h-full rounded-xl overflow-hidden shadow-md relative"
             initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.4 }}

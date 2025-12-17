@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logout, me } from '../services/authService';
 import SupportSection from '../components/ClientCenter/SupportSection';
@@ -11,6 +11,9 @@ const ClientCenter = () => {
   const [activeTool, setActiveTool] = useState(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [userName, setUserName] = useState('');
+  const [profileImage, setProfileImage] = useState('');
+
+  const fileInputRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -52,6 +55,18 @@ const ClientCenter = () => {
     const y = el.getBoundingClientRect().top + window.pageYOffset;
     const offset = 90;
     window.scrollTo({ top: y - offset, behavior: 'smooth' });
+  }
+
+  function handleProfileImageChange(event) {
+    const file = event.target.files && event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result === 'string') {
+        setProfileImage(reader.result);
+      }
+    };
+    reader.readAsDataURL(file);
   }
 
   return (
@@ -288,17 +303,37 @@ const ClientCenter = () => {
       <CallToActionBar />
 
       {isProfileOpen && (
-        <div className="fixed inset-0 z-40 flex">
+        <div className="fixed inset-0 z-[100] flex">
           <div className="w-80 max-w-full h-full bg-[#f8f5ef] border-r border-[#efe3cf] text-black p-5 shadow-2xl flex flex-col">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center text-sm font-montserrat">
-                {userName ? userName.charAt(0).toUpperCase() : 'N'}
+            <div className="mb-4">
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                  className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-[#efe3cf] bg-white text-black flex items-center justify-center text-sm font-montserrat"
+                >
+                  {profileImage ? (
+                    <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-lg font-montserrat">
+                      {userName ? userName.charAt(0).toUpperCase() : 'N'}
+                    </span>
+                  )}
+                </button>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleProfileImageChange}
+                />
+                <div>
+                  <p className="text-xs font-opensans tracking-[0.16em] uppercase text-black/60">Profile</p>
+                  <p className="text-sm font-montserrat font-semibold">Your Nova Wealth Profile</p>
+                  <p className="text-[0.7rem] font-opensans text-black/70">Wealth management client</p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-opensans tracking-[0.16em] uppercase text-black/60">Profile</p>
-                <p className="text-sm font-montserrat font-semibold">Your Nova Wealth Profile</p>
-                <p className="text-[0.7rem] font-opensans text-black/70">Wealth management client</p>
-              </div>
+              <p className="mt-2 text-[0.72rem] text-black/60">Click the circle to upload your photo</p>
             </div>
 
             <div className="border-t border-black/10 pt-4 mt-2 space-y-1 text-sm font-opensans">
