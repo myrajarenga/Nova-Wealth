@@ -9,7 +9,7 @@ const Hero = () => {
   const sequence = [
     {
       type: 'video',
-      src: '/videos/problem-1.mp4',
+      src: '/videos/problem1.mp4',
       duration: 6000,
       variant: 'problem-1',
       headline: 'TOO BUSY TO THINK ABOUT YOUR FINANCES.',
@@ -63,14 +63,14 @@ const Hero = () => {
     },
     {
       type: 'video',
-      src: '/videos/solution-4.mp4',
+      src: '/videos/solution4.mp4',
       duration: 6000,
       variant: 'solution-4',
       headline: 'MORE TIME TO ENJOY WHAT TRULY MATTERS.',
     },
     {
       type: 'video',
-      src: '/videos/solution-5.mp4',
+      src: '/videos/solution5.mp4',
       duration: 6000,
       variant: 'solution-5',
       headline: 'A LEGACY DESIGNED TO LAST FOR GENERATIONS.',
