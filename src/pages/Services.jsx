@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 const ServicesPage = () => {
   const location = useLocation()
+  const CALENDLY_POPUP_URL = 'https://calendly.com/novawealth-info/30min'
   const [open, setOpen] = useState(false)
   const ShieldIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -266,10 +267,16 @@ const ServicesPage = () => {
           <p className="cta-subtext">Connect with our wealth management experts and discover how we can help you achieve your financial goals.</p>
           <div className="cta-actions">
             <a
-              href="https://calendly.com/novawealth"
-              target="_blank"
-              rel="noopener noreferrer"
+              href={CALENDLY_POPUP_URL}
               className="btn btn-outline-light"
+              onClick={(e) => {
+                e.preventDefault()
+                if (window.Calendly && window.Calendly.initPopupWidget) {
+                  window.Calendly.initPopupWidget({ url: CALENDLY_POPUP_URL })
+                } else {
+                  window.open(CALENDLY_POPUP_URL, '_self')
+                }
+              }}
             >
               Book Appointment
             </a>

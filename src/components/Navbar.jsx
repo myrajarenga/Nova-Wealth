@@ -19,13 +19,12 @@ const Navbar = () => {
   const isTransparentPage = transparentPages.includes(location.pathname);
 
   const handleNavbarBookAppointment = (e) => {
-    if (location.pathname === '/client-center') {
-      e.preventDefault();
-      if (window.Calendly && window.Calendly.initPopupWidget) {
-        window.Calendly.initPopupWidget({ url: CALENDLY_POPUP_URL });
-      } else {
-        window.open(CALENDLY_POPUP_URL, '_blank', 'noopener,noreferrer');
-      }
+    e.preventDefault();
+
+    if (window.Calendly && window.Calendly.initPopupWidget) {
+      window.Calendly.initPopupWidget({ url: CALENDLY_POPUP_URL });
+    } else {
+      window.open(CALENDLY_POPUP_URL, '_self');
     }
   };
 
@@ -142,8 +141,6 @@ const Navbar = () => {
             )}
             <a
               href={CALENDLY_POPUP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="btn-primary"
               onClick={handleNavbarBookAppointment}
             >
@@ -155,6 +152,9 @@ const Navbar = () => {
           <button 
             className={`mobile-menu-btn ${isMobileMenuOpen ? 'active' : ''}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-menu"
           >
             <span></span>
             <span></span>
@@ -164,7 +164,7 @@ const Navbar = () => {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="mobile-menu">
+          <div id="mobile-menu" className="mobile-menu">
             <Link to="/?hero=restart" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link>
             
             <div className="mobile-dropdown">

@@ -122,37 +122,23 @@ const AudienceRow = ({ id, tag, title, desc, bullets, type, image, caption, reve
 );
 
 // CTA section
-const CTASection = () => {
-  const handleTalkToAdvisor = (e) => {
-    e.preventDefault();
-    if (window.Calendly) {
-      window.Calendly.initPopupWidget({
-        url: 'https://calendly.com/novawealth-info/30min'
-      });
-    } else {
-      window.location.href = 'https://calendly.com/novawealth-info/30min';
-    }
-  };
-
-  return (
-    <section className="wws-cta-band" aria-labelledby="wws-cta-title">
-      <div className="container cta-container">
-        <h2 id="wws-cta-title" className="cta-title">See How We Can Help You</h2>
-        <p className="cta-subtext">Book an appointment with Nova Wealth to explore a strategy tailored to you or,</p>
-        <div className="cta-actions">
-          <button
-            type="button"
-            onClick={handleTalkToAdvisor}
-            className="btn btn-outline-light"
-            aria-label="Talk to an Advisor"
-          >
-            Talk to an Advisor
-          </button>
-        </div>
+const CTASection = () => (
+  <section className="wws-cta-band" aria-labelledby="wws-cta-title">
+    <div className="container cta-container">
+      <h2 id="wws-cta-title" className="cta-title">See How We Can Help You</h2>
+      <p className="cta-subtext">Book an appointment with Nova Wealth to explore a strategy tailored to you or,</p>
+      <div className="cta-actions">
+        <Link
+          to="/contact"
+          className="btn btn-outline-light"
+          aria-label="Talk to an Advisor"
+        >
+          Talk to an Advisor
+        </Link>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 // Page data with images and captions for alternating layout
 const segments = [

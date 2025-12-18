@@ -243,10 +243,18 @@
   .mobile-menu {
     display: flex;
   }
+
+  .navbar-logo img {
+    height: 180px;
+  }
 }
 
 @media (max-width: 768px) {
   .navbar-container {
     padding: 0 16px;
+  }
+
+  .navbar-logo img {
+    height: 140px;
   }
 }

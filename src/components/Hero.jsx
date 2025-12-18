@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Hero.css';
 
+const CALENDLY_POPUP_URL = 'https://calendly.com/novawealth-info/30min';
+
 const Hero = () => {
   const location = useLocation()
   const sequence = [
@@ -84,6 +86,15 @@ const Hero = () => {
   const [index, setIndex] = useState(0)
   const [displayedText, setDisplayedText] = useState('')
   const [headlineVisible, setHeadlineVisible] = useState(false)
+
+  const handleHeroBookAppointment = (e) => {
+    e.preventDefault()
+    if (window.Calendly && window.Calendly.initPopupWidget) {
+      window.Calendly.initPopupWidget({ url: CALENDLY_POPUP_URL })
+    } else {
+      window.open(CALENDLY_POPUP_URL, '_self')
+    }
+  }
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
@@ -232,10 +243,9 @@ const Hero = () => {
             <div className="hero-buttons">
               <Link to="/contact" className="btn-primary hero-btn">Talk to an Advisor</Link>
               <a
-                href="https://calendly.com/novawealth"
-                target="_blank"
-                rel="noopener noreferrer"
+                href={CALENDLY_POPUP_URL}
                 className="btn-outline-gold hero-btn"
+                onClick={handleHeroBookAppointment}
               >
                 Book Appointment
               </a>

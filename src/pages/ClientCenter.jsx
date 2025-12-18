@@ -10,6 +10,7 @@ const CALENDLY_URL = 'https://calendly.com/novawealth-info/30min';
 const ClientCenter = () => {
   const [activeTool, setActiveTool] = useState(null);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isIntroOpen, setIsIntroOpen] = useState(false);
   const [userName, setUserName] = useState('');
   const [profileImage, setProfileImage] = useState('');
 
@@ -41,12 +42,16 @@ const ClientCenter = () => {
     if (window.Calendly && window.Calendly.initPopupWidget) {
       window.Calendly.initPopupWidget({ url: CALENDLY_URL });
     } else {
-      window.open(CALENDLY_URL, '_blank', 'noopener,noreferrer');
+      window.open(CALENDLY_URL, '_self');
     }
   }
 
   function handleAskAdvisor() {
     navigate('/contact');
+  }
+
+  function handleCompleteRiskProfile() {
+    navigate('/assessment');
   }
 
   function scrollToSection(id) {
@@ -173,12 +178,10 @@ const ClientCenter = () => {
                 <ToolCard
                   title="Risk Profile Quick Quiz"
                   icon="🧩"
-                  description="Discover your comfort level with investment risk in a few quick questions."
-                  isActive={activeTool === 'risk'}
-                  onToggle={() => setActiveTool(activeTool === 'risk' ? null : 'risk')}
-                >
-                  <RiskProfileQuiz />
-                </ToolCard>
+                  description="Complete your official Nova Wealth risk assessment in a guided flow."
+                  isActive={false}
+                  onToggle={() => navigate('/assessment')}
+                />
               </div>
             </section>
 
@@ -246,13 +249,28 @@ const ClientCenter = () => {
                 className="grid grid-cols-1 md:grid-cols-4 gap-4"
               >
                 <li>
-                  <ProgressStep index={1} label="Watch Intro" status="current" />
+                  <ProgressStep
+                    index={1}
+                    label="Watch Intro"
+                    status="current"
+                    onClick={() => setIsIntroOpen(true)}
+                  />
                 </li>
                 <li>
-                  <ProgressStep index={2} label="Complete Risk Profile" status="upcoming" />
+                  <ProgressStep
+                    index={2}
+                    label="Complete Risk Profile"
+                    status="upcoming"
+                    onClick={handleCompleteRiskProfile}
+                  />
                 </li>
                 <li>
-                  <ProgressStep index={3} label="Book Session" status="upcoming" />
+                  <ProgressStep
+                    index={3}
+                    label="Book Session"
+                    status="upcoming"
+                    onClick={handleBookMeeting}
+                  />
                 </li>
                 <li>
                   <ProgressStep index={4} label="Receive Plan" status="upcoming" />
@@ -301,6 +319,27 @@ const ClientCenter = () => {
 
       <SupportSection />
       <CallToActionBar />
+
+      {isIntroOpen && (
+        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70">
+          <div className="w-full max-w-3xl aspect-video bg-black relative">
+            <button
+              type="button"
+              onClick={() => setIsIntroOpen(false)}
+              className="absolute top-2 right-2 z-10 rounded-full bg-black/70 text-white px-3 py-1 text-xs font-montserrat"
+            >
+              Close
+            </button>
+            <iframe
+              src="https://www.youtube.com/embed/_gRtrZ1Tj0g?autoplay=1"
+              title="Nova Wealth Intro"
+              className="w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      )}
 
       {isProfileOpen && (
         <div className="fixed inset-0 z-[100] flex">
@@ -661,18 +700,31 @@ const LearningCard = ({ title, category, href, icon, children }) => {
   );
 };
 
-const ProgressStep = ({ index, label, status }) => {
+const ProgressStep = ({ index, label, status, onClick }) => {
   const isCurrent = status === 'current';
+  const isClickable = typeof onClick === 'function';
+
+  const handleKeyDown = (event) => {
+    if (!isClickable) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick();
+    }
+  };
 
   return (
     <div
-      className={`flex items-center gap-3 rounded-full px-3 py-2 ${
-        isCurrent ? 'bg-black text-white' : 'bg-[#f6f6f6] text-black'
+      className={`flex items-center gap-3 rounded-full px-3 py-2 bg-[#f6f6f6] text-black ${
+        isClickable ? 'cursor-pointer hover:bg-black hover:text-white hover:shadow-md transition-colors group' : ''
       }`}
+      onClick={isClickable ? onClick : undefined}
+      role={isClickable ? 'button' : undefined}
+      tabIndex={isClickable ? 0 : undefined}
+      onKeyDown={isClickable ? handleKeyDown : undefined}
     >
       <div
-        className={`w-6 h-6 rounded-full flex items-center justify-center text-[0.75rem] font-montserrat font-semibold ${
-          isCurrent ? 'bg-[#D4AF37] text-black' : 'bg-white text-black'
+        className={`w-6 h-6 rounded-full flex items-center justify-center text-[0.75rem] font-montserrat font-semibold bg-white text-black ${
+          isClickable ? 'group-hover:bg-[#D4AF37] group-hover:text-black' : ''
         }`}
         aria-hidden="true"
       >

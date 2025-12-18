@@ -1,8 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const CALENDLY_POPUP_URL = 'https://calendly.com/novawealth-info/30min';
+
 // CTASection — gold background, centered layout, contrasting buttons
 const CTASection = () => {
+  const handleBookAppointment = (e) => {
+    e.preventDefault();
+    if (window.Calendly && window.Calendly.initPopupWidget) {
+      window.Calendly.initPopupWidget({ url: CALENDLY_POPUP_URL });
+    } else {
+      window.open(CALENDLY_POPUP_URL, '_self');
+    }
+  };
+
   return (
     <section className="bg-[#D4AF37]">
       <div className="mx-auto max-w-6xl px-4 md:px-6 py-20 text-center">
@@ -12,10 +23,9 @@ const CTASection = () => {
         </p>
         <div className="flex flex-wrap gap-4 justify-center mt-10">
           <a
-            href="https://calendly.com/novawealth"
-            target="_blank"
-            rel="noopener noreferrer"
+            href={CALENDLY_POPUP_URL}
             className="inline-block px-6 py-3 rounded-md border border-white text-white bg-transparent font-montserrat hover:bg-white/10"
+            onClick={handleBookAppointment}
           >
             Book Appointment
           </a>

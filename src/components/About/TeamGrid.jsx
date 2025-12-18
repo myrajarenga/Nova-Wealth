@@ -15,7 +15,7 @@ const members = [
     linkedin: "https://www.linkedin.com/in/mavisi-janet-880ab716b/",
     email: "mailto:janet.mavisi@novawealth.co.ke",
     phone: "tel:+254721479494",
-    whatsapp: "https://wa.me/254700000000"
+    whatsapp: "https://wa.me/254721479494"
   },
   {
     name: "Frankline Mutea",
@@ -26,8 +26,8 @@ const members = [
     img: "/images/frankline-image.png",
     linkedin: "https://www.linkedin.com/in/muteafrankline//",
     email: "mailto:frankline.mutea@novawealth.co.ke",
-    phone: "tel:+254700000000",
-    whatsapp: "https://wa.me/254700000000"
+    phone: "tel:+254725 743 852",
+    whatsapp: "https://wa.me/254725 743 852"
 
   },
 ];
