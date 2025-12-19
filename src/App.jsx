@@ -2,6 +2,7 @@ import React from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import AutoLogout from './components/AutoLogout';
 import CTASection from './components/CTASection';
 import ServiceHighlights from './components/Home/ServiceHighlights';
 import Footer from './components/Footer';
@@ -25,31 +26,33 @@ function App() {
     <div className="App">
       <Navbar />
       <main>
-        <Routes>
-          {/* redeploy trigger */}
-          <Route
-            path="/"
-            element={(
-              <>
-                <Hero />
-                <ServiceHighlights />
-                <CTASection />
-              </>
-            )}
-          />
-          <Route path="/services" element={<Services />} />
-          <Route path="/who-we-serve" element={<WhoWeServe />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/client-center" element={<ClientCenter />} />
-          <Route path="/client-center/resources" element={<Resources />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/oauth/callback" element={<OAuthCallback />} />
-          <Route path="/assessment" element={<Assessment />} />
-          <Route path="/assessment-results" element={<AssessmentResults />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        <AutoLogout>
+          <Routes>
+            {/* redeploy trigger */}
+            <Route
+              path="/"
+              element={(
+                <>
+                  <Hero />
+                  <ServiceHighlights />
+                  <CTASection />
+                </>
+              )}
+            />
+            <Route path="/services" element={<Services />} />
+            <Route path="/who-we-serve" element={<WhoWeServe />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/client-center" element={<ClientCenter />} />
+            <Route path="/client-center/resources" element={<Resources />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/oauth/callback" element={<OAuthCallback />} />
+            <Route path="/assessment" element={<Assessment />} />
+            <Route path="/assessment-results" element={<AssessmentResults />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </AutoLogout>
       </main>
       {!hideFooter && <Footer />}
     </div>

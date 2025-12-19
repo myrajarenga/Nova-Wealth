@@ -22,18 +22,18 @@ const createLead = asyncHandler(async (req, res) => {
     // 2. Send Email Notification to Info@novawealth
     // Note: For production, use environment variables for credentials
     const transporter = nodemailer.createTransport({
-        service: 'gmail', // or your host (Truehost) settings
-        auth: {
-            user: process.env.EMAIL_USER, // Add this to .env
-            pass: process.env.EMAIL_PASS  // Add this to .env
-        }
+      service: 'gmail', // or your host (Truehost) settings
+      auth: {
+        user: process.env.EMAIL_USER, // Add this to .env
+        pass: process.env.EMAIL_PASS  // Add this to .env
+      }
     });
 
     const mailOptions = {
-        from: process.env.EMAIL_USER,
-        to: 'info@novawealth.com', 
-        subject: `New Website Lead: ${name} (${source})`,
-        text: `
+      from: process.env.EMAIL_USER,
+      to: 'info@novawealth.co.ke',
+      subject: `New Website Lead: ${name} (${source})`,
+      text: `
             You have a new submission from the Nova Wealth Website.
             
             Source: ${source}
@@ -48,11 +48,11 @@ const createLead = asyncHandler(async (req, res) => {
     };
 
     try {
-        await transporter.sendMail(mailOptions);
-        console.log('Email sent successfully');
+      await transporter.sendMail(mailOptions);
+      console.log('Email sent successfully');
     } catch (error) {
-        console.error('Error sending email:', error);
-        // We don't fail the request if email fails, but we log it.
+      console.error('Error sending email:', error);
+      // We don't fail the request if email fails, but we log it.
     }
 
     // --- CRM HOOK ---
