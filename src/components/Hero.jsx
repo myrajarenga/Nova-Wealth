@@ -21,7 +21,7 @@ const Hero = () => {
     },
     {
       type: 'video',
-      src: '/videos/problem3.mp4',
+      src: '/videos/problemo3.mp4',
       duration: 6000,
       variant: 'problem-3',
       headline: 'NO STRUCTURED PLAN FOR YOUR RETIREMENT?',
@@ -61,14 +61,14 @@ const Hero = () => {
     },
     {
       type: 'video',
-      src: '/videos/solution-4.mp4',
+      src: '/videos/solutionii4.mp4',
       duration: 6000,
       variant: 'solutioni4',
       headline: 'MORE TIME TO ENJOY WHAT TRULY MATTERS.',
     },
     {
       type: 'video',
-      src: '/videos/solution-5.mp4',
+      src: '/videos/solutionii5.mp4',
       duration: 6000,
       variant: 'solutioni5',
       headline: 'A LEGACY DESIGNED TO LAST FOR GENERATIONS.',
