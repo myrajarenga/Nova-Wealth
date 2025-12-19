@@ -103,7 +103,7 @@ Nairobi, Kenya</span>
             <p className="footer-copyright">© 2025 Nova Wealth. All rights reserved.</p>
           </div>
           <div className="footer-bottom-right">
-            <p className="footer-developer">Developed By AuthorityFolios</p>
+            <p className="footer-developer">Developed By ProspectPilot AI</p>
           </div>
         </div>
       </div>

@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './Hero.css';
 
-const CALENDLY_POPUP_URL = 'https://calendly.com/novawealth-info/30min';
-
 const Hero = () => {
   const location = useLocation()
   const sequence = [
     {
       type: 'video',
-      src: '/videos/problem1.mp4',
+      src: '/videos/problem-1.mp4',
       duration: 6000,
       variant: 'problem-1',
       headline: 'TOO BUSY TO THINK ABOUT YOUR FINANCES.',
@@ -63,14 +61,14 @@ const Hero = () => {
     },
     {
       type: 'video',
-      src: '/videos/solution4.mp4',
+      src: '/videos/solution-4.mp4',
       duration: 6000,
       variant: 'solution-4',
       headline: 'MORE TIME TO ENJOY WHAT TRULY MATTERS.',
     },
     {
       type: 'video',
-      src: '/videos/solution5.mp4',
+      src: '/videos/solution-5.mp4',
       duration: 6000,
       variant: 'solution-5',
       headline: 'A LEGACY DESIGNED TO LAST FOR GENERATIONS.',
@@ -86,15 +84,6 @@ const Hero = () => {
   const [index, setIndex] = useState(0)
   const [displayedText, setDisplayedText] = useState('')
   const [headlineVisible, setHeadlineVisible] = useState(false)
-
-  const handleHeroBookAppointment = (e) => {
-    e.preventDefault()
-    if (window.Calendly && window.Calendly.initPopupWidget) {
-      window.Calendly.initPopupWidget({ url: CALENDLY_POPUP_URL })
-    } else {
-      window.open(CALENDLY_POPUP_URL, '_self')
-    }
-  }
 
   useEffect(() => {
     const params = new URLSearchParams(location.search)
@@ -243,9 +232,10 @@ const Hero = () => {
             <div className="hero-buttons">
               <Link to="/contact" className="btn-primary hero-btn">Talk to an Advisor</Link>
               <a
-                href={CALENDLY_POPUP_URL}
+                href="https://calendly.com/novawealth"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-outline-gold hero-btn"
-                onClick={handleHeroBookAppointment}
               >
                 Book Appointment
               </a>
