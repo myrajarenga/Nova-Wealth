@@ -12,72 +12,72 @@ const ServicesPage = () => {
   const [open, setOpen] = useState(false)
   const ShieldIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M12 2l7 4v5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V6l7-4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 2l7 4v5c0 5-3.5 9-7 11-3.5-2-7-6-7-11V6l7-4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
   const ChartUpIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M3 21h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M6 14l4-4 4 3 4-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M6 14l4-4 4 3 4-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
   const CalendarIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="2"/>
-      <path d="M7 4v-1M17 4v-1M3 9h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <rect x="3" y="4" width="18" height="16" rx="2" stroke="currentColor" strokeWidth="2" />
+      <path d="M7 4v-1M17 4v-1M3 9h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
   const UmbrellaIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M12 3a9 9 0 019 9H3a9 9 0 019-9zm0 9v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M12 3a9 9 0 019 9H3a9 9 0 019-9zm0 9v8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
   const FileIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <path d="M14 2v6h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14 2v6h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
   const PercentIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M19 5L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-      <circle cx="7" cy="7" r="3" stroke="currentColor" strokeWidth="2"/>
-      <circle cx="17" cy="17" r="3" stroke="currentColor" strokeWidth="2"/>
+      <path d="M19 5L5 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="7" cy="7" r="3" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17" cy="17" r="3" stroke="currentColor" strokeWidth="2" />
     </svg>
   );
   const BookIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M4 19V5a2 2 0 012-2h12v16H6a2 2 0 01-2-2z" stroke="currentColor" strokeWidth="2"/> 
-      <path d="M6 5h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M4 19V5a2 2 0 012-2h12v16H6a2 2 0 01-2-2z" stroke="currentColor" strokeWidth="2" />
+      <path d="M6 5h12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
   const BriefcaseIcon = () => (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="2"/>
-      <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" strokeWidth="2"/>
+      <rect x="3" y="7" width="18" height="13" rx="2" stroke="currentColor" strokeWidth="2" />
+      <path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2" stroke="currentColor" strokeWidth="2" />
     </svg>
   );
   const ServiceIcon = ({ type }) => {
     switch (type) {
-      case 'planning': return <ShieldIcon/>;
-      case 'investment': return <ChartUpIcon/>;
-      case 'retirement': return <CalendarIcon/>;
-      case 'insurance': return <UmbrellaIcon/>;
-      case 'estate': return <FileIcon/>;
-      case 'tax': return <PercentIcon/>;
-      case 'portfolio': return <ChartUpIcon/>;
-      case 'corporate': return <BriefcaseIcon/>;
-      default: return <ShieldIcon/>;
+      case 'planning': return <ShieldIcon />;
+      case 'investment': return <ChartUpIcon />;
+      case 'retirement': return <CalendarIcon />;
+      case 'insurance': return <UmbrellaIcon />;
+      case 'estate': return <FileIcon />;
+      case 'tax': return <PercentIcon />;
+      case 'portfolio': return <ChartUpIcon />;
+      case 'corporate': return <BriefcaseIcon />;
+      default: return <ShieldIcon />;
     }
   };
 
   const services = [
     {
       tag: 'Financial Planning & Advisory',
-      //title: 'Financial Planning',
+      title: 'Financial Planning',
       id: 'financial-planning',
       desc: 'Comprehensive planning across budgeting, tax, retirement and protection.Comprehensive financial planning to preserve and grow assets.',
-      bullets: ['Personalized wealth plans',' Portfolio monitoring & rebalancing','Tax-aware strategies'],
+      bullets: ['Personalized wealth plans', ' Portfolio monitoring & rebalancing', 'Tax-aware strategies'],
       type: 'planning',
       video: '/videos/financial-planning.mp4',
       // caption: 'Financial Planning',
@@ -85,10 +85,10 @@ const ServicesPage = () => {
     },
     {
       tag: 'Investment Management',
-      //title: 'Investment Management',
+      title: 'Investment Management',
       id: 'investment-management',
       desc: 'Tailored investment portfolios aligned with client objectives.',
-      bullets: ['Risk-profiled asset allocation','Active & passive options','Regular performance reviews'],
+      bullets: ['Risk-profiled asset allocation', 'Active & passive options', 'Regular performance reviews'],
       type: 'investment',
       video: '/videos/Investment-Management.mp4',
       // caption: 'Investment Management',
@@ -96,10 +96,10 @@ const ServicesPage = () => {
     },
     {
       tag: 'Retirement & Planning',
-      //title: 'Retirement Planning',
+      title: 'Retirement Planning',
       id: 'retirement-planning',
       desc: 'Secure your future with income and savings strategies.',
-      bullets: ['Retirement income modelling','Pension & savings optimisation','Estate planning & suggestions'],
+      bullets: ['Retirement income modelling', 'Pension & savings optimisation', 'Estate planning & suggestions'],
       type: 'retirement',
       video: '/videos/Retirement-and-Pension-Solutions.mp4',
       // caption: 'Retirement Planning',
@@ -107,7 +107,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'Insuarance & Risk Solutions',
-      //title: 'Insuarance & Risk Solutions',
+      title: 'Insuarance & Risk Solutions',
       id: 'insuarance-risk-solutions',
       desc: 'Protect assets through risk assessment, coverage planning and optimization.',
       bullets: ['Asset protection', 'Risk assessment', 'Coverage planning', 'Premium optimization'],
@@ -118,10 +118,10 @@ const ServicesPage = () => {
     },
     {
       tag: 'Estate Planning',
-      //title: 'Estate Planning',
+      title: 'Estate Planning',
       id: 'estate-planning',
       desc: 'Structured legacy planning for future generations.',
-      bullets: ['Wills & trusts guidance','Succession planning','Tax-efficient transfers'],
+      bullets: ['Wills & trusts guidance', 'Succession planning', 'Tax-efficient transfers'],
       type: 'estate',
       video: '/videos/Estate-Planning-and-Trusts.mp4',
       // caption: 'Estate Panning',
@@ -129,10 +129,10 @@ const ServicesPage = () => {
     },
     {
       tag: 'Tax Planning & Compliance',
-      //title: 'Tax Planning & Compliance',
+      title: 'Tax Planning & Compliance',
       id: 'tax-planning-compliance',
       desc: 'Optimize returns through efficient tax strategies.',
-      bullets: ['Tax-efficient investing','Compliance & reporting support','Cross-border tax guidance'],
+      bullets: ['Tax-efficient investing', 'Compliance & reporting support', 'Cross-border tax guidance'],
       type: 'tax',
       video: '/videos/Tax-Planning-and-Compliance.mp4',
       // caption: 'Tax Planning',
@@ -140,10 +140,10 @@ const ServicesPage = () => {
     },
     {
       tag: 'Portfolio Management',
-      //title: 'Portfolio Management',
+      title: 'Portfolio Management',
       id: 'portfolio-management',
       desc: 'Diversified investment oversight for consistent growth.',
-      bullets: ['Diversification across asset classes','Ongoing risk management','Custom mandates available' ],
+      bullets: ['Diversification across asset classes', 'Ongoing risk management', 'Custom mandates available'],
       type: 'portfolio',
       video: '/videos/Portfolio-Management.mp4',
       // caption: 'Portfolio management',
@@ -151,7 +151,7 @@ const ServicesPage = () => {
     },
     {
       tag: 'SME and Corporate Advisory',
-      //title: 'SME and Corporate Advisory',
+      title: 'SME and Corporate Advisory',
       id: 'corporate-advisory',
       desc: 'Optimize SME planning, cashflow, restructuring and capital management.',
       bullets: ['Corporate and SME Planning', 'Cashflow strategy', 'Business restructuring', 'Capital management'],
@@ -165,7 +165,7 @@ const ServicesPage = () => {
     const el = document.getElementById(id)
     if (!el) return
     const y = el.getBoundingClientRect().top + window.pageYOffset
-    const offset = 90
+    const offset = 120
     window.scrollTo({ top: y - offset, behavior: 'smooth' })
     setOpen(false)
   }
@@ -175,7 +175,7 @@ const ServicesPage = () => {
       const el = document.getElementById(id)
       if (el) {
         const y = el.getBoundingClientRect().top + window.pageYOffset
-        const offset = 90
+        const offset = 120
         window.scrollTo({ top: y - offset, behavior: 'smooth' })
       }
     }
@@ -191,7 +191,7 @@ const ServicesPage = () => {
           <div className="dropdown-panel">
             {services.map(s => (
               <button key={s.id} className="dropdown-link" onClick={() => scrollToId(s.id)}>
-                {s.title}
+                {s.tag}
               </button>
             ))}
           </div>
@@ -258,7 +258,7 @@ const ServicesPage = () => {
         </div>
       </section>
 
-      
+
 
       {/* CTA band */}
       <section className="services-cta-band" aria-labelledby="cta-heading">

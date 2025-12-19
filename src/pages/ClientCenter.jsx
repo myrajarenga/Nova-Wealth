@@ -331,7 +331,7 @@ const ClientCenter = () => {
               Close
             </button>
             <iframe
-              src="https://www.youtube.com/embed/_gRtrZ1Tj0g?autoplay=1"
+              src="https://www.youtube-nocookie.com/embed/_gRtrZ1Tj0g?autoplay=1&mute=1"
               title="Nova Wealth Intro"
               className="w-full h-full"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -440,9 +440,8 @@ const ClientCenter = () => {
 const ToolCard = ({ title, icon, description, isActive, onToggle, highlight, children }) => {
   return (
     <article
-      className={`bg-white rounded-2xl border ${
-        highlight ? 'border-[#D4AF37]' : 'border-black/5'
-      } shadow-sm flex flex-col p-5 md:p-6`}
+      className={`bg-white rounded-2xl border ${highlight ? 'border-[#D4AF37]' : 'border-black/5'
+        } shadow-sm flex flex-col p-5 md:p-6`}
     >
       <div className="flex gap-3 mb-3">
         <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-[1.1rem]" aria-hidden="true">
@@ -458,11 +457,10 @@ const ToolCard = ({ title, icon, description, isActive, onToggle, highlight, chi
       <button
         type="button"
         onClick={onToggle}
-        className={`self-start rounded-full px-4 py-1.5 text-xs font-montserrat tracking-[0.08em] uppercase border ${
-          isActive
+        className={`self-start rounded-full px-4 py-1.5 text-xs font-montserrat tracking-[0.08em] uppercase border ${isActive
             ? 'bg-black text-white border-black'
             : 'bg-[#D4AF37] text-black border-[#D4AF37]'
-        }`}
+          }`}
       >
         {isActive ? 'Hide Tool' : 'Launch Tool'}
       </button>
@@ -714,18 +712,16 @@ const ProgressStep = ({ index, label, status, onClick }) => {
 
   return (
     <div
-      className={`flex items-center gap-3 rounded-full px-3 py-2 bg-[#f6f6f6] text-black ${
-        isClickable ? 'cursor-pointer hover:bg-black hover:text-white hover:shadow-md transition-colors group' : ''
-      }`}
+      className={`flex items-center gap-3 rounded-full px-3 py-2 bg-[#f6f6f6] text-black ${isClickable ? 'cursor-pointer hover:bg-black hover:text-white hover:shadow-md transition-colors group' : ''
+        }`}
       onClick={isClickable ? onClick : undefined}
       role={isClickable ? 'button' : undefined}
       tabIndex={isClickable ? 0 : undefined}
       onKeyDown={isClickable ? handleKeyDown : undefined}
     >
       <div
-        className={`w-6 h-6 rounded-full flex items-center justify-center text-[0.75rem] font-montserrat font-semibold bg-white text-black ${
-          isClickable ? 'group-hover:bg-[#D4AF37] group-hover:text-black' : ''
-        }`}
+        className={`w-6 h-6 rounded-full flex items-center justify-center text-[0.75rem] font-montserrat font-semibold bg-white text-black ${isClickable ? 'group-hover:bg-[#D4AF37] group-hover:text-black' : ''
+          }`}
         aria-hidden="true"
       >
         {index}

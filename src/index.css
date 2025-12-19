@@ -8,15 +8,15 @@
   --gold-accent: #D4AF37;
   --white-text: #FFFFFF;
   --gray-text: #E5E7EB;
-  
+
   font-family: 'Montserrat', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  
+
   color-scheme: dark;
   color: var(--white-text);
   background-color: var(--navy-bg);
-  
+
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -148,6 +148,7 @@ button {
 .services-rows-section {
   scroll-margin-top: 90px;
 }
+
 .wws-row {
   scroll-margin-top: 90px;
 }
@@ -155,15 +156,17 @@ button {
 .page-mobile-dropdown {
   display: none;
 }
+
 @media (max-width: 768px) {
   .page-mobile-dropdown {
     display: block;
     position: sticky;
-    top: 72px;
+    top: 90px;
     z-index: 40;
     background: #0b1420;
-    border-bottom: 1px solid rgba(212,175,55,0.3);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.3);
   }
+
   .page-mobile-dropdown .dropdown-toggle {
     display: flex;
     align-items: center;
@@ -173,9 +176,11 @@ button {
     color: #ffffff;
     font-family: 'Montserrat', sans-serif;
   }
+
   .page-mobile-dropdown .dropdown-panel {
-    border-top: 1px solid rgba(212,175,55,0.3);
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
   }
+
   .page-mobile-dropdown .dropdown-link {
     display: block;
     width: 100%;
@@ -186,8 +191,9 @@ button {
     border: none;
     font-family: 'Montserrat', sans-serif;
   }
+
   .page-mobile-dropdown .dropdown-link:hover {
-    background: rgba(212,175,55,0.1);
+    background: rgba(212, 175, 55, 0.1);
     color: #D4AF37;
   }
 }
@@ -196,15 +202,15 @@ button {
   h1 {
     font-size: 2.4em;
   }
-  
+
   h2 {
     font-size: 2em;
   }
-  
+
   h3 {
     font-size: 1.5em;
   }
-  
+
   .container {
     padding: 0 0.5rem;
   }
