@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600&display=swap');
 
-.services-page { color: #000000; background-color: #ffffff; }
+.services-page {
+  color: #000000;
+  background-color: #ffffff;
+}
 
 .services-page h1,
 .services-page h2,
@@ -13,9 +16,19 @@
   font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
-.section-title { font-size: 2rem; font-weight: 700; margin-bottom: 1rem; color: #000000; text-align: center; }
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #000000;
+  text-align: center;
+}
 
-.section-subtitle { color: #374151; margin-bottom: 2rem; text-align: center; }
+.section-subtitle {
+  color: #374151;
+  margin-bottom: 2rem;
+  text-align: center;
+}
 
 /* Hero */
 .services-hero {
@@ -54,12 +67,23 @@
   color: var(--gold-accent);
 }
 
-.services-hero-subtitle { max-width: 720px; margin: 0 auto; color: #000000 !important; font-weight: 500; }
+.services-hero-subtitle {
+  max-width: 720px;
+  margin: 0 auto;
+  color: #000000 !important;
+  font-weight: 500;
+}
 
 /* Alternating service rows */
-.services-list-section { padding: 2rem 0 3rem; }
+.services-list-section {
+  padding: 2rem 0 3rem;
+}
 
-.services-rows { display: flex; flex-direction: column; gap: 8rem; }
+.services-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
 
 .service-row {
   display: grid;
@@ -76,13 +100,26 @@
 
 /* Responsive gap adjustment */
 @media (max-width: 1024px) {
-  .services-rows { gap: 4rem; }
-  .services-page .wws-row { gap: 2rem; }
+  .services-rows {
+    gap: 4rem;
+  }
+
+  .services-page .wws-row {
+    gap: 2rem;
+  }
 }
 
-.service-row.reverse { grid-auto-flow: dense; }
-.service-row.reverse .service-text { order: 2; }
-.service-row.reverse .service-media { order: 1; }
+.service-row.reverse {
+  grid-auto-flow: dense;
+}
+
+.service-row.reverse .service-text {
+  order: 2;
+}
+
+.service-row.reverse .service-media {
+  order: 1;
+}
 
 .service-tag {
   display: inline-flex;
@@ -92,37 +129,89 @@
   font-weight: 600;
   color: #000000;
   background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.2);
+  border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 999px;
   padding: 0.25rem 0.6rem;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
 }
 
-.service-title { font-size: 1.25rem; font-weight: 700; margin: 0.5rem 0; color: #000000; }
-.service-desc { color: #374151; margin-bottom: 0.75rem; }
+.service-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: #000000;
+}
 
-.service-bullets { list-style: none; display: grid; grid-template-columns: 1fr; gap: 0.4rem; }
-.service-bullets li { display: flex; align-items: center; gap: 0.5rem; }
-.bullet-icon { color: var(--gold-accent); display: inline-flex; }
-.bullet-text { color: #111827; }
+.service-desc {
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
 
-.service-media { text-align: center; }
+.service-bullets {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.4rem;
+}
+
+.service-bullets li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.bullet-icon {
+  color: var(--gold-accent);
+  display: inline-flex;
+}
+
+.bullet-text {
+  color: #111827;
+}
+
+.service-media {
+  text-align: center;
+}
+
 .image-card {
   background: #ffffff;
-  border: 1px solid rgba(0,0,0,0.12);
+  border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 12px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
   overflow: hidden;
+  /* Ensure videos fit well on all screens, especially mobile */
+  aspect-ratio: 16/9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.image-card img { display: block; width: 100%; height: auto; }
-.image-caption { color: #0B1426; font-weight: 600; margin-top: 0.5rem; }
-.caption-sub { color: #6B7280; font-weight: 500; margin-left: 0.25rem; }
+
+.image-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.image-caption {
+  color: #0B1426;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.caption-sub {
+  color: #6B7280;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
 
 /* Process */
 
 
 
-.services-process-section { padding: 3rem 0; background: #ffffff; }
+.services-process-section {
+  padding: 3rem 0;
+  background: #ffffff;
+}
 
 .process-steps {
   position: relative;
@@ -147,14 +236,38 @@
   padding: 0 0.75rem;
 }
 
-.process-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--gold-accent); border: 2px solid var(--gold-accent); color: #000000; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 0.5rem; }
+.process-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--gold-accent);
+  border: 2px solid var(--gold-accent);
+  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  margin: 0 auto 0.5rem;
+}
 
-.process-title { font-size: 1.125rem; font-weight: 700; margin-bottom: 0.25rem; color: #000000; }
+.process-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+  color: #000000;
+}
 
-.process-desc { color: #374151; }
+.process-desc {
+  color: #374151;
+}
 
 /* CTA Band */
-.services-cta-band { background: var(--gold-accent); color: #000; padding: 3.5rem 0 3rem; margin-top: 4rem; }
+.services-cta-band {
+  background: var(--gold-accent);
+  color: #000;
+  padding: 3.5rem 0 3rem;
+  margin-top: 4rem;
+}
 
 .cta-container {
   text-align: center;
@@ -165,7 +278,11 @@
   margin-bottom: 0.75rem;
 }
 
-.cta-subtext { color: #111827; max-width: 800px; margin: 0 auto 1.5rem; }
+.cta-subtext {
+  color: #111827;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+}
 
 .cta-actions {
   display: flex;
@@ -197,6 +314,7 @@
   border: 2px solid #000000;
   color: #000;
 }
+
 .services-cta-band .btn-outline-light:hover {
   background: #000;
   color: #fff;
@@ -217,29 +335,38 @@
 
 /* Updated Service Tag (Title) Style */
 .services-page .wws-tag {
-  font-size: 1.2rem; /* Bigger */
-  font-weight: 800; /* Bold */
-  padding: 0.5rem 1.25rem; /* Bigger padding */
-  border: 2px solid #E5E7EB; /* Slightly thicker border */
+  font-size: 1.2rem;
+  /* Bigger */
+  font-weight: 800;
+  /* Bold */
+  padding: 0.5rem 1.25rem;
+  /* Bigger padding */
+  border: 2px solid #E5E7EB;
+  /* Slightly thicker border */
   color: #000000;
-  font-family: 'Montserrat', sans-serif; /* Match headers */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  font-family: 'Montserrat', sans-serif;
+  /* Match headers */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .services-page .wws-tag svg {
-  width: 24px; /* Bigger icon */
+  width: 24px;
+  /* Bigger icon */
   height: 24px;
 }
 
 /* New Service CTA Button */
 .service-cta-btn {
   display: inline-block;
-  background-color: var(--gold-accent); /* Warm yellow gold */
-  color: #000000; /* Black text */
+  background-color: var(--gold-accent);
+  /* Warm yellow gold */
+  color: #000000;
+  /* Black text */
   font-weight: 700;
   font-family: 'Montserrat', sans-serif;
   padding: 0.75rem 1.5rem;
-  border-radius: 999px; /* Pill shape */
+  border-radius: 999px;
+  /* Pill shape */
   text-decoration: none;
   border: 2px solid transparent;
   transition: all 0.3s ease;
@@ -249,7 +376,10 @@
 }
 
 .service-cta-btn:hover {
-  background-color: #ffffff; /* White hover */
-  color: #000000; /* Black text (as requested: "white hover black boarder" implies text stays visible, black is good) */
-  border: 2px solid #000000; /* Black border */
+  background-color: #ffffff;
+  /* White hover */
+  color: #000000;
+  /* Black text (as requested: "white hover black boarder" implies text stays visible, black is good) */
+  border: 2px solid #000000;
+  /* Black border */
 }

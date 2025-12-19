@@ -45,13 +45,16 @@
   z-index: -1;
 }
 
-.hero-overlay { display: none; }
+.hero-overlay {
+  display: none;
+}
 
 .hero-content {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 1200px; /* allow the cards to center within wider container */
+  max-width: 1200px;
+  /* allow the cards to center within wider container */
   text-align: center;
 }
 
@@ -111,9 +114,11 @@
 
 .service-card-icon {
   background-color: transparent;
-  color: #D4AF37; /* Gold color for icons */
+  color: #D4AF37;
+  /* Gold color for icons */
   border-radius: 50%;
-  width: 40px; /* smaller icon for shorter card */
+  width: 40px;
+  /* smaller icon for shorter card */
   height: 40px;
   border: 2px solid #D4AF37;
   display: flex;
@@ -136,9 +141,11 @@
 }
 
 .service-card-description {
-  font-size: 0.82rem; /* slightly smaller text */
+  font-size: 0.82rem;
+  /* slightly smaller text */
   color: rgba(255, 255, 255, 0.9);
-  line-height: 1.35; /* tightened line-height */
+  line-height: 1.35;
+  /* tightened line-height */
 }
 
 /* Keep hero text comfortably narrow while allowing wide grid */
@@ -168,7 +175,8 @@
 
 .headline-accent {
   color: #D4AF37;
-  display: block; /* force line break to mimic design */
+  display: block;
+  /* force line break to mimic design */
 }
 
 .hero-description {
@@ -197,15 +205,22 @@
   transition: opacity 0.8s ease, transform 0.8s ease;
   font-size: 3.5rem;
   font-weight: 700;
-  font-family: 'Montserrat', sans-serif; /* Modern, clean look for typing text */
+  font-family: 'Montserrat', sans-serif;
+  /* Modern, clean look for typing text */
   color: #ffffff;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.25);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.25);
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
 
-.overlay-line.gold { color: goldenrod; }
-.overlay-line.show { opacity: 1; transform: translateY(0); }
+.overlay-line.gold {
+  color: goldenrod;
+}
+
+.overlay-line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .overlay-longtext {
   color: #ffffff;
@@ -216,18 +231,21 @@
   font-weight: 600;
   text-transform: uppercase;
   font-family: 'Montserrat', sans-serif;
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
   letter-spacing: 0.1em;
 }
 
-.overlay-longtext .gold { color: #D4AF37; }
+.overlay-longtext .gold {
+  color: #D4AF37;
+}
 
 .logo-center {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 260px;
-  padding-bottom: 3rem; /* Move content up from buttons */
+  padding-bottom: 3rem;
+  /* Move content up from buttons */
 }
 
 .logo-zoom {
@@ -263,12 +281,31 @@
   color: #D4AF37;
 }
 
-@keyframes fadeInHold { from { opacity: 0 } to { opacity: 1 } }
+@keyframes fadeInHold {
+  from {
+    opacity: 0
+  }
+
+  to {
+    opacity: 1
+  }
+}
 
 @keyframes zoomInHold {
-  0% { transform: scale(0.8); opacity: 0; }
-  15% { transform: scale(1.0); opacity: 1; }
-  100% { transform: scale(1.3); opacity: 1; }
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  15% {
+    transform: scale(1.0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
 }
 
 .hero-buttons {
@@ -295,8 +332,8 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .hero {
-    min-height: 80vh;
-    padding: 2rem 0;
+    min-height: 50vh;
+    padding: 1rem 0;
   }
 
   .hero-headline {
@@ -354,8 +391,10 @@
   .services-cards-container {
     margin-top: 3rem;
   }
-  
-  .logo-zoom { height: 300px; }
+
+  .logo-zoom {
+    height: 300px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -376,7 +415,7 @@
     font-size: 1.1rem;
     letter-spacing: 0.05em;
   }
-  
+
   .logo-tagline-main {
     font-size: 1rem;
     letter-spacing: 0.14em;
@@ -409,7 +448,9 @@
     margin-top: 2rem;
   }
 
-  .logo-zoom { height: 180px; }
+  .logo-zoom {
+    height: 180px;
+  }
 }
 
 /* Animation for hero content */
@@ -418,6 +459,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
