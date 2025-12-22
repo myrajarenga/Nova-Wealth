@@ -38,7 +38,7 @@ export async function mfaVerify(payload) {
 
 export function logout() {
   if (typeof window !== 'undefined') {
-    try { sessionStorage.setItem('logoutSuccess', '1') } catch {}
+    try { sessionStorage.setItem('logoutSuccess', '1') } catch { }
   }
   setToken(null)
 }
@@ -50,6 +50,7 @@ export async function forgotPassword(payload) {
 
 export async function resetPassword(payload) {
   const { data } = await api.post('/api/auth/password/reset', payload)
+  if (data && data.token) setToken(data.token)
   return data
 }
 

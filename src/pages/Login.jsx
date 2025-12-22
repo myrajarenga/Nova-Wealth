@@ -46,12 +46,11 @@ export default function Login() {
     }
   }
 
-  async function handleLogin(e) {
-    e.preventDefault()
+  async function performLogin(credentials) {
     setError('')
     setLoading(true)
     try {
-      const res = await login({ email: String(email).trim(), password: String(password) })
+      const res = await login(credentials)
       if (res && res.mfaRequired) {
         setInfo('A verification code has been sent to your email. Enter it below to complete MFA.')
         setStage('mfa')
@@ -69,6 +68,29 @@ export default function Login() {
     } finally {
       setLoading(false)
     }
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault()
+    await performLogin({ email: String(email).trim(), password: String(password) })
+  }
+
+  const handleResetSuccess = ({ email: resetEmail, password: resetPassword, response }) => {
+    setEmail(resetEmail)
+    setPassword(resetPassword)
+    setStage('login')
+    setInfo('Password updated successfully. Signing you in...')
+
+    // Automatically trigger login or redirect after a short delay
+    setTimeout(() => {
+      if (response && response.token) {
+        // If we already have a token (some backends return it on reset)
+        handleSmartRouting(response)
+      } else {
+        // Otherwise perform login with the new credentials
+        performLogin({ email: resetEmail, password: resetPassword })
+      }
+    }, 1500)
   }
 
   function isStrongPassword(p) {
@@ -309,7 +331,11 @@ export default function Login() {
           )}
 
           {stage === 'forgot' && (
-            <ForgotPassword email={email} onBack={() => setStage('login')} />
+            <ForgotPassword
+              email={email}
+              onBack={() => setStage('login')}
+              onResetSuccess={handleResetSuccess}
+            />
           )}
 
         </div>
@@ -326,7 +352,7 @@ export default function Login() {
   )
 }
 
-function ForgotPassword({ email, onBack }) {
+function ForgotPassword({ email, onBack, onResetSuccess }) {
   const [mail, setMail] = useState(email || '')
   const [code, setCode] = useState('')
   const [newPassword, setNewPassword] = useState('')
@@ -358,10 +384,15 @@ function ForgotPassword({ email, onBack }) {
     try {
       const svc = await import('../services/authService')
       const res = await svc.resetPassword({ email: mail, code, newPassword })
-      setMsg('Password updated. You can sign in now.')
+      // Inform parent of success so it can handle auto-login
+      if (onResetSuccess) {
+        onResetSuccess({ email: mail, password: newPassword, response: res })
+      } else {
+        setMsg('Password updated. You can sign in now.')
+        setLoading(false)
+      }
     } catch {
       setMsg('Invalid code or error resetting password.')
-    } finally {
       setLoading(false)
     }
   }
