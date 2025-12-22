@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../services/authService';
 
-const AutoLogout = ({ children, timeoutMs = 3600000 }) => { // Default 1 hour
+const AutoLogout = ({ children, timeoutMs = 1200000 }) => { // Default 20 minutes
     const navigate = useNavigate();
     const timerRef = useRef(null);
 

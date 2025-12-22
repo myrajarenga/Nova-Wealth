@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { getToken } from '../services/authService';
+import { getToken, logout } from '../services/authService';
 import './Navbar.css';
 
 
@@ -15,7 +15,14 @@ const Navbar = () => {
   const [isServeOpen, setIsServeOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation(); // Force re-render on route change
+  const navigate = useNavigate();
   const isLoggedIn = !!getToken();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+    window.location.reload();
+  };
 
   const transparentPages = ['/', '/client-center/resources', '/contact'];
   const authPages = ['/login', '/register'];
@@ -155,22 +162,7 @@ const Navbar = () => {
                   )}
                 </div>
 
-                {isLoggedIn ? (
-                  <div
-                    className="navbar-item dropdown"
-                    onMouseEnter={() => setIsClientOpen(true)}
-                    onMouseLeave={() => setIsClientOpen(false)}
-                  >
-                    <Link to="/client-center" className="navbar-link" aria-haspopup="true" aria-expanded={isClientOpen}>Client Centre</Link>
-                    {isClientOpen && (
-                      <div className="dropdown-menu">
-                        <Link to="/client-center/resources" className="dropdown-item">Resources</Link>
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <Link to="/client-center/resources" className="navbar-link">Resources</Link>
-                )}
+                <Link to="/client-center/resources" className="navbar-link">Resources</Link>
 
                 <Link to="/faq" className="navbar-link">FAQ's</Link>
                 <Link to="/contact" className="navbar-link">Contact Us</Link>
@@ -179,7 +171,12 @@ const Navbar = () => {
 
               {/* CTA Buttons */}
               <div className="navbar-cta">
-                {!isLoggedIn && (
+                {isLoggedIn ? (
+                  <>
+                    <Link to="/client-center" className="navbar-link">Go to Dashboard</Link>
+                    <button onClick={handleLogout} className="btn-primary">Logout</button>
+                  </>
+                ) : (
                   <>
                     <Link to="/register" className="navbar-link">Sign Up</Link>
                     <Link to="/login" className="btn-primary">Client Portal Login</Link>
@@ -274,23 +271,19 @@ const Navbar = () => {
                   )}
                 </div>
 
-                {isLoggedIn ? (
-                  <>
-                    <Link to="/client-center" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Client Centre</Link>
-                    <Link to="/client-center/resources" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
-                  </>
-                ) : (
-                  <Link to="/client-center/resources" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
-                )}
+                <Link to="/client-center/resources" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Resources</Link>
                 <Link to="/contact" className="mobile-menu-link" onClick={() => setIsMobileMenuOpen(false)}>Contact Us</Link>
-                {!isLoggedIn ? (
+                {isLoggedIn ? (
+                  <div className="mobile-cta-container">
+                    <Link to="/client-center" className="mobile-cta btn-secondary" onClick={() => setIsMobileMenuOpen(false)}>Go to Dashboard</Link>
+                    <button onClick={handleLogout} className="mobile-cta btn-primary">Logout</button>
+                  </div>
+                ) : (
                   <div className="mobile-cta-container">
                     <Link to="/register" className="mobile-cta btn-secondary" onClick={() => setIsMobileMenuOpen(false)}>Sign Up</Link>
                     <Link to="/login" className="mobile-cta btn-primary" onClick={() => setIsMobileMenuOpen(false)}>Client Portal Login</Link>
                     <Link to="/contact" className="mobile-cta btn-text" onClick={() => setIsMobileMenuOpen(false)}>Talk to an Advisor</Link>
                   </div>
-                ) : (
-                  <Link to="/client-center" className="mobile-cta btn-primary" onClick={() => setIsMobileMenuOpen(false)}>Client Portal</Link>
                 )}
               </div>
             </motion.div>
