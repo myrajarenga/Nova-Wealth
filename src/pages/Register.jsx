@@ -162,6 +162,18 @@ export default function Register() {
                             >
                                 {loading ? 'CREATING ACCOUNT...' : 'Sign Up'}
                             </button>
+
+                            <p className="text-xs text-gray-600 text-center mt-3">
+                                By clicking Sign Up, you agree to Nova Wealth{' '}
+                                <Link to="/terms-of-use" className="text-[#D4AF37] hover:underline font-medium">
+                                    Terms of Use
+                                </Link>
+                                {' '}and{' '}
+                                <Link to="/privacy-policy" className="text-[#D4AF37] hover:underline font-medium">
+                                    Privacy Policy
+                                </Link>
+                                .
+                            </p>
                         </form>
                         <div className="mt-6 text-center">
                             <Link to="/login" className="text-sm font-medium text-black hover:underline underline-offset-4">

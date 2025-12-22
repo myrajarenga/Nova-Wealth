@@ -4,7 +4,7 @@ import axios from 'axios';
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 // Basic input sanitization to prevent XSS
-const sanitizeInput = (str) => {
+export const sanitizeInput = (str) => {
   if (typeof str !== 'string') return str;
   return str
     .replace(/</g, '&lt;')
@@ -28,6 +28,8 @@ export const sendContactMessage = async (data) => {
       source: 'Website Contact Form'
     };
 
+    // Send to backend
+    const response = await axios.post(`${API_URL}/leads`, payload);
     return response.data;
   } catch (error) {
     // Backend API connection failed - log minimal info in production
