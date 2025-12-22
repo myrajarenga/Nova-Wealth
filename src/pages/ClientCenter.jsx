@@ -124,10 +124,10 @@ const ClientCenter = () => {
               className="flex items-center gap-3 hover:bg-black/5 px-2 py-1 rounded-lg transition-colors"
             >
               <div className="text-right hidden sm:block">
-                <p className="text-xs font-bold leading-none">{userName || 'Client'}</p>
-                <p className="text-[10px] text-black/50 font-medium">Wealth Client</p>
+                <p className="text-xs font-bold leading-none text-black">{userName || 'Client'}</p>
+                <p className="text-[10px] text-[#4a5568] font-bold mt-0.5">Wealth Client</p>
               </div>
-              <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-montserrat text-xs">
+              <div className="w-8 h-8 rounded-full bg-black text-[#D4AF37] flex items-center justify-center font-montserrat text-xs font-bold border border-white/10 shadow-sm">
                 {profileImage ? <img src={profileImage} className="w-full h-full object-cover rounded-full" /> : (userName ? userName.charAt(0).toUpperCase() : 'N')}
               </div>
             </button>
