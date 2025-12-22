@@ -83,7 +83,9 @@ const ClientCenter = () => {
       {/* Sidebar */}
       <aside className={`bg-black text-white w-64 flex-shrink-0 flex flex-col transition-all duration-300 ${isSidebarOpen ? 'ml-0' : '-ml-64'} border-r border-white/5 fixed md:static h-full z-50`}>
         <div className="p-6 border-b border-white/5 flex items-center justify-center">
-          <img src="/images/NOVA.png" alt="Nova Wealth" className="h-[80px] w-auto object-contain" />
+          <button onClick={() => navigate('/')} className="hover:opacity-80 transition-opacity">
+            <img src="/images/NOVA.png" alt="Nova Wealth" className="h-[80px] w-auto object-contain" />
+          </button>
         </div>
 
         <nav className="flex-1 overflow-y-auto pt-4">
@@ -99,6 +101,7 @@ const ClientCenter = () => {
 
         <div className="p-4 border-t border-white/5">
           <SidebarItem icon="⚙️" label="Settings" onClick={() => setIsProfileOpen(true)} />
+          <SidebarItem icon="🌐" label="Go to Website" onClick={() => navigate('/')} />
           <SidebarItem icon="🚪" label="Logout" onClick={handleLogout} />
         </div>
       </aside>
@@ -109,7 +112,9 @@ const ClientCenter = () => {
         <header className="h-16 bg-white border-b border-black/5 flex items-center justify-between px-6 flex-shrink-0 z-40">
           <div className="flex items-center gap-4">
             <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-2xl mr-2">☰</button>
-            <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth" className={`h-6 transition-opacity duration-300 ${!isSidebarOpen ? 'opacity-100' : 'opacity-0 md:hidden'}`} />
+            <button onClick={() => navigate('/')} className="hover:opacity-80 transition-opacity">
+              <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth" className={`h-6 transition-opacity duration-300 ${!isSidebarOpen ? 'opacity-100' : 'opacity-0 md:hidden'}`} />
+            </button>
             <h1 className="font-montserrat text-sm font-bold tracking-tight text-black/40 uppercase hidden sm:block border-l border-black/10 pl-4 ml-2">Secure Client Portal</h1>
           </div>
 
