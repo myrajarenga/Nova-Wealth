@@ -39,11 +39,7 @@ export default function Login() {
   }, [searchParams])
 
   const handleSmartRouting = (data) => {
-    if (data.onboardingStatus === 'new') {
-      navigate('/onboarding')
-    } else {
-      navigate('/client-center')
-    }
+    navigate('/client-center')
   }
 
   async function performLogin(credentials) {
