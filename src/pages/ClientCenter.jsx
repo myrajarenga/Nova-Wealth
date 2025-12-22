@@ -109,25 +109,25 @@ const ClientCenter = () => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
         {/* Secure Top Header */}
-        <header className="h-16 bg-white border-b border-black/5 flex items-center justify-between px-6 flex-shrink-0 z-40">
+        <header className="h-16 bg-black border-b border-white/5 flex items-center justify-between px-6 flex-shrink-0 z-40">
           <div className="flex items-center gap-4">
-            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-2xl mr-2">☰</button>
+            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-2xl mr-2 text-white hover:text-[#D4AF37] transition-colors">☰</button>
             <button onClick={() => navigate('/')} className="hover:opacity-80 transition-opacity">
-              <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth" className={`h-6 transition-opacity duration-300 ${!isSidebarOpen ? 'opacity-100' : 'opacity-0 md:hidden'}`} />
+              <img src="/images/NOVA.png" alt="Nova Wealth" className={`h-10 transition-opacity duration-300 ${!isSidebarOpen ? 'opacity-100' : 'opacity-0 md:hidden'}`} />
             </button>
-            <h1 className="font-montserrat text-sm font-bold tracking-tight text-black/40 uppercase hidden sm:block border-l border-black/10 pl-4 ml-2">Secure Client Portal</h1>
+            <h1 className="font-montserrat text-sm font-bold tracking-tight text-white/60 uppercase hidden sm:block border-l border-white/10 pl-4 ml-2">Secure Client Portal</h1>
           </div>
 
           <div className="flex items-center gap-4">
             <button
               onClick={() => setIsProfileOpen(!isProfileOpen)}
-              className="flex items-center gap-3 hover:bg-black/5 px-2 py-1 rounded-lg transition-colors"
+              className="flex items-center gap-3 hover:bg-white/10 px-2 py-1 rounded-lg transition-colors"
             >
               <div className="text-right hidden sm:block">
-                <p className="text-xs font-bold leading-none text-black">{userName || 'Client'}</p>
-                <p className="text-[10px] text-[#4a5568] font-bold mt-0.5">Wealth Client</p>
+                <p className="text-xs font-bold leading-none text-white">{userName || 'Client'}</p>
+                <p className="text-[10px] text-white/60 font-bold mt-0.5">Wealth Client</p>
               </div>
-              <div className="w-8 h-8 rounded-full bg-black text-[#D4AF37] flex items-center justify-center font-montserrat text-xs font-bold border border-white/10 shadow-sm">
+              <div className="w-8 h-8 rounded-full bg-[#D4AF37] text-black flex items-center justify-center font-montserrat text-xs font-bold border border-white/10 shadow-sm">
                 {profileImage ? <img src={profileImage} className="w-full h-full object-cover rounded-full" /> : (userName ? userName.charAt(0).toUpperCase() : 'N')}
               </div>
             </button>
