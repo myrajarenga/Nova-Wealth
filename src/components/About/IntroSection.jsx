@@ -41,7 +41,7 @@ const IntroSection = () => {
       </div>
 
       {/* Gradient Overlay for professional depth and legibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/85 via-black/40 to-black/85 z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/50 z-[1]" />
 
       {/* CENTER CONTENT */}
       <div className="relative z-10 flex flex-col items-center justify-center px-6 text-center py-20 md:pt-20 md:pb-20 max-w-5xl mx-auto">
