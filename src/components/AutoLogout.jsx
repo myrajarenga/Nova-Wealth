@@ -10,7 +10,6 @@ const AutoLogout = ({ children, timeoutMs = 1200000 }) => { // Default 20 minute
         if (timerRef.current) clearTimeout(timerRef.current);
 
         timerRef.current = setTimeout(() => {
-            console.log('User inactive for too long. Logging out...');
             logout();
             navigate('/login');
             window.location.reload(); // Force reload to clear state effectively

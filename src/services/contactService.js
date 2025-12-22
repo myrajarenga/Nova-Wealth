@@ -3,28 +3,37 @@ import axios from 'axios';
 // Default to localhost:5000 if not specified in environment variables
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
+// Basic input sanitization to prevent XSS
+const sanitizeInput = (str) => {
+  if (typeof str !== 'string') return str;
+  return str
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;')
+    .replace(/\//g, '&#x2F;');
+};
+
 export const sendContactMessage = async (data) => {
   try {
     console.log(`Attempting to send contact form data to: ${API_URL}/contact`);
 
-    // Map frontend data to backend schema
+    // Map frontend data to backend schema with sanitization
     const payload = {
-      name: `${data.firstName} ${data.lastName}`,
-      email: data.email,
-      phone: data.phone,
-      subject: data.subject,
-      message: data.comments,
+      name: sanitizeInput(`${data.firstName} ${data.lastName}`),
+      email: sanitizeInput(data.email),
+      phone: sanitizeInput(data.phone),
+      subject: sanitizeInput(data.subject),
+      message: sanitizeInput(data.comments),
       source: 'Website Contact Form'
     };
 
-    // Try to send the request to the backend server
-    const response = await axios.post(`${API_URL}/leads`, payload);
-
-    console.log('Backend response:', response.data);
     return response.data;
   } catch (error) {
-    console.warn("Backend API connection failed. Falling back to mock success for demonstration.");
-    console.error("Error details:", error.message);
+    // Backend API connection failed - log minimal info in production
+    if (import.meta.env.DEV) {
+      console.warn("Backend API connection failed.", error.message);
+    }
 
     // If the server is unreachable (e.g. network error), we can simulate a success
     // so the user sees the UI feedback, but we log the error.

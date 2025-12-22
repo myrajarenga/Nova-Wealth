@@ -19,6 +19,7 @@ import Assessment from './pages/Assessment';
 import AssessmentResults from './pages/AssessmentResults';
 import FAQ from './pages/FAQ';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import TermsOfUse from './pages/TermsOfUse';
 
 function App() {
   const location = useLocation();
@@ -58,6 +59,7 @@ function App() {
             <Route path="/assessment-results" element={<AssessmentResults />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </AutoLogout>

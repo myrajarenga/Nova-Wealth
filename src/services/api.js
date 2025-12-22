@@ -4,7 +4,7 @@ import axios from 'axios'
 // In production (Cloudflare Pages), Functions are on the same origin, so we use relative path.
 const baseURL = import.meta.env.VITE_API_URL || '';
 
-console.log('[API] Initializing with baseURL:', baseURL || '(relative)');
+// Removed console.log to prevent exposing API configuration in production
 
 const api = axios.create({
   baseURL: baseURL,

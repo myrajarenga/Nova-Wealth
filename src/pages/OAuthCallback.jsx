@@ -26,7 +26,10 @@ export default function OAuthCallback() {
         channel.postMessage(message)
         setTimeout(() => channel.close(), 1000)
       } catch (e) {
-        console.error('BroadcastChannel error', e)
+        // Only log detailed errors in development
+        if (import.meta.env.DEV) {
+          console.error('BroadcastChannel error', e);
+        }
       }
 
       // 2. Try window.opener
@@ -42,7 +45,7 @@ export default function OAuthCallback() {
           if (data) {
             localStorage.setItem('nw_user', JSON.stringify(data))
           }
-        } catch {}
+        } catch { }
       }
 
       // 4. Attempt to close
@@ -54,7 +57,7 @@ export default function OAuthCallback() {
       } else {
         setStatus('Authentication successful. You can close this window.')
       }
-      
+
       // Do NOT auto-navigate to /client-center or /login inside this popup
       // as it causes the user to get stuck in the popup context.
     }
