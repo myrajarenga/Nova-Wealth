@@ -22,10 +22,16 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   const location = useLocation();
-  const hideFooter = ['/login', '/register', '/assessment', '/assessment-results'].includes(location.pathname);
+
+  const isAuthPage = /^\/(login|register|assessment|assessment-results)(\/|$)/i.test(location.pathname);
+  const isClientPortal = /^\/client-center(\/|$)/i.test(location.pathname);
+
+  const hideFooter = isAuthPage || isClientPortal;
+  const hideNavbar = isClientPortal;
+
   return (
     <div className="App">
-      <Navbar />
+      {!hideNavbar && <Navbar />}
       <main>
         <AutoLogout>
           <Routes>

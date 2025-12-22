@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { logout, me } from '../services/authService';
 import SupportSection from '../components/ClientCenter/SupportSection';
 import CallToActionBar from '../components/ClientCenter/CallToActionBar';
@@ -13,10 +14,17 @@ const ClientCenter = () => {
   const [isIntroOpen, setIsIntroOpen] = useState(false);
   const [userName, setUserName] = useState('');
   const [profileImage, setProfileImage] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Default open on desktop
 
   const fileInputRef = useRef(null);
-
   const navigate = useNavigate();
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return 'Good morning';
+    if (hour < 17) return 'Good afternoon';
+    return 'Good evening';
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -26,11 +34,8 @@ const ClientCenter = () => {
         const first = String(data.name).trim().split(' ')[0];
         setUserName(first);
       })
-      .catch(() => {
-      });
-    return () => {
-      mounted = false;
-    };
+      .catch(() => { });
+    return () => { mounted = false; };
   }, []);
 
   function handleLogout() {
@@ -57,9 +62,8 @@ const ClientCenter = () => {
   function scrollToSection(id) {
     const el = document.getElementById(id);
     if (!el) return;
-    const y = el.getBoundingClientRect().top + window.pageYOffset;
-    const offset = 90;
-    window.scrollTo({ top: y - offset, behavior: 'smooth' });
+    el.scrollIntoView({ behavior: 'smooth' });
+    // If mobile, close sidebar after clicking (optional, but keep it open for now as requested for app-style)
   }
 
   function handleProfileImageChange(event) {
@@ -75,367 +79,270 @@ const ClientCenter = () => {
   }
 
   return (
-    <main className="bg-white text-black">
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <h1 className="sr-only">
-          Nova Wealth Client Dashboard u0014 Wealth Management Tools, Financial Planning, Investment Guidance
-        </h1>
-        <div className="flex justify-start mb-4">
-          <button
-            type="button"
-            onClick={() => setIsProfileOpen(true)}
-            className="inline-flex items-center gap-2 rounded-full border border-[#efe3cf] bg-[#f8f5ef] px-3 py-1.5 text-xs font-opensans shadow-sm hover:bg-black hover:text-white hover:border-black hover:text-white transition-colors"
-          >
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-black text-[0.7rem] font-montserrat text-white">
-              {userName ? userName.charAt(0).toUpperCase() : 'N'}
-            </span>
-            <span className="hidden sm:flex flex-col text-left">
-              <span className="text-[0.6rem] uppercase tracking-[0.14em] text-black/60">Profile</span>
-              <span className="text-[0.8rem] font-montserrat">Wealth client</span>
-            </span>
-          </button>
+    <div className="flex h-screen overflow-hidden bg-[#f4f7f9] text-black">
+      {/* Sidebar */}
+      <aside className={`bg-black text-white w-64 flex-shrink-0 flex flex-col transition-all duration-300 ${isSidebarOpen ? 'ml-0' : '-ml-64'} border-r border-white/5 fixed md:static h-full z-50`}>
+        <div className="p-6 border-b border-white/5 flex items-center justify-center">
+          <img src="/images/NOVA.png" alt="Nova Wealth" className="h-[80px] w-auto object-contain" />
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          <div className="flex-1">
-            <section id="account-overview" className="mb-10 md:mb-12">
-              <div className="bg-black text-white rounded-3xl px-6 py-8 md:px-10 md:py-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-                <div className="max-w-xl">
-                  <h2 className="font-montserrat text-3xl md:text-4xl font-semibold mb-3">
-                    {userName ? `Welcome ${userName} to Your Nova Wealth Dashboard` : 'Welcome to Your Nova Wealth Dashboard'}
+        <nav className="flex-1 overflow-y-auto pt-4">
+          <SidebarItem icon="📊" label="Dashboard" onClick={() => scrollToSection('account-overview')} />
+          <SidebarItem icon="🛠" label="Wealth Tools" onClick={() => scrollToSection('wealth-tools-heading')} />
+          <SidebarItem icon="🎓" label="Learning Hub" onClick={() => scrollToSection('learning-hub-heading')} />
+          <SidebarItem icon="🚀" label="Financial Journey" onClick={() => scrollToSection('journey-heading')} />
+          <SidebarItem icon="🔒" label="Privacy & Security" onClick={() => scrollToSection('trust-heading')} />
+          <div className="mt-8 px-4 py-2 text-[10px] uppercase tracking-widest text-white/40 font-bold">Actions</div>
+          <SidebarItem icon="📅" label="Book Session" onClick={handleBookMeeting} />
+          <SidebarItem icon="📧" label="Ask Advisor" onClick={handleAskAdvisor} />
+        </nav>
+
+        <div className="p-4 border-t border-white/5">
+          <SidebarItem icon="⚙️" label="Settings" onClick={() => setIsProfileOpen(true)} />
+          <SidebarItem icon="🚪" label="Logout" onClick={handleLogout} />
+        </div>
+      </aside>
+
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+        {/* Secure Top Header */}
+        <header className="h-16 bg-white border-b border-black/5 flex items-center justify-between px-6 flex-shrink-0 z-40">
+          <div className="flex items-center gap-4">
+            <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-2xl mr-2">☰</button>
+            <img src="/images/Logo for Nova Wealth - SVG.svg" alt="Nova Wealth" className={`h-6 transition-opacity duration-300 ${!isSidebarOpen ? 'opacity-100' : 'opacity-0 md:hidden'}`} />
+            <h1 className="font-montserrat text-sm font-bold tracking-tight text-black/40 uppercase hidden sm:block border-l border-black/10 pl-4 ml-2">Secure Client Portal</h1>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setIsProfileOpen(!isProfileOpen)}
+              className="flex items-center gap-3 hover:bg-black/5 px-2 py-1 rounded-lg transition-colors"
+            >
+              <div className="text-right hidden sm:block">
+                <p className="text-xs font-bold leading-none">{userName || 'Client'}</p>
+                <p className="text-[10px] text-black/50 font-medium">Wealth Client</p>
+              </div>
+              <div className="w-8 h-8 rounded-full bg-black text-white flex items-center justify-center font-montserrat text-xs">
+                {profileImage ? <img src={profileImage} className="w-full h-full object-cover rounded-full" /> : (userName ? userName.charAt(0).toUpperCase() : 'N')}
+              </div>
+            </button>
+          </div>
+        </header>
+
+        {/* Content Area */}
+        <main className="flex-1 overflow-y-auto relative scroll-smooth bg-white">
+          <div className="max-w-6xl mx-auto p-6 md:p-10">
+            {/* Dashboard Area - Refined Black Theme */}
+            <section id="account-overview" className="mb-12">
+              <div className="bg-black border border-white/5 rounded-2xl p-8 flex flex-col md:flex-row md:items-center justify-between gap-8 text-white">
+                <div className="max-w-2xl">
+                  <h2 className="font-montserrat text-3xl md:text-4xl font-bold mb-4">
+                    {userName ? `${getGreeting()}, ${userName}` : getGreeting()}
                   </h2>
-                  <p className="font-opensans text-sm md:text-base text-white/80 mb-5">
-                    A calm, secure space to explore your wealth, set clear financial goals, and connect with your
-                    dedicated advisor. Simple tools, private conversations, and guidance designed around you.
+                  <p className="font-opensans text-sm md:text-base text-white/70 leading-relaxed mb-8">
+                    Welcome to your private dashboard. This is your personal space to manage goals, explore interactive tools, and review your financial highlights with Nova Wealth.
                   </p>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-4 items-center">
                     <button
-                      type="button"
                       onClick={handleBookMeeting}
-                      className="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-montserrat font-semibold tracking-[0.08em] uppercase bg-[#D4AF37] text-black shadow-[0_14px_30px_rgba(0,0,0,0.35)]"
+                      className="bg-[#D4AF37] text-black px-8 py-3 rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#c4a030] transition-all shadow-lg shadow-black/20"
                     >
-                      Book a Strategy Meeting
+                      BOOK A STRATEGY MEETING
                     </button>
                     <button
-                      type="button"
                       onClick={handleAskAdvisor}
-                      className="inline-flex items-center justify-center rounded-full px-5 py-2.5 text-sm font-montserrat border border-[#D4AF37] text-white bg-transparent hover:bg-[#D4AF37] hover:text-black transition-colors"
+                      className="text-white hover:text-[#D4AF37] text-xs font-bold uppercase tracking-widest transition-colors flex items-center gap-2 group"
                     >
                       Ask an Advisor
+                      <span className="transform group-hover:translate-x-1 transition-transform">→</span>
                     </button>
                   </div>
                 </div>
-                <div className="md:max-w-xs w-full">
-                  <div className="rounded-2xl bg-white/5 border border-white/10 p-5 shadow-[0_24px_60px_rgba(0,0,0,0.55)]">
-                    <p className="text-[0.7rem] tracking-[0.16em] uppercase text-white/60 mb-2">Your journey</p>
-                    <p className="font-montserrat text-lg font-semibold mb-2">
-                      Start your wealth journey in four calm steps.
-                    </p>
-                    <p className="font-opensans text-[0.8rem] text-white/75">
-                      Watch a short intro, understand your risk profile, book a strategy session, and receive a
-                      tailored plan from Nova Wealth.
-                    </p>
-                  </div>
+                <div className="bg-[#111111] border border-white/5 p-7 rounded-xl shadow-xl md:max-w-xs w-full">
+                  <h4 className="text-[10px] uppercase tracking-widest text-[#D4AF37] font-bold mb-3">YOUR JOURNEY</h4>
+                  <p className="font-montserrat text-base font-bold mb-3 text-white leading-tight">Start your wealth journey in four calm steps.</p>
+                  <p className="text-xs text-white/50 leading-relaxed">Watch a short intro, understand your risk profile, book a strategy session, and receive a tailored plan from Nova Wealth.</p>
                 </div>
               </div>
             </section>
 
-            <section aria-labelledby="wealth-tools-heading" className="mb-10 md:mb-12">
-              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-5">
-                <div>
-                  <h2 id="wealth-tools-heading" className="font-montserrat text-2xl md:text-3xl font-semibold text-black">
-                    Wealth Management Tools
-                  </h2>
-                  <p className="font-opensans text-sm text-black/70 max-w-xl mt-1">
-                    Explore simple, interactive tools for investment guidance and financial planning. These
-                    illustrations are a starting point to support your conversations with an advisor.
-                  </p>
-                </div>
+            {/* Existing Sections Wrap */}
+            <section id="wealth-tools-heading" className="scroll-mt-20 mb-16">
+              <div className="mb-8">
+                <h3 className="font-montserrat text-xl font-bold mb-2">Wealth Management Tools</h3>
+                <p className="font-opensans text-sm text-black/50">Interactive planning tools for your financial journey.</p>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <ToolCard
-                  title="Investment Growth Calculator"
+                  title="Investment Growth"
                   icon="📈"
-                  description="Estimate how your investments could grow over time with compound returns."
+                  description="Compound returns projection."
                   isActive={activeTool === 'growth'}
                   onToggle={() => setActiveTool(activeTool === 'growth' ? null : 'growth')}
-                  highlight
                 >
                   <InvestmentGrowthCalculator />
                 </ToolCard>
-
                 <ToolCard
-                  title="Goal Planning Tool"
+                  title="Goal Planning"
                   icon="🎯"
-                  description="Map out a clear, step-by-step path towards your key financial goals."
+                  description="Step-by-step milestone mapping."
                   isActive={activeTool === 'goals'}
                   onToggle={() => setActiveTool(activeTool === 'goals' ? null : 'goals')}
                 >
                   <GoalPlanningTool />
                 </ToolCard>
-
                 <ToolCard
-                  title="Risk Profile Quick Quiz"
+                  title="Risk Assessment"
                   icon="🧩"
-                  description="Complete your official Nova Wealth risk assessment in a guided flow."
+                  description="Identify your appetite for growth."
                   isActive={false}
                   onToggle={() => navigate('/assessment')}
                 />
               </div>
             </section>
 
-            <section aria-labelledby="learning-hub-heading" className="mb-10 md:mb-12">
-              <h2
-                id="learning-hub-heading"
-                className="font-montserrat text-2xl md:text-3xl font-semibold text-black mb-2"
-              >
-                Learning Hub: Investment Guidance & Financial Planning
-              </h2>
-              <p className="font-opensans text-sm text-black/70 max-w-2xl mb-5">
-                Short, beginner-friendly guides to help you understand wealth management, investments, and how Nova
-                Wealth works alongside you.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                <LearningCard
-                  title="Understanding Wealth Management"
-                  category="Wealth Management"
-                  href="/client-center/resources"
-                  icon="🏛"
-                >
-                  Learn how professional wealth management can organise, protect, and grow your assets over time.
-                </LearningCard>
-
-                <LearningCard
-                  title="Investment Basics for Beginners"
-                  category="Investment Guidance"
-                  href="/client-center/resources"
-                  icon="📚"
-                >
-                  Discover the core concepts of investing, risk, and diversification in clear, simple language.
-                </LearningCard>
-
-                <LearningCard
-                  title="How to Plan for Long-Term Goals"
-                  category="Financial Planning"
-                  href="/client-center/resources"
-                  icon="🗺"
-                >
-                  Turn big life objectives into practical, achievable financial milestones.
-                </LearningCard>
-
-                <LearningCard
-                  title="How Nova Wealth Works"
-                  category="Nova Wealth Services"
-                  href="/client-center/resources"
-                  icon="✨"
-                >
-                  See how Nova Wealth partners with you from first conversation to personalised wealth strategy.
-                </LearningCard>
+            <section id="learning-hub-heading" className="scroll-mt-20 mb-16">
+              <div className="mb-8">
+                <h3 className="font-montserrat text-xl font-bold mb-2">Learning Hub</h3>
+                <p className="font-opensans text-sm text-black/50">Curated insights to support informed decision making.</p>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <LearningCard title="Wealth Mgmt 101" category="Foundations" href="/client-center/resources" icon="🏛">Professional management basics.</LearningCard>
+                <LearningCard title="Investment Basics" category="Growth" href="/client-center/resources" icon="📚">Core concepts & risk.</LearningCard>
+                <LearningCard title="Planning Strategy" category="Planning" href="/client-center/resources" icon="🗺">Life objective milestones.</LearningCard>
+                <LearningCard title="Nova Partnership" category="Services" href="/client-center/resources" icon="✨">How we work for you.</LearningCard>
               </div>
             </section>
 
-            <section aria-labelledby="journey-heading" className="mb-10 md:mb-12">
-              <h2 id="journey-heading" className="font-montserrat text-2xl md:text-3xl font-semibold text-black mb-2">
-                Your Financial Wellness Journey
-              </h2>
-              <p className="font-opensans text-sm text-black/70 max-w-2xl mb-5">
-                Follow these simple steps to move from first insight to a clear, tailored wealth plan.
-              </p>
-
-              <ol
-                aria-label="Financial wellness progress"
-                className="grid grid-cols-1 md:grid-cols-4 gap-4"
-              >
-                <li>
-                  <ProgressStep
-                    index={1}
-                    label="Watch Intro"
-                    status="current"
-                    onClick={() => setIsIntroOpen(true)}
-                  />
-                </li>
-                <li>
-                  <ProgressStep
-                    index={2}
-                    label="Complete Risk Profile"
-                    status="upcoming"
-                    onClick={handleCompleteRiskProfile}
-                  />
-                </li>
-                <li>
-                  <ProgressStep
-                    index={3}
-                    label="Book Session"
-                    status="upcoming"
-                    onClick={handleBookMeeting}
-                  />
-                </li>
-                <li>
-                  <ProgressStep index={4} label="Receive Plan" status="upcoming" />
-                </li>
+            <section id="journey-heading" className="scroll-mt-20 mb-16">
+              <div className="mb-8">
+                <h3 className="font-montserrat text-xl font-bold mb-2">Your Financial Wellness Journey</h3>
+                <p className="font-opensans text-sm text-black/50">Path to service activation and tailored strategies.</p>
+              </div>
+              <ol className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <li><ProgressStep index={1} label="Watch Intro" status="current" onClick={() => setIsIntroOpen(true)} /></li>
+                <li><ProgressStep index={2} label="Risk Profile" status="upcoming" onClick={handleCompleteRiskProfile} /></li>
+                <li><ProgressStep index={3} label="Book Session" status="upcoming" onClick={handleBookMeeting} /></li>
+                <li><ProgressStep index={4} label="Receive Plan" status="upcoming" /></li>
               </ol>
             </section>
 
-            <section aria-labelledby="trust-heading" className="mb-10 md:mb-12">
-              <div className="rounded-2xl bg-[#f8f5ef] border border-[#efe3cf] p-6 md:p-7 flex flex-col sm:flex-row gap-4 sm:gap-6">
-                <div className="flex-shrink-0 flex items-start justify-start">
-                  <div className="w-10 h-10 rounded-full bg-black text-[1.4rem] flex items-center justify-center shadow-[0_10px_22px_rgba(0,0,0,0.3)]">
-                    <span role="img" aria-hidden="true" className="text-[1.3rem]" style={{ color: NOVA_GOLD }}>
-                      🔒
-                    </span>
+            <section id="trust-heading" className="scroll-mt-20 mb-16">
+              <div className="bg-[#f8f5ef] border border-[#efe3cf] rounded-2xl p-8">
+                <div className="flex flex-col md:flex-row gap-8">
+                  <div className="md:w-1/3">
+                    <div className="w-12 h-12 rounded-full bg-black flex items-center justify-center text-xl mb-4 shadow-xl shadow-[#D4AF37]/20">
+                      <span style={{ color: NOVA_GOLD }}>🔒</span>
+                    </div>
+                    <h3 className="font-montserrat text-xl font-bold mb-2">Trust & Security</h3>
+                    <p className="font-opensans text-sm text-black/60 leading-relaxed">
+                      Your privacy is paramount. This environment is designed for guidance and support without storing sensitive identifiers.
+                    </p>
                   </div>
-                </div>
-                <div className="flex-1">
-                  <h2 id="trust-heading" className="font-montserrat text-2xl md:text-3xl font-semibold text-black mb-2">
-                    Trust, Privacy and Security
-                  </h2>
-                  <p className="font-opensans text-sm text-black/75 max-w-2xl mb-4">
-                    Your privacy and peace of mind sit at the centre of Nova Wealth&apos;s client experience. This
-                    dashboard is intentionally light, secure, and free from sensitive data.
-                  </p>
-                  <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <TrustItem title="No document storage">
-                      Nova Wealth does not store client documents inside this dashboard.
-                    </TrustItem>
-                    <TrustItem title="No sensitive data collected">
-                      We avoid asking for identity numbers, passwords, or banking logins here.
-                    </TrustItem>
-                    <TrustItem title="Private advisory sessions">
-                      Every strategy session is confidential and conducted in a secure, professional environment.
-                    </TrustItem>
-                    <TrustItem title="Data privacy first">
-                      Your personal information is handled carefully and only used to support your agreed financial
-                      plan.
-                    </TrustItem>
-                  </dl>
+                  <div className="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <TrustItem title="Non-Custodial Data">We do not store your physical documents here.</TrustItem>
+                    <TrustItem title="Minimal Collection">No sensitive ID or banking logins required.</TrustItem>
+                    <TrustItem title="Private Sessions">All conversations are strictly confidential.</TrustItem>
+                    <TrustItem title="Privacy First">Data is strictly for your financial planning.</TrustItem>
+                  </div>
                 </div>
               </div>
             </section>
           </div>
-        </div>
+          <SupportSection />
+        </main>
       </div>
 
-      <SupportSection />
-      <CallToActionBar />
-
-      {isIntroOpen && (
-        <div className="fixed inset-0 z-[90] flex items-center justify-center bg-black/70">
-          <div className="w-full max-w-3xl aspect-video bg-black relative">
-            <button
-              type="button"
-              onClick={() => setIsIntroOpen(false)}
-              className="absolute top-2 right-2 z-10 rounded-full bg-black/70 text-white px-3 py-1 text-xs font-montserrat"
+      {/* Intro Modal */}
+      <AnimatePresence>
+        {isIntroOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="w-full max-w-4xl aspect-video bg-black rounded-2xl overflow-hidden relative shadow-2xl"
             >
-              Close
-            </button>
-            <iframe
-              src="https://www.youtube-nocookie.com/embed/_gRtrZ1Tj0g?autoplay=1&mute=1"
-              title="Nova Wealth Intro"
-              className="w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
+              <button onClick={() => setIsIntroOpen(false)} className="absolute top-4 right-4 z-10 bg-white/10 hover:bg-white/20 text-white rounded-full p-2 transition-colors">✕</button>
+              <iframe
+                src="https://www.youtube-nocookie.com/embed/_gRtrZ1Tj0g?autoplay=1&mute=1"
+                title="Nova Wealth Intro"
+                className="w-full h-full"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Profile Sidebar/Dropdown */}
+      <AnimatePresence>
+        {isProfileOpen && (
+          <div className="fixed inset-0 z-[110] flex justify-end">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/20 backdrop-blur-sm"
+              onClick={() => setIsProfileOpen(false)}
             />
-          </div>
-        </div>
-      )}
-
-      {isProfileOpen && (
-        <div className="fixed inset-0 z-[100] flex">
-          <div className="w-80 max-w-full h-full bg-[#f8f5ef] border-r border-[#efe3cf] text-black p-5 shadow-2xl flex flex-col">
-            <div className="mb-4">
-              <div className="flex items-center gap-3">
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                  className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-[#efe3cf] bg-white text-black flex items-center justify-center text-sm font-montserrat"
-                >
-                  {profileImage ? (
-                    <img src={profileImage} alt="Profile" className="w-full h-full object-cover" />
-                  ) : (
-                    <span className="text-lg font-montserrat">
-                      {userName ? userName.charAt(0).toUpperCase() : 'N'}
-                    </span>
-                  )}
-                </button>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleProfileImageChange}
-                />
-                <div>
-                  <p className="text-xs font-opensans tracking-[0.16em] uppercase text-black/60">Profile</p>
-                  <p className="text-sm font-montserrat font-semibold">Your Nova Wealth Profile</p>
-                  <p className="text-[0.7rem] font-opensans text-black/70">Wealth management client</p>
-                </div>
-              </div>
-              <p className="mt-2 text-[0.72rem] text-black/60">Click the circle to upload your photo</p>
-            </div>
-
-            <div className="border-t border-black/10 pt-4 mt-2 space-y-1 text-sm font-opensans">
-              <button
-                type="button"
-                onClick={() => scrollToSection('account-overview')}
-                className="w-full text-left px-2 py-1.5 rounded-md hover:bg-black/5"
-              >
-                Account overview
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection('wealth-tools-heading')}
-                className="w-full text-left px-2 py-1.5 rounded-md hover:bg-black/5"
-              >
-                Wealth management tools
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection('journey-heading')}
-                className="w-full text-left px-2 py-1.5 rounded-md hover:bg-black/5"
-              >
-                Financial wellness journey
-              </button>
-            </div>
-
-            <div className="border-t border-black/10 pt-4 mt-4 space-y-1 text-sm font-opensans">
-              <button
-                type="button"
-                onClick={() => scrollToSection('learning-hub-heading')}
-                className="w-full text-left px-2 py-1.5 rounded-md hover:bg-black/5"
-              >
-                Learning hub & insights
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollToSection('trust-heading')}
-                className="w-full text-left px-2 py-1.5 rounded-md hover:bg-black/5"
-              >
-                Trust, privacy & security
-              </button>
-            </div>
-
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="mt-6 w-full rounded-full px-4 py-2 text-xs font-montserrat border border-[#D4AF37] bg-[#D4AF37] text-black hover:bg-black hover:text-white hover:border-black transition-colors"
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="w-80 h-full bg-white shadow-2xl relative flex flex-col"
             >
-              Logout
-            </button>
-          </div>
+              <div className="p-8 border-b border-black/5">
+                <div className="flex items-center gap-4 mb-6">
+                  <button
+                    onClick={() => fileInputRef.current && fileInputRef.current.click()}
+                    className="w-20 h-20 rounded-full border-2 border-[#D4AF37] overflow-hidden bg-gray-50 flex items-center justify-center"
+                  >
+                    {profileImage ? <img src={profileImage} className="w-full h-full object-cover" /> : <span className="text-2xl font-bold">{userName?.charAt(0) || 'N'}</span>}
+                  </button>
+                  <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleProfileImageChange} />
+                  <div>
+                    <h3 className="font-montserrat font-bold">{userName || 'Member'}</h3>
+                    <p className="text-xs text-black/40 font-medium tracking-tight">Private Access</p>
+                  </div>
+                </div>
+                <p className="text-[10px] text-black/50 font-medium">Click image to update photo</p>
+              </div>
 
-          <button
-            type="button"
-            className="flex-1 bg-black/40"
-            aria-label="Close profile menu"
-            onClick={() => setIsProfileOpen(false)}
-          />
-        </div>
-      )}
-    </main>
+              <div className="flex-1 overflow-y-auto p-4 space-y-2">
+                <h4 className="px-4 text-[10px] uppercase font-bold text-black/30 tracking-widest mt-4">Settings</h4>
+                <button className="w-full text-left px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-lg">Personal Information</button>
+                <button className="w-full text-left px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-lg">Security Settings</button>
+                <button className="w-full text-left px-4 py-3 text-sm font-medium hover:bg-gray-50 rounded-lg">Notification Preferences</button>
+              </div>
+
+              <div className="p-4 border-t border-black/5">
+                <button onClick={handleLogout} className="w-full bg-black text-white font-bold py-3 rounded-xl hover:bg-black/90 transition-all">Sign Out</button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 };
+
+const SidebarItem = ({ icon, label, onClick }) => (
+  <button
+    onClick={onClick}
+    className="w-full flex items-center gap-3 px-6 py-3.5 text-sm font-medium text-white/60 hover:text-white hover:bg-white/5 transition-all group border-l-2 border-transparent hover:border-[#D4AF37]"
+  >
+    <span className="text-base grayscale group-hover:grayscale-0 transition-all">{icon}</span>
+    <span className="font-montserrat tracking-tight">{label}</span>
+  </button>
+);
 
 const ToolCard = ({ title, icon, description, isActive, onToggle, highlight, children }) => {
   return (
@@ -458,8 +365,8 @@ const ToolCard = ({ title, icon, description, isActive, onToggle, highlight, chi
         type="button"
         onClick={onToggle}
         className={`self-start rounded-full px-4 py-1.5 text-xs font-montserrat tracking-[0.08em] uppercase border ${isActive
-            ? 'bg-black text-white border-black'
-            : 'bg-[#D4AF37] text-black border-[#D4AF37]'
+          ? 'bg-black text-white border-black'
+          : 'bg-[#D4AF37] text-black border-[#D4AF37]'
           }`}
       >
         {isActive ? 'Hide Tool' : 'Launch Tool'}
