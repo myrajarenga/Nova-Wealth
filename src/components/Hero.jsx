@@ -68,7 +68,7 @@ const Hero = () => {
     },
     {
       type: 'video',
-      src: '/videos/solutionii5.mp4',
+      src: '/videos/solution6.mp4',
       duration: 6000,
       variant: 'solutioni5',
       headline: 'A LEGACY DESIGNED TO LAST FOR GENERATIONS.',
