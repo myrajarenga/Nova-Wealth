@@ -13,6 +13,7 @@ import ClientCenter from './pages/ClientCenter';
 import Contact from './pages/Contact';
 import Resources from './pages/Resources';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import OAuthCallback from './pages/OAuthCallback';
 import Assessment from './pages/Assessment';
 import AssessmentResults from './pages/AssessmentResults';
@@ -21,7 +22,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   const location = useLocation();
-  const hideFooter = ['/login', '/assessment', '/assessment-results'].includes(location.pathname);
+  const hideFooter = ['/login', '/register', '/assessment', '/assessment-results'].includes(location.pathname);
   return (
     <div className="App">
       <Navbar />
@@ -45,6 +46,7 @@ function App() {
             <Route path="/client-center" element={<ClientCenter />} />
             <Route path="/client-center/resources" element={<Resources />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/oauth/callback" element={<OAuthCallback />} />
             <Route path="/assessment" element={<Assessment />} />
             <Route path="/assessment-results" element={<AssessmentResults />} />

@@ -14,7 +14,7 @@ const Hero = () => {
     },
     {
       type: 'video',
-      src: '/videos/problem2.mp4',
+      src: '/videos/problem22.mp4',
       duration: 6000,
       variant: 'problem-2',
       headline: 'UNSURE WHICH FINANCIAL DECISIONS ARE RIGHT FOR YOU?',
@@ -129,7 +129,7 @@ const Hero = () => {
     }
   }, [index])
 
-  
+
 
   return (
     <section className="hero">
@@ -223,7 +223,7 @@ const Hero = () => {
                     />
                     <div className="logo-tagline logo-tagline-main">INVEST WISELY WITH US</div>
                     <div className="logo-tagline logo-tagline-sub">
-                      SECURE YOUR TOMORROW'S LEGACY, TODAY.
+                      SECURE  TOMORROW'S LEGACY, TODAY.
                     </div>
                   </div>
                 </div>

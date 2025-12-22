@@ -10,11 +10,7 @@ export default function Login() {
   const [otp, setOtp] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [stage, setStage] = useState('signup')
-  const [qrCode, setQrCode] = useState('')
-  const [secret, setSecret] = useState('')
-  const [name, setName] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [stage, setStage] = useState('login') // Fixed to login
   const [info, setInfo] = useState('')
 
   useEffect(() => {
@@ -39,8 +35,16 @@ export default function Login() {
         setInfo('You have successfully logged out.')
         sessionStorage.removeItem('logoutSuccess')
       }
-    } catch {}
+    } catch { }
   }, [searchParams])
+
+  const handleSmartRouting = (data) => {
+    if (data.onboardingStatus === 'new') {
+      navigate('/onboarding')
+    } else {
+      navigate('/client-center')
+    }
+  }
 
   async function handleLogin(e) {
     e.preventDefault()
@@ -56,7 +60,7 @@ export default function Login() {
         setInfo('A verification code has been sent to your email. Enter it below to complete MFA.')
         setStage('mfa')
       } else {
-        navigate('/client-center')
+        handleSmartRouting(res)
       }
     } catch (err) {
       console.error("Login error:", err)
@@ -112,7 +116,7 @@ export default function Login() {
     try {
       const res = await mfaVerify({ email, token: otp })
       if (res && res.token) {
-        navigate('/client-center')
+        handleSmartRouting(res)
       }
     } catch (err) {
       console.error("MFA Verify Error:", err);
@@ -144,16 +148,12 @@ export default function Login() {
     openGooglePopup()
   }
 
-  const handleGoogleSignUp = () => {
-    openGooglePopup()
-  }
-
   const openGooglePopup = () => {
     const redirect = `${window.location.origin}/oauth/callback`
     const rawBase = import.meta.env.VITE_API_URL || window.location.origin
     const baseUrl = rawBase.replace(/\/+$/, '')
     const url = `${baseUrl}/api/auth/google?redirect=${encodeURIComponent(redirect)}`
-    
+
     // Open popup
     const width = 500
     const height = 600
@@ -169,7 +169,7 @@ export default function Login() {
   useEffect(() => {
     const handleAuthData = (data) => {
       const { token, mfaRequired, email } = data
-      
+
       if (mfaRequired && email) {
         setEmail(email)
         setStage('mfa')
@@ -181,10 +181,10 @@ export default function Login() {
         // But authService.getToken() reads from localStorage.
         // So let's have the popup pass the token, we set it via setToken (which saves to LS)
         // then we navigate.
-         import('../services/authService').then(({ setToken }) => {
-           setToken(token)
-           navigate('/client-center')
-         })
+        import('../services/authService').then(({ setToken }) => {
+          setToken(token)
+          handleSmartRouting(data)
+        })
       }
     }
 
@@ -226,110 +226,92 @@ export default function Login() {
               {stage === 'signup' ? 'Sign Up' : (stage === 'login' ? 'Client Login' : 'Account Access')}
             </div>
           </div>
-        
-        {stage === 'login' && (
-          <>
-            <div className="font-montserrat text-2xl font-bold text-black mb-2">Log in to your account</div>
-            <div className="font-opensans text-sm font-bold text-black mb-4"> Don't have an account?  <a href="#" onClick={(e) => { e.preventDefault(); setStage('signup'); }} className="text-blue-600 font-bold">Sign Up</a></div>
-          </>
-        )}
 
-        {stage === 'signup' && (
-          <>
-            <div className="font-montserrat text-2xl font-bold text-black mb-2">Create your account</div>
-            <div className="font-opensans text-sm font-bold text-black mb-4"> Have an account?  <a href="#" onClick={(e) => { e.preventDefault(); setStage('login'); }} className="text-blue-600 font-bold">Log in</a></div>
-          </>
-        )}
-
-        {info && (
-          <div className="mb-4 rounded-md bg-green-50 text-green-700 px-4 py-3 text-sm">{info}</div>
-        )}
-        {error && (
-          <div className="mb-6 rounded-md bg-red-50 text-red-700 px-4 py-3 text-sm">{error}</div>
-        )}
-        {stage === 'login' && (
-          <form onSubmit={handleLogin} className="space-y-6">
-            <button type="button" className="w-full border rounded-lg py-3 font-semibold flex items-center justify-center gap-2 border-[#D4AF37] text-black hover:bg-[#F8F3E6]" onClick={handleGoogleSignIn}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6,20.5H42V20H24v8h11.3c-1.6,4.6-6,8-11.3,8c-6.6,0-12-5.4-12-12s5.4-12,12-12c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C12.9,4,4,12.9,4,24s8.9,20,20,20c11,0,20-9,20-20C44,22.7,43.8,21.6,43.6,20.5z"/><path fill="#FF3D00" d="M6.3,14.7l6.6,4.8C14.3,16.2,18.8,14,24,14c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C16.7,4,10.2,7.6,6.3,14.7z"/><path fill="#4CAF50" d="M24,44c6,0,11.5-2.3,15.6-6.1l-7.2-5.9C30.1,33.9,27.2,35,24,35c-5.3,0-9.7-3.4-11.3-8H6.4l-6.7,5.1C10.2,40.4,16.7,44,24,44z"/><path fill="#1976D2" d="M43.6,20.5H42V20H24v8h11.3c-0.8,2.3-2.3,4.3-4.3,5.7l7.2,5.9C41.5,36.6,44,31,44,24C44,22.7,43.8,21.6,43.6,20.5z"/></svg>
-              <span>Continue with Google</span>
-            </button>
-            <div className="flex items-center gap-3">
-              <div className="h-px bg-black/10 flex-1" />
-              <span className="text-xs text-gray-500">Or with email and password</span>
-              <div className="h-px bg-black/10 flex-1" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-black mb-2">Email</label>
-              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-black mb-2">Password</label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Your password" />
-            </div>
-            <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Signing in...' : 'Sign In'}</button>
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex gap-4 w-full justify-between">
-                <a href="#" onClick={(e) => { e.preventDefault(); setStage('forgot'); }} className="text-black underline">Forgot password?</a>
-                <a href="#" onClick={(e) => { e.preventDefault(); setStage('signup'); }} className="text-black underline">Create account</a>
+          {stage === 'login' && (
+            <>
+              <div className="font-montserrat text-3xl font-bold mb-8">
+                <span className="text-black">Welcome to </span>
+                <span className="text-[#D4AF37]">Nova Wealth</span>
               </div>
-            </div>
-          </form>
-        )}
-        {stage === 'mfa' && (
-          <form onSubmit={handleVerify} className="space-y-6">
-            <div className="font-opensans text-gray-700">Enter the 6-digit code sent to your email</div>
-            <div>
-              <label className="block text-sm font-semibold text-black mb-2">One-Time Code</label>
-              <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} value={otp} onChange={(e) => setOtp(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="123456" />
-            </div>
-            <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Verifying...' : 'Verify Code'}</button>
-          </form>
-        )}
-        {stage === 'setup' && (
-          <div className="space-y-6">
-            <div className="font-opensans text-gray-700">We have sent a verification code to your email. Enter it to complete MFA.</div>
-            <div>
-              <button className="text-sm text-black underline" onClick={() => setStage('mfa')}>Verify code</button>
-            </div>
-          </div>
-        )}
-        {stage === 'forgot' && (
-          <ForgotPassword email={email} onBack={() => setStage('login')} />
-        )}
-        {stage === 'signup' && (
-          <form onSubmit={handleRegister} className="space-y-6">
-            <button type="button" className="w-full border rounded-lg py-3 font-semibold flex items-center justify-center gap-2 border-[#D4AF37] text-black hover:bg-[#F8F3E6]" onClick={handleGoogleSignUp}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6,20.5H42V20H24v8h11.3c-1.6,4.6-6,8-11.3,8c-6.6,0-12-5.4-12-12s5.4-12,12-12c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C12.9,4,4,12.9,4,24s8.9,20,20,20c11,0,20-9,20-20C44,22.7,43.8,21.6,43.6,20.5z"/><path fill="#FF3D00" d="M6.3,14.7l6.6,4.8C14.3,16.2,18.8,14,24,14c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C16.7,4,10.2,7.6,6.3,14.7z"/><path fill="#4CAF50" d="M24,44c6,0,11.5-2.3,15.6-6.1l-7.2-5.9C30.1,33.9,27.2,35,24,35c-5.3,0-9.7-3.4-11.3-8H6.4l-6.7,5.1C10.2,40.4,16.7,44,24,44z"/><path fill="#1976D2" d="M43.6,20.5H42V20H24v8h11.3c-0.8,2.3-2.3,4.3-4.3,5.7l7.2,5.9C41.5,36.6,44,31,44,24C44,22.7,43.8,21.6,43.6,20.5z"/></svg>
-              <span>Sign Up with Google</span>
-            </button>
-            <div className="flex items-center gap-3">
-              <div className="h-px bg-black/10 flex-1" />
-              <span className="text-xs text-gray-500">Or with email</span>
-              <div className="h-px bg-black/10 flex-1" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-black mb-2">Full Name</label>
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Your name" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-black mb-2">Email</label>
-              <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="you@example.com" />
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-black mb-2">Password</label>
-              <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Choose a password" />
-              <div className="text-xs text-gray-600 mt-1">Must be 8+ characters and include letters, numbers, and a special character.</div>
-            </div>
-            <div>
-              <label className="block text-sm font-semibold text-black mb-2">Confirm Password</label>
-              <input required type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Re-enter password" />
-            </div>
-            <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Creating account...' : 'Sign Up'}</button>
-            <div className="text-center text-sm">
-              <a href="#" onClick={(e) => { e.preventDefault(); setStage('login'); }} className="text-black underline">Have an account? Sign in</a>
-            </div>
-          </form>
-        )}
+            </>
+          )}
+
+          {info && (
+            <div className="mb-4 rounded-md bg-green-50 text-green-700 px-4 py-3 text-sm">{info}</div>
+          )}
+          {error && (
+            <div className="mb-6 rounded-md bg-red-50 text-red-700 px-4 py-3 text-sm">{error}</div>
+          )}
+          {stage === 'login' && (
+            <form onSubmit={handleLogin} className="space-y-6">
+              <button type="button" className="w-full border rounded-lg py-3 font-semibold flex items-center justify-center gap-2 border-[#D4AF37] text-black hover:bg-[#F8F3E6]" onClick={handleGoogleSignIn}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6,20.5H42V20H24v8h11.3c-1.6,4.6-6,8-11.3,8c-6.6,0-12-5.4-12-12s5.4-12,12-12c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C12.9,4,4,12.9,4,24s8.9,20,20,20c11,0,20-9,20-20C44,22.7,43.8,21.6,43.6,20.5z" /><path fill="#FF3D00" d="M6.3,14.7l6.6,4.8C14.3,16.2,18.8,14,24,14c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C16.7,4,10.2,7.6,6.3,14.7z" /><path fill="#4CAF50" d="M24,44c6,0,11.5-2.3,15.6-6.1l-7.2-5.9C30.1,33.9,27.2,35,24,35c-5.3,0-9.7-3.4-11.3-8H6.4l-6.7,5.1C10.2,40.4,16.7,44,24,44z" /><path fill="#1976D2" d="M43.6,20.5H42V20H24v8h11.3c-0.8,2.3-2.3,4.3-4.3,5.7l7.2,5.9C41.5,36.6,44,31,44,24C44,22.7,43.8,21.6,43.6,20.5z" /></svg>
+                <span>Continue with Google</span>
+              </button>
+              <div className="flex items-center gap-3">
+                <div className="h-px bg-black/10 flex-1" />
+                <span className="text-xs text-gray-400 font-medium tracking-wider">OR WITH EMAIL</span>
+                <div className="h-px bg-black/10 flex-1" />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-black mb-1">Email</label>
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-[#f4f7f9] text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
+                  placeholder="myrajarenga1234@gmail.com"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-bold text-black mb-1">Password</label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-[#f4f7f9] text-black focus:bg-white focus:ring-2 focus:ring-[#D4AF37] transition-all outline-none"
+                  placeholder="..........."
+                />
+                <div className="mt-2 text-[11px] text-gray-500 font-medium flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                  </svg>
+                  Security: One-Time Token has been sent to your email.
+                </div>
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full bg-[#D4AF37] text-white font-bold py-4 rounded-lg hover:bg-[#B99A2F] transition-colors disabled:opacity-70 mt-4 text-lg"
+              >
+                {loading ? 'AUTHENTICATING...' : 'Sign In'}
+              </button>
+              <div className="flex justify-between items-center text-sm font-medium">
+                <a href="#" onClick={(e) => { e.preventDefault(); setStage('forgot'); }} className="text-black hover:underline">Forgot password?</a>
+                <a href="/register" className="text-black hover:underline">Create account</a>
+              </div>
+            </form>
+          )}
+          {stage === 'mfa' && (
+            <form onSubmit={handleVerify} className="space-y-6">
+              <div className="font-montserrat text-2xl font-bold text-black mb-2">Verify Identity</div>
+              <div className="font-opensans text-sm text-gray-600 mb-6 font-medium">Enter the 6-digit code sent to your email.</div>
+              <div>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2">Verification Code</label>
+                <input type="text" inputMode="numeric" pattern="\d{6}" maxLength={6} required value={otp} onChange={(e) => setOtp(e.target.value)} className="w-full px-6 py-4 rounded-xl border-transparent bg-gray-100 text-black text-center text-3xl font-bold tracking-[0.5em] focus:bg-white focus:ring-2 focus:ring-[#D4AF37] transition-all outline-none" placeholder="000000" />
+              </div>
+              <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-black font-bold py-4 rounded-lg hover:bg-[#B99A2F] transition-colors disabled:opacity-70">
+                {loading ? 'VERIFYING...' : 'COMPLETE SIGN IN'}
+              </button>
+              <button type="button" onClick={() => setStage('login')} className="w-full text-sm font-bold text-gray-400 hover:text-black transition-colors">Back to Login</button>
+            </form>
+          )}
+
+          {stage === 'forgot' && (
+            <ForgotPassword email={email} onBack={() => setStage('login')} />
+          )}
+
         </div>
       </div>
       <div className="relative hidden md:block md:col-span-3">

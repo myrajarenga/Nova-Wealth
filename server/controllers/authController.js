@@ -27,7 +27,8 @@ const registerUser = asyncHandler(async (req, res) => {
     name,
     email: normalizedEmail,
     password,
-    phoneNumber,
+    phoneNumber: phoneNumber || undefined,
+    onboardingStatus: 'new',
   });
 
   if (user) {
@@ -40,6 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isMfaEnabled: user.isMfaEnabled,
+      onboardingStatus: user.onboardingStatus,
       token: generateToken(user._id),
     });
   } else {
@@ -76,9 +78,22 @@ const loginUser = asyncHandler(async (req, res) => {
         sent = false
       }
 
-      res.json({ _id: user._id, email: user.email, mfaRequired: true, devCode: sent ? undefined : code })
+      res.json({
+        _id: user._id,
+        email: user.email,
+        mfaRequired: true,
+        onboardingStatus: user.onboardingStatus,
+        devCode: sent ? undefined : code
+      })
     } else {
-      res.json({ _id: user._id, name: user.name, email: user.email, isMfaEnabled: user.isMfaEnabled, token: generateToken(user._id) })
+      res.json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isMfaEnabled: user.isMfaEnabled,
+        onboardingStatus: user.onboardingStatus,
+        token: generateToken(user._id)
+      })
     }
   } else {
     res.status(401);
@@ -145,6 +160,7 @@ const mfaVerify = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isMfaEnabled: true,
+      onboardingStatus: user.onboardingStatus,
       token: generateToken(user._id)
     })
   } else {
@@ -236,7 +252,7 @@ const googleAuth = asyncHandler(async (req, res) => {
   // We use the 'state' parameter to pass the frontend callback URL (req.query.redirect)
   // This allows the callback to know where to redirect the user back to.
   const state = req.query.redirect ? encodeURIComponent(req.query.redirect) : ''
-  
+
   const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${encodeURIComponent(clientId)}&redirect_uri=${encodeURIComponent(redirectUri)}&response_type=code&scope=${scope}&access_type=offline&prompt=consent${state ? `&state=${state}` : ''}`
   res.redirect(authUrl)
 })
@@ -332,7 +348,8 @@ const googleCallback = asyncHandler(async (req, res) => {
       email: normalizedEmail,
       password: randomPassword,
       phoneNumber: 'N/A',
-      isMfaEnabled: true
+      isMfaEnabled: true,
+      onboardingStatus: 'new'
     })
   }
 
@@ -370,7 +387,7 @@ const googleCallback = asyncHandler(async (req, res) => {
     }
     return res.redirect(`${frontendCallback}?mfaRequired=true&email=${encodeURIComponent(user.email)}`)
   }
-  
+
   const token = generateToken(user._id)
   let frontendBase = process.env.FRONTEND_URL || 'http://localhost:5173'
   let frontendCallback = `${frontendBase.replace(/\/$/, '')}/oauth/callback`

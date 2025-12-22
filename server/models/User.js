@@ -52,6 +52,11 @@ const userSchema = mongoose.Schema(
     resetExpires: {
       type: Date,
       default: null
+    },
+    onboardingStatus: {
+      type: String,
+      enum: ['new', 'active'],
+      default: 'new',
     }
   },
   {
