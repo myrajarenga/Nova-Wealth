@@ -24,7 +24,7 @@ function App() {
   const location = useLocation();
 
   const isAuthPage = /^\/(login|register|assessment|assessment-results)(\/|$)/i.test(location.pathname);
-  const isClientPortal = /^\/client-center(\/|$)/i.test(location.pathname);
+  const isClientPortal = /^\/client-center(\/|$)/i.test(location.pathname) && location.pathname !== '/client-center/resources';
 
   const hideFooter = isAuthPage || isClientPortal;
   const hideNavbar = isClientPortal;

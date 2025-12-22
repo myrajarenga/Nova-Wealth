@@ -80,16 +80,19 @@ export default function Register() {
                         <span className="text-black">Start Your </span>
                         <span className="text-[#D4AF37]">Wealth Journey</span>
                     </div>
-                    <p className="font-opensans text-sm text-gray-600 mb-8">
+                    <p className="font-opensans text-sm text-gray-600 mb-4">
                         Join the next generation of wealthy families and professionals.
                     </p>
+                    <div className="font-montserrat text-base font-bold text-black mb-8">
+                        Create Account
+                    </div>
 
                     {error && (
                         <div className="mb-6 rounded-md bg-red-50 text-red-700 px-4 py-3 text-sm">{error}</div>
                     )}
 
                     <div className="space-y-6">
-                        <button type="button" className="w-full border rounded-lg py-3 font-semibold flex items-center justify-center gap-2 border-[#D4AF37] text-black hover:bg-[#F8F3E6]" onClick={handleGoogleSignUp}>
+                        <button type="button" className="w-full border border-black rounded-lg py-3 font-semibold flex items-center justify-center gap-2 text-black hover:bg-black/5" onClick={handleGoogleSignUp}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6,20.5H42V20H24v8h11.3c-1.6,4.6-6,8-11.3,8c-6.6,0-12-5.4-12-12s5.4-12,12-12c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C12.9,4,4,12.9,4,24s8.9,20,20,20c11,0,20-9,20-20C44,22.7,43.8,21.6,43.6,20.5z" /><path fill="#FF3D00" d="M6.3,14.7l6.6,4.8C14.3,16.2,18.8,14,24,14c3.1,0,6,1.2,8.2,3.1l5.7-5.7C35.6,6.2,30.1,4,24,4C16.7,4,10.2,7.6,6.3,14.7z" /><path fill="#4CAF50" d="M24,44c6,0,11.5-2.3,15.6-6.1l-7.2-5.9C30.1,33.9,27.2,35,24,35c-5.3,0-9.7-3.4-11.3-8H6.4l-6.7,5.1C10.2,40.4,16.7,44,24,44z" /><path fill="#1976D2" d="M43.6,20.5H42V20H24v8h11.3c-0.8,2.3-2.3,4.3-4.3,5.7l7.2,5.9C41.5,36.6,44,31,44,24C44,22.7,43.8,21.6,43.6,20.5z" /></svg>
                             <span>Sign up with Google</span>
                         </button>
