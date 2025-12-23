@@ -9,8 +9,10 @@
 
 .flip-card-container {
   background-color: transparent;
-  height: 420px; /* Fixed height to ensure uniformity */
-  perspective: 1000px; /* Remove this if using grid perspective, but good for safety */
+  height: 500px;
+  /* Optimized height to fit content without extra space */
+  perspective: 1000px;
+  /* Remove this if using grid perspective, but good for safety */
   cursor: pointer;
 }
 
@@ -20,9 +22,11 @@
   width: 100%;
   height: 100%;
   text-align: center;
-  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1); /* Smoother easing */
+  transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+  /* Smoother easing */
   transform-style: preserve-3d;
-  border-radius: 1rem; /* rounded-xl */
+  border-radius: 1rem;
+  /* rounded-xl */
   box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
 }
 
@@ -32,19 +36,23 @@
 }
 
 /* Position the front and back side */
-.flip-card-front, .flip-card-back {
+.flip-card-front,
+.flip-card-back {
   position: absolute;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden; /* Safari */
+  -webkit-backface-visibility: hidden;
+  /* Safari */
   backface-visibility: hidden;
-  border-radius: 1rem; /* rounded-xl */
+  border-radius: 1rem;
+  /* rounded-xl */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 2rem;
-  border: 1px solid rgba(0,0,0,0.08);
+  padding: 1.5rem;
+  /* Reduced padding to better utilize space */
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 /* Style the front side */
@@ -68,23 +76,30 @@
 
 /* Style the back side */
 .flip-card-back {
-  background-color: #0B1426; /* Navy/Dark background for contrast */
+  background-color: #0B1426;
+  /* Navy/Dark background for contrast */
   color: white;
   transform: rotateY(180deg);
   border-color: transparent;
+  justify-content: flex-start;
+  /* Start from top instead of center */
+  overflow-y: auto;
+  /* Enable scrolling if content is too long */
 }
 
 /* Content specific styling */
 .flip-icon-wrapper {
   width: 80px;
   height: 80px;
-  background: rgba(212, 175, 55, 0.1); /* Gold tint */
+  background: rgba(212, 175, 55, 0.1);
+  /* Gold tint */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
-  color: #D4AF37; /* Gold accent */
+  color: #D4AF37;
+  /* Gold accent */
   font-size: 2rem;
 }
 
@@ -97,27 +112,32 @@
 }
 
 .flip-card-back .flip-title {
-  color: #D4AF37; /* Gold title on back */
+  color: #D4AF37;
+  /* Gold title on back */
   font-size: 1.25rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding-bottom: 0.5rem;
   width: 100%;
 }
 
 .flip-desc {
   font-family: 'Montserrat', sans-serif;
-  font-size: 1rem;
+  font-size: 0.9rem;
   line-height: 1.6;
-  color: #E5E7EB; /* Light gray text */
+  color: #E5E7EB;
+  /* Light gray text */
+  text-align: left;
+  /* Better readability for longer text */
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .flip-card-container {
-    height: 380px;
+    height: 450px;
+    /* Adjusted proportionally to desktop */
   }
-  
+
   /* On mobile, maybe we want click to flip or just show content? 
      For now, keeping hover/active state logic.
   */
