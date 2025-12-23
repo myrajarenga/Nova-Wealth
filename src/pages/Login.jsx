@@ -59,7 +59,20 @@ export default function Login() {
       }
     } catch (err) {
       console.error("Login error:", err)
-      const msg = err?.response?.data?.message || err?.message || 'Login failed. Check your credentials.'
+      let msg = 'Login failed. Please try again.'
+
+      // Provide user-friendly error messages based on status code
+      if (err?.response?.status === 401) {
+        msg = 'Incorrect email or password. Please try again.'
+      } else if (err?.response?.status === 404) {
+        msg = 'No account found with this email address.'
+      } else if (err?.response?.status === 403) {
+        msg = 'Your account has been locked. Please contact support.'
+      } else if (err?.response?.data?.message) {
+        // Use server message if it's user-friendly
+        msg = err.response.data.message
+      }
+
       setError(msg)
     } finally {
       setLoading(false)
@@ -354,6 +367,7 @@ function ForgotPassword({ email, onBack, onResetSuccess }) {
   const [mail, setMail] = useState(email || '')
   const [code, setCode] = useState('')
   const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
   const [step, setStep] = useState('request')
   const [msg, setMsg] = useState('')
   const [loading, setLoading] = useState(false)
@@ -379,6 +393,14 @@ function ForgotPassword({ email, onBack, onResetSuccess }) {
     e.preventDefault()
     setLoading(true)
     setMsg('')
+
+    // Validate passwords match before making API call
+    if (newPassword !== confirmPassword) {
+      setMsg('Passwords do not match. Please try again.')
+      setLoading(false)
+      return
+    }
+
     try {
       const svc = await import('../services/authService')
       const res = await svc.resetPassword({ email: mail, code, newPassword })
@@ -419,7 +441,11 @@ function ForgotPassword({ email, onBack, onResetSuccess }) {
           </div>
           <div>
             <label className="block text-sm font-semibold text-black mb-2">New Password</label>
-            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="New password" />
+            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="New password" required />
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-black mb-2">Confirm New Password</label>
+            <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-4 py-3 rounded-lg border border-black/10 bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]" placeholder="Re-enter new password" required />
           </div>
           <div className="flex gap-3">
             <button type="submit" disabled={loading} className="flex-1 bg-[#D4AF37] text-white font-bold py-3 rounded-lg hover:bg-[#B99A2F] disabled:opacity-70">{loading ? 'Resetting...' : 'Reset Password'}</button>
