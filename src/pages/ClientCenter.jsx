@@ -307,12 +307,26 @@ const ClientCenter = () => {
                 ✕
               </button>
               <iframe
-                src="https://www.youtube-nocookie.com/embed/_gRtrZ1Tj0g?autoplay=1&mute=1"
+                src="https://www.youtube.com/embed/zKGRYLKMzVQ?autoplay=1&mute=1"
                 title="Nova Wealth Intro"
                 className="w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                onError={() => console.error('Video failed to load')}
               />
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="bg-black/70 text-white p-6 rounded-lg text-center max-w-md pointer-events-auto">
+                  <p className="text-sm mb-4">If the video doesn't appear, it may have embedding restrictions.</p>
+                  <a
+                    href="https://www.youtube.com/watch?v=zKGRYLKMzVQ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-[#D4AF37] text-black px-6 py-2 rounded-lg font-bold hover:bg-[#c4a030] transition-colors"
+                  >
+                    Watch on YouTube
+                  </a>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -668,7 +682,7 @@ const ClientCenter = () => {
           </div>
         )}
       </AnimatePresence>
-    </div>
+    </div >
   );
 };
 

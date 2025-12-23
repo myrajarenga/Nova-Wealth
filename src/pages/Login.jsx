@@ -12,6 +12,7 @@ export default function Login() {
   const [error, setError] = useState('')
   const [stage, setStage] = useState('login') // Fixed to login
   const [info, setInfo] = useState('')
+  const [skipMfa, setSkipMfa] = useState(false) // Skip MFA after password reset
 
   useEffect(() => {
     const token = getToken()
@@ -42,11 +43,20 @@ export default function Login() {
     navigate('/client-center')
   }
 
-  async function performLogin(credentials) {
+  async function performLogin(credentials, skipMfaCheck = false) {
     setError('')
     setLoading(true)
     try {
       const res = await login(credentials)
+
+      // Skip MFA if user just completed password reset (email already verified)
+      if (skipMfaCheck && res && res.token) {
+        handleSmartRouting(res)
+        setSkipMfa(false) // Clear flag after use
+        return
+      }
+
+      // Normal MFA flow
       if (res && res.mfaRequired) {
         setInfo('A verification code has been sent to your email. Enter it below to complete MFA.')
         setStage('mfa')
@@ -88,6 +98,7 @@ export default function Login() {
     setEmail(resetEmail)
     setPassword(resetPassword)
     setStage('login')
+    setSkipMfa(true) // Skip MFA since email was already verified with reset code
     setInfo('Password updated successfully. Signing you in...')
 
     // Automatically trigger login or redirect after a short delay
@@ -95,9 +106,10 @@ export default function Login() {
       if (response && response.token) {
         // If we already have a token (some backends return it on reset)
         handleSmartRouting(response)
+        setSkipMfa(false) // Clear flag
       } else {
-        // Otherwise perform login with the new credentials
-        performLogin({ email: resetEmail, password: resetPassword })
+        // Otherwise perform login with the new credentials, skipping MFA
+        performLogin({ email: resetEmail, password: resetPassword }, true)
       }
     }, 1500)
   }
