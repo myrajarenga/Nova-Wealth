@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { sendContactMessage } from '../../services/contactService';
+import { validateContactForm } from '../../utils/inputValidator';
+import { checkRateLimit, recordAttempt, getTimeRemainingMessage } from '../../utils/rateLimiter';
 
 const services = [
   "Financial Planning",
@@ -19,37 +21,20 @@ const ContactForm = () => {
     email: '',
     phone: '',
     subject: '',
-    comments: ''
+    comments: '',
+    website_url: '', // Honeypot field - should remain empty
   });
 
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const [rateLimitError, setRateLimitError] = useState(null);
+  const formStartTime = useRef(Date.now());
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.firstName.trim()) {
-      newErrors.firstName = 'First name is required';
-    }
-    if (!formData.lastName.trim()) {
-      newErrors.lastName = 'Last name is required';
-    }
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    }
-    if (formData.phone && !/^\+?[0-9\s-]{7,20}$/.test(formData.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
-    }
-    if (!formData.subject.trim()) {
-      newErrors.subject = 'Subject is required';
-    }
-    if (!formData.comments.trim()) {
-      newErrors.comments = 'Comments are required';
-    }
-    return newErrors;
-  };
+  useEffect(() => {
+    // Reset form start time when component mounts
+    formStartTime.current = Date.now();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,21 +53,65 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newErrors = validateForm();
-    
-    if (Object.keys(newErrors).length === 0) {
-      setIsSubmitting(true);
-      try {
-        await sendContactMessage(formData);
-        setSubmitStatus('success');
-        setFormData({ firstName: '', lastName: '', email: '', phone: '', subject: '', comments: '' });
-      } catch (error) {
-        setSubmitStatus('error');
-      } finally {
-        setIsSubmitting(false);
-      }
-    } else {
-      setErrors(newErrors);
+    setRateLimitError(null);
+
+    // 1. Check honeypot (bot detection)
+    if (formData.website_url) {
+      // Silent rejection - don't tell bots what went wrong
+      setSubmitStatus('error');
+      return;
+    }
+
+    // 2. Check timing (bot detection - form must take at least 3 seconds)
+    const timeTaken = Date.now() - formStartTime.current;
+    if (timeTaken < 3000) {
+      setErrors({ _global: 'Please take a moment to review your message before submitting.' });
+      return;
+    }
+
+    // 3. Check rate limit
+    const rateCheck = checkRateLimit('contact-form', {
+      maxAttempts: 3,
+      windowMs: 15 * 60 * 1000, // 15 minutes
+      blockDurationMs: 30 * 60 * 1000, // 30 minutes
+    });
+
+    if (!rateCheck.allowed) {
+      setRateLimitError(rateCheck.error);
+      return;
+    }
+
+    // 4. Validate form with comprehensive security checks
+    const validation = validateContactForm(formData);
+
+    if (!validation.isValid) {
+      setErrors(validation.errors);
+      return;
+    }
+
+    // 5. Submit form
+    setIsSubmitting(true);
+    try {
+      // Record attempt for rate limiting
+      recordAttempt('contact-form');
+
+      await sendContactMessage(validation.sanitized);
+      setSubmitStatus('success');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        subject: '',
+        comments: '',
+        website_url: '',
+      });
+      // Reset form start time
+      formStartTime.current = Date.now();
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -100,9 +129,8 @@ const ContactForm = () => {
               name="firstName"
               value={formData.firstName}
               onChange={handleChange}
-              className={`w-full px-4 py-3 rounded-lg border ${
-                errors.firstName ? 'border-red-500' : 'border-gray-300'
-              } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
+              className={`w-full px-4 py-3 rounded-lg border ${errors.firstName ? 'border-red-500' : 'border-gray-300'
+                } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
               placeholder="First name here"
               aria-invalid={errors.firstName ? 'true' : 'false'}
             />
@@ -121,9 +149,8 @@ const ContactForm = () => {
               name="lastName"
               value={formData.lastName}
               onChange={handleChange}
-              className={`w-full px-4 py-3 rounded-lg border ${
-                errors.lastName ? 'border-red-500' : 'border-gray-300'
-              } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
+              className={`w-full px-4 py-3 rounded-lg border ${errors.lastName ? 'border-red-500' : 'border-gray-300'
+                } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
               placeholder="Last name here"
               aria-invalid={errors.lastName ? 'true' : 'false'}
             />
@@ -142,9 +169,8 @@ const ContactForm = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className={`w-full px-4 py-3 rounded-lg border ${
-                errors.email ? 'border-red-500' : 'border-gray-300'
-              } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
+              className={`w-full px-4 py-3 rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-300'
+                } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
               placeholder="Add email"
               aria-invalid={errors.email ? 'true' : 'false'}
             />
@@ -163,9 +189,8 @@ const ContactForm = () => {
               name="phone"
               value={formData.phone}
               onChange={handleChange}
-              className={`w-full px-4 py-3 rounded-lg border ${
-                errors.phone ? 'border-red-500' : 'border-gray-300'
-              } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
+              className={`w-full px-4 py-3 rounded-lg border ${errors.phone ? 'border-red-500' : 'border-gray-300'
+                } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
               placeholder="Add phone number"
               aria-invalid={errors.phone ? 'true' : 'false'}
             />
@@ -184,9 +209,8 @@ const ContactForm = () => {
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className={`w-full px-4 py-3 rounded-lg border ${
-                  errors.subject ? 'border-red-500' : 'border-gray-300'
-                } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent appearance-none`}
+                className={`w-full px-4 py-3 rounded-lg border ${errors.subject ? 'border-red-500' : 'border-gray-300'
+                  } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent appearance-none`}
                 aria-invalid={errors.subject ? 'true' : 'false'}
               >
                 <option value="">Select a subject</option>
@@ -207,6 +231,23 @@ const ContactForm = () => {
             )}
           </div>
 
+          {/* Honeypot field - hidden from users, bots will fill it */}
+          <input
+            type="text"
+            name="website_url"
+            value={formData.website_url}
+            onChange={handleChange}
+            tabIndex={-1}
+            autoComplete="off"
+            style={{
+              position: 'absolute',
+              left: '-9999px',
+              width: '1px',
+              height: '1px',
+            }}
+            aria-hidden="true"
+          />
+
           <div className="lg:col-span-2">
             <label htmlFor="comments" className="block text-gray-700 font-semibold mb-2">
               Comments / Questions <span className="text-red-500">*</span>
@@ -217,9 +258,8 @@ const ContactForm = () => {
               value={formData.comments}
               onChange={handleChange}
               rows="6"
-              className={`w-full px-4 py-3 rounded-lg border ${
-                errors.comments ? 'border-red-500' : 'border-gray-300'
-              } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
+              className={`w-full px-4 py-3 rounded-lg border ${errors.comments ? 'border-red-500' : 'border-gray-300'
+                } bg-gray-100 text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent`}
               placeholder="Comments"
               aria-invalid={errors.comments ? 'true' : 'false'}
             />
@@ -229,14 +269,27 @@ const ContactForm = () => {
           </div>
         </div>
 
+        {/* Global errors */}
+        {errors._global && (
+          <div className="rounded-md bg-yellow-50 p-4">
+            <p className="text-sm text-yellow-700">{errors._global}</p>
+          </div>
+        )}
+
+        {/* Rate limit error */}
+        {rateLimitError && (
+          <div className="rounded-md bg-red-50 p-4">
+            <p className="text-sm text-red-700">{rateLimitError}</p>
+          </div>
+        )}
+
         {/* Submit Button */}
         <button
           type="submit"
           disabled={isSubmitting}
           className={`w-full bg-[#D4AF37] text-white font-bold py-3 px-6 rounded-lg 
             transition-all duration-200 hover:bg-[#B99A2F] focus:outline-none focus:ring-2 
-            focus:ring-[#D4AF37] focus:ring-offset-2 ${
-              isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
+            focus:ring-[#D4AF37] focus:ring-offset-2 ${isSubmitting ? 'opacity-75 cursor-not-allowed' : ''
             }`}
         >
           {isSubmitting ? 'Sending...' : 'Send Message'}

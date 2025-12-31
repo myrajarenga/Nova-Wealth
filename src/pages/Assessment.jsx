@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { logError } from '../utils/secureLogger';
 import { useNavigate } from 'react-router-dom';
 import { submitAssessment } from '../services/assessmentService';
 
@@ -133,7 +134,7 @@ const Assessment = () => {
       // Calculate score and persona
       let totalScore = 0;
       let persona = "Planner";
-      
+
       Object.values(answers).forEach(ans => {
         totalScore += ans.score;
         if (ans.type) persona = ans.type;
@@ -149,7 +150,7 @@ const Assessment = () => {
 
       // Call API (Mocking the service call if backend isn't ready, but we'll assume service exists)
       const response = await submitAssessment(payload);
-      
+
       // Normalize response data (handle structure difference between mock and real API)
       const resultData = response.data || response || payload;
       // Ensure answers are present (in case mock response doesn't include them fully)
@@ -159,19 +160,19 @@ const Assessment = () => {
 
       // Redirect to results with data
       navigate('/assessment-results', { state: { result: resultData } });
-      
+
     } catch (error) {
-      console.error("Assessment submission failed", error);
+      logError(error, { context: 'assessment-submission' });
       // Fallback for demo purposes if backend fails
-      navigate('/assessment-results', { 
-        state: { 
+      navigate('/assessment-results', {
+        state: {
           result: {
             ...formData,
             answers,
             persona: Object.values(answers).find(a => a.type)?.type || "Planner",
             score: Object.values(answers).reduce((a, b) => a + b.score, 0)
-          } 
-        } 
+          }
+        }
       });
     } finally {
       setLoading(false);
@@ -185,7 +186,7 @@ const Assessment = () => {
           Wealth Health Assessment
         </h2>
         <p className="mt-4 text-center text-lg text-red-600 font-bold px-4">
-           Most professionals lose millions in potential growth by using outdated strategies. Are you one of them?
+          Most professionals lose millions in potential growth by using outdated strategies. Are you one of them?
         </p>
         <p className="mt-2 text-center text-sm text-gray-600">
           Before you book an appointment, kindly discover your financial persona in 60 seconds.
@@ -194,10 +195,10 @@ const Assessment = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-2xl">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 relative overflow-hidden">
-          
+
           {/* Progress Bar */}
           <div className="absolute top-0 left-0 w-full h-2 bg-gray-100">
-            <div 
+            <div
               className="h-full bg-[#D4AF37] transition-all duration-500 ease-out"
               style={{ width: `${showLeadForm ? 100 : progress}%` }}
             ></div>
@@ -222,8 +223,8 @@ const Assessment = () => {
                       key={idx}
                       onClick={() => handleOptionClick(option)}
                       className={`w-full text-left px-6 py-4 border rounded-lg transition-all duration-200 group
-                        ${isSelected 
-                          ? 'border-[#D4AF37] border-2 bg-[#FFFDF5] shadow-md' 
+                        ${isSelected
+                          ? 'border-[#D4AF37] border-2 bg-[#FFFDF5] shadow-md'
                           : 'border-gray-200 hover:border-[#D4AF37] hover:bg-[#FFFDF5]'
                         }`}
                     >
@@ -312,7 +313,7 @@ const Assessment = () => {
                     {loading ? 'Analyzing...' : 'See My Results'}
                   </button>
                 </div>
-                
+
                 <p className="text-xs text-center text-gray-400 mt-4">
                   By clicking "See My Results", you agree to our Terms of Service and Privacy Policy.
                 </p>

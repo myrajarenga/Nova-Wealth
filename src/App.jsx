@@ -6,6 +6,7 @@ import AutoLogout from './components/AutoLogout';
 import CTASection from './components/CTASection';
 import ServiceHighlights from './components/Home/ServiceHighlights';
 import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
 import Services from './pages/Services';
 import WhoWeServe from './pages/WhoWeServe';
 import About from './pages/About';
@@ -31,41 +32,45 @@ function App() {
   const hideNavbar = isClientPortal;
 
   return (
-    <div className="App">
-      {!hideNavbar && <Navbar />}
-      <main>
-        <AutoLogout>
-          <Routes>
-            {/* redeploy trigger */}
-            <Route
-              path="/"
-              element={(
-                <>
-                  <Hero />
-                  <ServiceHighlights />
-                  <CTASection />
-                </>
-              )}
-            />
-            <Route path="/services" element={<Services />} />
-            <Route path="/who-we-serve" element={<WhoWeServe />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/client-center" element={<ClientCenter />} />
-            <Route path="/client-center/resources" element={<Resources />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/oauth/callback" element={<OAuthCallback />} />
-            <Route path="/assessment" element={<Assessment />} />
-            <Route path="/assessment-results" element={<AssessmentResults />} />
-            <Route path="/faq" element={<FAQ />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-use" element={<TermsOfUse />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </AutoLogout>
-      </main>
-      {!hideFooter && <Footer />}
-    </div>
+    <ErrorBoundary boundaryName="app-root">
+      <div className="App">
+        {!hideNavbar && <Navbar />}
+        <main>
+          <AutoLogout>
+            <ErrorBoundary boundaryName="routes">
+              <Routes>
+                {/* redeploy trigger */}
+                <Route
+                  path="/"
+                  element={(
+                    <>
+                      <Hero />
+                      <ServiceHighlights />
+                      <CTASection />
+                    </>
+                  )}
+                />
+                <Route path="/services" element={<Services />} />
+                <Route path="/who-we-serve" element={<WhoWeServe />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/client-center" element={<ClientCenter />} />
+                <Route path="/client-center/resources" element={<Resources />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/oauth/callback" element={<OAuthCallback />} />
+                <Route path="/assessment" element={<Assessment />} />
+                <Route path="/assessment-results" element={<AssessmentResults />} />
+                <Route path="/faq" element={<FAQ />} />
+                <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+                <Route path="/terms-of-use" element={<TermsOfUse />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </ErrorBoundary>
+          </AutoLogout>
+        </main>
+        {!hideFooter && <Footer />}
+      </div>
+    </ErrorBoundary>
   );
 }
 

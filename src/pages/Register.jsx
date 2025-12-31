@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { register, logout } from '../services/authService'
+import { logError } from '../utils/secureLogger'
 
 export default function Register() {
     const navigate = useNavigate()
@@ -47,8 +48,9 @@ export default function Register() {
                 navigate('/login?registered=true')
             }
         } catch (err) {
-            console.error("Registration error:", err)
-            const msg = err?.response?.data?.message || err?.message || 'Sign up failed. Try a different email.'
+            logError(err, { context: 'registration-page' });
+            // Generic error message - don't expose backend details
+            const msg = 'Unable to create account. Please try again or use a different email address.'
             setError(msg)
         } finally {
             setLoading(false)
@@ -124,7 +126,7 @@ export default function Register() {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-[#f4f7f9] text-black focus:bg-white focus:ring-2 focus:ring-[#D4AF37] transition-all outline-none"
-                                    placeholder="myrajarenga1234@gmail.com"
+                                    placeholder="janedoe@gmail.com"
                                 />
                             </div>
 

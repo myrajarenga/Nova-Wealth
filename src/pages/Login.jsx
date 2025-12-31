@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { login, mfaVerify, mfaSetup, getToken, logout } from '../services/authService'
+import { logAuthError, logError } from '../utils/secureLogger'
 
 export default function Login() {
   const navigate = useNavigate()
@@ -68,19 +69,18 @@ export default function Login() {
         handleSmartRouting(res)
       }
     } catch (err) {
-      console.error("Login error:", err)
-      let msg = 'Login failed. Please try again.'
+      // Secure logging - never expose account existence
+      const { userMessage } = logAuthError(err, { action: 'login', email });
 
-      // Provide user-friendly error messages based on status code
-      if (err?.response?.status === 401) {
-        msg = 'Incorrect email or password. Please try again.'
-      } else if (err?.response?.status === 404) {
-        msg = 'No account found with this email address.'
+      // Generic message to prevent username enumeration
+      // Never reveal whether account exists or password is wrong
+      let msg = userMessage;
+
+      // Only differentiate for rate limiting and account lockouts
+      if (err?.response?.status === 429) {
+        msg = 'Too many login attempts. Please try again later.';
       } else if (err?.response?.status === 403) {
-        msg = 'Your account has been locked. Please contact support.'
-      } else if (err?.response?.data?.message) {
-        // Use server message if it's user-friendly
-        msg = err.response.data.message
+        msg = 'Your account has been locked. Please contact support.';
       }
 
       setError(msg)
@@ -144,8 +144,9 @@ export default function Login() {
         setStage('login')
       }
     } catch (err) {
-      console.error("Registration error:", err)
-      const msg = err?.response?.data?.message || err?.message || 'Sign up failed. Try a different email.'
+      logError(err, { context: 'registration', email });
+      // Generic message - don't expose backend details
+      const msg = 'Unable to create account. Please try again or contact support if the problem persists.'
       setError(msg)
     } finally {
       setLoading(false)
@@ -162,8 +163,9 @@ export default function Login() {
         handleSmartRouting(res)
       }
     } catch (err) {
-      console.error("MFA Verify Error:", err);
-      const msg = err?.response?.data?.message || err?.message || 'Invalid code. Try again.';
+      logError(err, { context: 'mfa-verify', email });
+      // Generic message for security
+      const msg = 'Verification failed. Please check your code and try again.';
       setError(msg)
     } finally {
       setLoading(false)
@@ -305,7 +307,7 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-4 py-3 rounded-lg border border-gray-200 bg-[#f4f7f9] text-black focus:outline-none focus:ring-2 focus:ring-[#D4AF37]"
-                  placeholder="myrajarenga1234@gmail.com"
+                  placeholder="janedoe@gmail.com"
                 />
               </div>
               <div>

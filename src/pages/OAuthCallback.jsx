@@ -26,10 +26,7 @@ export default function OAuthCallback() {
         channel.postMessage(message)
         setTimeout(() => channel.close(), 1000)
       } catch (e) {
-        // Only log detailed errors in development
-        if (import.meta.env.DEV) {
-          console.error('BroadcastChannel error', e);
-        }
+        // Silent fail in production - error already handled
       }
 
       // 2. Try window.opener

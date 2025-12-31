@@ -312,7 +312,6 @@ const ClientCenter = () => {
                 className="w-full h-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
-                onError={() => console.error('Video failed to load')}
               />
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                 <div className="bg-black/70 text-white p-6 rounded-lg text-center max-w-md pointer-events-auto">
